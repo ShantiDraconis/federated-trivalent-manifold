@@ -153,10 +153,10 @@ theorem tabela_completa : tabelaMilenio.length = 7 := by decide
 /-- Soma dos erros dos 7 problemas (medida global de abertura). -/
 def erroTotal : ℕ := tabelaMilenio.foldl (fun acc p => acc + p.particao.erro) 0
 
-#eval erroTotal          -- soma dos erros: 95+60+80+70+85+75+0 = 465
+#eval erroTotal          -- 465 (verificado por erro_global_valor abaixo)
 #eval tabelaMilenio.map (fun p => (p.nome, p.particao.erro))
 
-/-- O erro global é 465 pontos percentuais sobre 700 possíveis (6 abertos × até 100). -/
+/-- O erro global é 465 pontos percentuais sobre 600 possíveis (6 abertos × 100). -/
 theorem erro_global_valor : erroTotal = 465 := by decide
 
 /-- Cada entrada satisfaz a completude — invariante verificado por `decide`. -/
