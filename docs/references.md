@@ -17,3 +17,13 @@
 ## Lacuna bibliográfica atual
 
 Esta versão estabelece a arquitetura lógica. Uma revisão de literatura especializada, problema por problema, ainda deve adicionar fontes primárias para triangulações e movimentos de Pachner, descida/Hodge, Yang–Mills construtivo, regularidade de Navier–Stokes, barreiras de complexidade, abordagens espectrais de RH e descida/Selmer em BSD.
+
+
+## Dados científicos
+
+4. NIST, [2022 CODATA recommended values](https://physics.nist.gov/constants).
+5. Particle Data Group, [Review of Particle Physics — 2025 update](https://pdg.lbl.gov/2025/).
+6. ESA Planck Collaboration, [Planck mission and final results](https://www.cosmos.esa.int/web/planck).
+7. UniProt Consortium, [UniProtKB documentation](https://www.uniprot.org/help/uniprotkb).
+8. Worldwide Protein Data Bank, [PDBx/mmCIF Dictionary](https://mmcif.wwpdb.org/).
+9. NIST, [FIPS 197 — Advanced Encryption Standard](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197-upd1.pdf).
