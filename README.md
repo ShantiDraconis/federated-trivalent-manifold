@@ -35,3 +35,10 @@ O metateorema é condicional. Todos os adaptadores permanecem bloqueados até qu
 [Birch–Swinnerton-Dyer](docs/problems/bsd.md)
 
 As formulações oficiais são as do [Clay Mathematics Institute](https://www.claymath.org/millennium-problems/).
+
+
+## Engineering artifacts
+
+- [Heuristic telemetry gateway](gateway/main.py): explicitly non-probative controller.
+- [Kubernetes manifests](deploy/k8s/README.md): Deployment, Service and HPA with security boundaries.
+- [Rendered audit paper](output/pdf/paper_final_v4_1.pdf): eight-page formal and engineering review.
