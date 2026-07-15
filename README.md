@@ -111,3 +111,22 @@ versionadas quando as versões de referência forem fixadas.
 - Resultados de ponto flutuante não são certificados formais.
 - O teorema abstrato de teardown não prova o estado físico do headset.
 - Assumir RH permite conclusões condicionais; não constitui prova de RH.
+
+## Disclaimer científico v4.1
+
+- Todos os coeficientes de conexão são parâmetros hipotéticos de simulação;
+  não são derivados de RH, BSD, P versus NP ou Yang-Mills.
+- A matriz espectral citada nos materiais de origem não está reproduzível no
+  repositório porque seus 21 coeficientes independentes não foram fornecidos.
+  Os autovalores `0.014487,...,4.180106`, o condicionamento `288.54` e o posto
+  efetivo `3.44` permanecem resultados reportados, não verificados.
+- A matriz `C = 1 - Div` que pode ser construída a partir da tabela `Div`
+  versionada não é a matriz espectral reportada e possui autovalor negativo;
+  portanto não deve ser chamada de matriz de correlação positiva definida.
+- Os oito pontos `0.5 + i gamma` estão na reta crítica por construção. As
+  estatísticas dos espaçamentos descrevem apenas essa pequena amostra.
+- `W` é um acumulador definido pelo software. Sua monotonicidade sob tempo
+  não regressivo não estabelece entropia geométrica, não-colapso ou segurança.
+- Uma avaliação da integral em um ponto é constante; uma quadratura com `n`
+  pontos é `O(n)`. Não há alegação de latência zero.
+- O dashboard auditado está em [`app/dashboard_v4_1.html`](app/dashboard_v4_1.html).

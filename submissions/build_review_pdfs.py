@@ -128,6 +128,32 @@ def build_preprint():
         p(
             "The five coordinates, action and scores are proposed definitions. They are not canonical bridges among topology, number theory, complexity, PDEs and quantum field theory. Formal compiler logs, independently motivated features, controlled benchmarks and a security threat model remain required."
         ),
+        p("7. Remaining behavior audit", "Heading1"),
+        p(
+            "The q-squared isolation threshold on the positive branch occurs at t=3.1640 for e=0.1 and t=3.2237 for e=0.6. These are algebraic consequences of the chosen coefficients, not measured Quest buffering thresholds. Constant, exponential and oscillating W profiles are monotone because their integrand was defined as a square plus a positive regulator."
+        ),
+        image(
+            "fig9_seff_thresholds.png",
+            "Figure 5. Isolation thresholds under the declared model.",
+        ),
+        image(
+            "fig10_w_profiles.png",
+            "Figure 6. Accumulated W profiles; monotonicity is by construction.",
+        ),
+        p(
+            "The zeta-alignment force is zero at sigma=0.5 by definition. The gauge and complexity curves are selected decay laws, not transported theorems. The eight points have mean imaginary part 30.665 and mean spacing 4.17, while their real parts equal 0.5 by construction."
+        ),
+        image(
+            "fig13_zero_spacing_audit.png",
+            "Figure 7. Fixed critical-line coordinates and successive sample spacings.",
+        ),
+        p(
+            "A second matrix spectrum was supplied only through seven eigenvalues. Without the complete matrix it cannot be independently reproduced. It differs from the matrix obtained as one minus the versioned divergence table, which has a negative eigenvalue and is not positive definite."
+        ),
+        image(
+            "fig14_reported_spectrum_unreproduced.png",
+            "Figure 8. Reported spectrum, explicitly marked as unreproduced.",
+        ),
         p("AI usage disclosure", "Heading1"),
         p(
             "Generative AI assisted drafting, coding, auditing and manuscript preparation. The author remains responsible for independent verification, authorship, references and final approval."
@@ -240,6 +266,14 @@ def build_audit():
             "Several arithmetic values reproduce, but the strongest engineering and mathematical conclusions do not follow from them. The corrected package narrows claims to tested software invariants and explicitly defined model properties."
         ),
         table,
+        p("Remaining behaviors", "Heading1"),
+        p(
+            "The threshold calculations and zero-spacing statistics reproduce from explicit inputs. The claimed positive-definite connection matrix does not: the attachment contains its spectrum but not the full matrix. Publication must include the matrix and its construction before PCA, determinant or conditioning claims are treated as reproduced."
+        ),
+        image(
+            "fig14_reported_spectrum_unreproduced.png",
+            "Reported component fractions; source matrix is absent.",
+        ),
         p("Journal routing", "Heading1"),
         p(
             "Preprint: closest to ready after author metadata, bibliography validation, TeX compilation and category/endorsement checks."

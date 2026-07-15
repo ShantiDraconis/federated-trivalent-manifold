@@ -30,3 +30,23 @@ The work is suitable as an experimental specification-calculator/software
 paper after scope, provenance of the divergence matrix, benchmarks and formal
 toolchain checks are completed. It is not currently evidence for a Millennium
 Problem result.
+
+## Remaining-behavior audit
+
+- The positive-branch solution of `q(t,e)^2=1` is
+  `sqrt((1+beta*e^2)/alpha)`: approximately `3.16245` for `e=0.1` and
+  `3.22368` for `e=0.6`. This is a threshold of the definition, not a measured
+  Quest buffer.
+- The zeta alignment force is zero at `sigma=0.5` by construction. It does not
+  move or constrain actual zeta zeros.
+- The gauge- and complexity-inspired curves are declared decay functions and
+  do not transport theorems between their source domains.
+- Monotone constant, exponential and oscillating `W` profiles follow from a
+  non-negative defined integrand.
+- The seven reported eigenvalues cannot be independently reproduced until the
+  complete source matrix is versioned. They do not match the matrix obtained as
+  `1-Div` from the existing divergence table.
+- The eight supplied imaginary parts have mean `30.665`, median `31.675`,
+  population standard deviation about `9.4639`, sample standard deviation about
+  `10.1174`, mean spacing `4.17`, and spacing coefficient of variation about
+  `0.3886`.
