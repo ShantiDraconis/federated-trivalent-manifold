@@ -1,6 +1,9 @@
 import math
+import pytest
+
 from evidence.truncation_operator import (
     cutoff, eta_truncated, finite_trace, projection,
+    fixed_cutoff_commutator_derivative_zero,
     zeta_surrogate_residue_at_one,
 )
 
@@ -23,11 +26,9 @@ def test_eta_n_is_finite_at_one_but_quotient_has_nonzero_residue():
     assert zeta_surrogate_residue_at_one(9999) == pytest.approx(1.0, abs=1e-4)
 
 
-def test_claimed_universal_inverse_sqrt_residue_is_false():
+def test_next_term_magnitude_is_not_a_nonzero_commutator():
     N = 99
-    actual = abs(eta_truncated(0.5 + 14j, N + 1) - eta_truncated(0.5 + 14j, N))
-    claimed = 1 / math.sqrt(N + 1)
-    assert actual != pytest.approx(claimed)
-
-
-import pytest
+    next_term = abs(eta_truncated(0.5 + 14j, N + 1)
+                    - eta_truncated(0.5 + 14j, N))
+    assert next_term == pytest.approx(1 / math.sqrt(N + 1))
+    assert fixed_cutoff_commutator_derivative_zero()
