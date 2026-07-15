@@ -1,0 +1,29 @@
+name: Verify formal and numerical models
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run numerical and structural tests
+        run: python -m unittest discover -s tests -v
+
+  lean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build every Lean target
+        uses: leanprover/lean-action@v1
+        with:
+          build: true
+          test: false
