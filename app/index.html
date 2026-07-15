@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FTM Conditional Audit Console</title>
+<style>
+:root{color-scheme:dark;--bg:#07111f;--card:#10243b;--ink:#e9f2ff;--muted:#9eb4cc;--accent:#4da3ff;--ok:#49d17d;--warn:#ffc857}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui;background:radial-gradient(circle at top,#12345b,var(--bg) 55%);color:var(--ink)}
+main{max-width:980px;margin:auto;padding:48px 20px}.hero{margin-bottom:24px}h1{font-size:clamp(2rem,5vw,4rem);margin:.1em 0}p{color:var(--muted);line-height:1.55}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.card{background:color-mix(in srgb,var(--card) 88%,transparent);border:1px solid #294a6d;border-radius:18px;padding:20px;box-shadow:0 18px 50px #0005}
+label{display:block;color:var(--muted);margin:10px 0 5px}input{width:100%;padding:11px;border-radius:10px;border:1px solid #3b5d81;background:#081829;color:white}
+button{margin-top:16px;width:100%;padding:12px;border:0;border-radius:10px;background:var(--accent);font-weight:700;color:#04101d;cursor:pointer}
+.value{font:700 2rem ui-monospace;color:var(--ok)}.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#243f5e;color:var(--warn);font-size:.8rem}
+ul{padding-left:20px;color:var(--muted)}code{color:#b9ddff}
+</style>
+</head>
+<body><main>
+<section class="hero"><span class="badge">CONDITIONAL / NON-CERTIFYING</span><h1>FTM Audit Console</h1><p>A browser-only simulator of the arithmetic liveness theorem. It does not implement Ricci flow, cryptography, DoS protection, or a Millennium proof.</p></section>
+<div class="grid">
+<section class="card"><h2>Inputs</h2><label>Current W</label><input id="w" type="number" value="0" step="any"><label>Score</label><input id="score" type="number" value="0.5" min="0" step="any"><label>Epsilon (H1 &gt; 0)</label><input id="eps" type="number" value="0.000001" min="0" step="any"><button id="run">Evaluate T1</button></section>
+<section class="card"><h2>Result</h2><p>W next</p><div class="value" id="out">-</div><p id="status">Waiting for input.</p><p>Policy action: <code id="action">-</code></p></section>
+<section class="card"><h2>Claim boundary</h2><ul><li>T1: arithmetic growth only</li><li>H2: score semantics unvalidated</li><li>H3: security effect unvalidated</li><li>AES policy label: 256</li><li>DoS immunity: not proved</li></ul></section>
+</div>
+<script>
+const q=id=>document.getElementById(id);
+q('run').onclick=()=>{const w=+q('w').value,s=+q('score').value,e=+q('eps').value;if(!Number.isFinite(w+s+e)||e<=0){q('status').textContent='H1 failed: epsilon must be positive and inputs finite.';return}const n=w+e+s*s;q('out').textContent=n.toPrecision(10);q('status').textContent=n>w?'T1 satisfied for this arithmetic step.':'Unexpected failure.';q('action').textContent=s*s>1?'QUARANTINE_REQUEST':'MONITOR'};
+</script></main></body></html>
