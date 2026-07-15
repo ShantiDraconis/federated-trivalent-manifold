@@ -6,4 +6,4 @@ COPY gateway ./gateway
 RUN useradd --create-home --uid 10001 appuser
 USER appuser
 EXPOSE 8000
-CMD ["uvicorn", "gateway.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "gateway.main_v4_1_corrigido:app", "--host", "0.0.0.0", "--port", "8000"]
