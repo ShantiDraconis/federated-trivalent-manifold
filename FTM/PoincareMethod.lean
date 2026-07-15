@@ -64,8 +64,8 @@ structure Audit where
 deriving Repr, DecidableEq
 
 def Audit.unlocked (a : Audit) : Bool :=
-  a.semanticInvariant && a.entropyMonotone && a.noCollapse &&
-  a.surgerySound && a.eventualTerminal && a.classifyTerminal
+  a.semanticInvariant && (a.entropyMonotone && (a.noCollapse &&
+  (a.surgerySound && (a.eventualTerminal && a.classifyTerminal))))
 
 theorem Audit.unlocked_iff (a : Audit) :
     a.unlocked = true ↔
