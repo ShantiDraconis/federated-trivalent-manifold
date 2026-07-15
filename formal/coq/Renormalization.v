@@ -24,4 +24,4 @@ Open Scope Q_scope.
 Definition equilibrium : Q := -(1#100) / (21774#100000).
 
 Theorem equilibrium_negative : equilibrium < 0.
-Proof. native_compute. Qed.
+Proof. vm_compute. Qed.
