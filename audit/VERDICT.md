@@ -50,3 +50,16 @@ Problem result.
   population standard deviation about `9.4639`, sample standard deviation about
   `10.1174`, mean spacing `4.17`, and spacing coefficient of variation about
   `0.3886`.
+
+## Anomaly-kernel boundary audit
+
+- `1_{zeta(s)=0}` is a definition, not a computable detector. Finite evaluation
+  returns certified nonzero or inconclusive.
+- Eta and zeta share zeros only with the critical-strip restriction stated.
+- `partial_e S2=-4*beta*e*(alpha*t^2-beta*e^2)`; the proposed e-flow is not
+  globally damping.
+- `S2+10^-6*t+e` vanishes at the origin. The positive-rate theorem instead uses
+  `S2+epsilon`, with `epsilon>0`.
+- Affine-clock monotonicity does not establish operational liveness.
+- FIPS 197 does not define AES with 512-bit keys or blocks. No Rijndael-512 or
+  quantum implementation is included.

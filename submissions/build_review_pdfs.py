@@ -154,13 +154,36 @@ def build_preprint():
             "fig14_reported_spectrum_unreproduced.png",
             "Figure 8. Reported spectrum, explicitly marked as unreproduced.",
         ),
-        p("AI usage disclosure", "Heading1"),
+        p("8. Anomaly-kernel trust boundary", "Heading1"),
         p(
-            "Generative AI assisted drafting, coding, auditing and manuscript preparation. The author remains responsible for independent verification, authorship, references and final approval."
+            "The exact indicator of a zeta zero is a definition, not a finite-computation oracle. In the open critical strip eta and zeta share zeros, but the implementation certifies only non-vanishing when a partial-sum magnitude exceeds a rigorous tail bound. Every other result is inconclusive."
         ),
-        p("Software availability", "Heading1"),
+        image(
+            "fig15_eta_certificate_boundary.png",
+            "Figure 9. Finite eta sums and the conservative certificate boundary.",
+        ),
         p(
-            "Repository: github.com/ShantiDraconis/federated-trivalent-manifold. A tagged archive DOI is required before journal submission."
+            "The exact e derivative of the declared squared potential is minus four beta e times q. The resulting equation is not globally damping. The verified W rate is S2 plus positive epsilon; this algebraic fact is not operational liveness."
+        ),
+        image(
+            "fig16_corrected_flow_dynamics.png",
+            "Figure 10. Corrected derivative field and model-only threshold.",
+        ),
+        image(
+            "fig17_epistemic_regimes.png",
+            "Figure 11. Numerical uncertainty remains a first-class state.",
+        ),
+        KeepTogether(
+            [
+                p("AI usage disclosure", "Heading1"),
+                p(
+                    "Generative AI assisted drafting, coding, auditing and manuscript preparation. The author remains responsible for independent verification, authorship, references and final approval."
+                ),
+                p("Software availability", "Heading1"),
+                p(
+                    "Repository: github.com/ShantiDraconis/federated-trivalent-manifold. A tagged archive DOI is required before journal submission."
+                ),
+            ]
         ),
     ]
     doc.build(s, onFirstPage=footer, onLaterPages=footer)
@@ -287,6 +310,14 @@ def build_audit():
         p("Mandatory checklist", "Heading1"),
         p(
             "Confirm author name, affiliation, ORCID, funding, conflicts and correspondence. Make claims reproducible. Publish feature provenance. Pin all proof toolchains. Create a tagged release and archival DOI. Re-check journal rules on submission day. Do not submit the same manuscript simultaneously where policies prohibit it."
+        ),
+        p("Anomaly-kernel verdict", "Heading1"),
+        p(
+            "Finite eta evaluation has only certified-nonzero and inconclusive outcomes. The proposed e-flow is not globally damping, and S2 plus 10^-6 t plus e is zero at the origin. The Lean theorem instead uses S2 plus epsilon with epsilon positive. No Rijndael-512 or quantum implementation is present."
+        ),
+        image(
+            "fig17_epistemic_regimes.png",
+            "Trust boundary used by the numerical anomaly audit.",
         ),
         PageBreak(),
         image(

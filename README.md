@@ -1,5 +1,9 @@
 # Federated Trivalent Manifold
 
+> **Rigor boundary:** classical hypothesis-management and specification
+> experiment; not a Millennium Problem solution, a quantum computer, or a
+> CMI-certified system. See [`docs/rigor-boundary.md`](docs/rigor-boundary.md).
+
 Calculadora de especificações condicionais para modelos trivalentes sobre o
 espaço de estados `(x, y, z, t, e)`. O projeto separa rigorosamente:
 
