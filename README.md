@@ -74,3 +74,19 @@ essa métrica precisa ser registrada por Prometheus e mapeada pelo Prometheus
 Adapter para `custom.metrics.k8s.io`. Sem o adapter, Kubernetes não consegue
 escalar por uma métrica da aplicação; isso é uma dependência operacional, não
 uma propriedade provada em Lean.
+
+## Auditoria interdisciplinar e formalização cruzada
+
+O núcleo epistemológico está em `FederatedTrivalent/Epistemic.lean`, com
+traduções explícitas para Coq e Isabelle/HOL em `formal/`. A árvore que separa
+teoremas, hipóteses abertas, evidência finita e analogias está em
+`docs/EVIDENCIAS_INTERDISCIPLINARES.md`.
+
+```powershell
+python scripts/evidence_calculations.py
+python -m unittest discover -s tests -v
+```
+
+O arquivo Lean é verificável pelo kernel Lean/Mathlib. As traduções Coq e
+Isabelle somente podem ser marcadas como verificadas depois de compiladas nos
+respectivos ambientes; a presença do texto-fonte não equivale a certificado.
