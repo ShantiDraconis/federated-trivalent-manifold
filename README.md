@@ -2,7 +2,7 @@
 
 Programa de pesquisa para estruturas trivalentes locais, sua colagem em objetos globais e possíveis interfaces rigorosas com os Problemas do Milênio.
 
-> **Estado científico:** este repositório não reivindica a solução de nenhum Problema do Milênio. Uma conexão só é matemática quando há definições, enunciado formal, redução e prova auditável; o restante é programa, conjectura ou analogia.
+> **Estado científico:** este repositório não reivindica a solução de nenhum Problema do Milênio. Uma conexão só é matemática quando há definições, enunciado formal, redução e prova auditável; o restante é programa, conjectura, analogia ou evidência empírica.
 
 ## Núcleo formal
 
@@ -16,29 +16,36 @@ Programa de pesquisa para estruturas trivalentes locais, sua colagem em objetos 
 - [Dados científicos e evidência](docs/scientific-data-evidence.md): taxonomias atômica, cosmológica e bioquímica, estados e operadores.
 - [Esquema de observação](data/scientific-observation.schema.json): proveniência, unidade, incerteza e auditoria da ponte.
 
-## Lean 4
+## Auditoria v4.1
 
-- [Metateorema fluxo–cirurgia](FTM/PoincareMethod.lean).
-- [Adaptadores dos seis problemas abertos](FTM/MillenniumAdapters.lean).
-- A integração contínua executa o build Lean em pushes e pull requests.
+- [Auditoria das alegações](AUDITORIA_v4_1.md): separa teorema, hipótese, simulação e não-alegação.
+- AES permanece AES-256; não existe alegação de “AES-512”.
+- Monotonicidade do regulador prova somente crescimento/liveness do estado interno.
+- Testes são evidência de implementação, não prova de segurança ou dos Problemas do Milênio.
+- A matriz `Div` é tratada como parametrização até existir uma métrica derivada e validada.
 
-O metateorema é condicional. Todos os adaptadores permanecem bloqueados até que suas seis obrigações sejam provadas; nenhum axioma afirma uma solução.
+## Formalizações verificáveis
 
-## Cadernos
+- [Lean 4](FTM/WMonotone.lean): crescimento estrito do passo discreto.
+- [Coq](formal/coq/WMonotone.v): certificado equivalente.
+- [Agda](formal/agda/WMonotone.agda): testemunha construtiva de crescimento.
+- [Isabelle/HOL](formal/isabelle/WMonotone.thy): teoria fornecida; execução requer uma distribuição Isabelle.
+- [Metateorema fluxo–cirurgia](FTM/PoincareMethod.lean) e [adaptadores](FTM/MillenniumAdapters.lean).
 
-[Poincaré](docs/problems/poincare.md) ·
-[Hodge](docs/problems/hodge.md) ·
-[Yang–Mills](docs/problems/yang-mills.md) ·
-[Navier–Stokes](docs/problems/navier-stokes.md) ·
-[P versus NP](docs/problems/p-vs-np.md) ·
-[Riemann](docs/problems/riemann.md) ·
-[Birch–Swinnerton-Dyer](docs/problems/bsd.md)
+O metateorema é condicional. Os adaptadores permanecem bloqueados até que suas obrigações sejam provadas; nenhum axioma afirma uma solução.
 
-As formulações oficiais são as do [Clay Mathematics Institute](https://www.claymath.org/millennium-problems/).
+## Aplicação e runtime experimental
 
+- [Gateway FastAPI v4.1](gateway/main_v4_1_corrigido.py): regulador com limites explícitos e política AES-256.
+- [Testes Python](tests/test_w_monotone.py): liveness e ausência de alegações indevidas.
+- [Runtime C++](runtime/ftm_runtime.cpp): simulador de runtime em espaço de usuário; **não é um sistema operacional nem kernel**.
+- [Aplicação HTML](app/index.html): painel local do modelo.
+- [Dockerfile](Dockerfile): inicializa o gateway corrigido.
+- [CI multilíngue](.github/workflows/multilang.yml): executa Python, C++, HTML, Coq e Agda; o workflow Lean executa `lake build`.
 
-## Engineering artifacts
+## Paper
 
-- [Heuristic telemetry gateway](gateway/main.py): explicitly non-probative controller.
-- [Kubernetes manifests](deploy/k8s/README.md): Deployment, Service and HPA with security boundaries.
-- [Rendered audit paper](output/pdf/paper_final_v4_1.pdf): eight-page formal and engineering review.
+- [Paper condicional](output/pdf/paper_conditional.pdf): *A Conditional Security Framework Inspired by L-function Structures (Assuming RH)*.
+- [Paper de auditoria anterior](output/pdf/paper_final_v4_1.pdf).
+
+As formulações oficiais dos Problemas do Milênio são as do [Clay Mathematics Institute](https://www.claymath.org/millennium-problems/).
