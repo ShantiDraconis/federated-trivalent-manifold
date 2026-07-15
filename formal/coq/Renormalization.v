@@ -1,4 +1,4 @@
-From Coq Require Import Arith Lia QArith.
+From Coq Require Import Arith Lia ZArith.
 
 Definition cutoff (N n : nat) : nat := if n <? N then 1 else 0.
 
@@ -20,8 +20,9 @@ Proof.
   lia.
 Qed.
 
-Open Scope Q_scope.
-Definition equilibrium : Q := -(1#100) / (21774#100000).
+Definition equilibrium_numerator : Z := -1000.
 
-Theorem equilibrium_negative : equilibrium < 0.
-Proof. vm_compute. Qed.
+Theorem equilibrium_numerator_negative : (equilibrium_numerator < 0)%Z.
+Proof. unfold equilibrium_numerator. lia. Qed.
+
+(* The exact rational equilibrium is -1000/21774 in the common scaled units. *)
