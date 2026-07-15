@@ -19,6 +19,7 @@ Programa de pesquisa para estruturas trivalentes locais, sua colagem em objetos 
 ## Auditoria v4.1
 
 - [Auditoria das alegações](AUDITORIA_v4_1.md): separa teorema, hipótese, simulação e não-alegação.
+- [Fronteiras numéricas do HMOS](docs/hmos-numerical-boundaries.md): eta truncada, polo de zeta, parâmetros e pontes epistemológicas.
 - AES permanece AES-256; não existe alegação de “AES-512”.
 - Monotonicidade do regulador prova somente crescimento/liveness do estado interno.
 - Testes são evidência de implementação, não prova de segurança ou dos Problemas do Milênio.
