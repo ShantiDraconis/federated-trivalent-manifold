@@ -12,6 +12,6 @@ theorem step_strictly_grows (w score : Nat) :
   unfold step
   exact Nat.succ_le_succ (le_add_right w (score * score))
 
-/-- This theorem has no claim about networks, availability, security, or DoS. -/
+-- This theorem has no claim about networks, availability, security, or DoS.
 
 end FTM.WMonotone
