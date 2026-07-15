@@ -9,9 +9,18 @@ Programa de pesquisa para estruturas trivalentes locais, sua colagem em objetos 
 - [Fundamentos](docs/fundamentos.md): objeto básico, morfismos, federação e consistência.
 - [Matriz dos Problemas do Milênio](docs/matriz-milenio.md): visão comparativa.
 - [Cadernos individuais](docs/problems/README.md): formalização problema por problema.
-- [Registro de afirmações](docs/claims-register.md): estados DEFINITION, PROVED, CITED, CONDITIONAL, OPEN, HEURISTIC e REFUTED.
+- [Molde de Poincaré](docs/poincare-method-template.md): fluxo, entropia, cirurgia, correções e ordem de desbloqueio.
+- [Registro de afirmações](docs/claims-register.md): estados lógicos auditáveis.
 - [Roadmap](docs/roadmap.md): resultados mínimos e critérios de falsificação.
 - [Referências](docs/references.md): fontes primárias e política de citação.
+
+## Lean 4
+
+- [Metateorema fluxo–cirurgia](FTM/PoincareMethod.lean).
+- [Adaptadores dos seis problemas abertos](FTM/MillenniumAdapters.lean).
+- A integração contínua executa o build Lean em pushes e pull requests.
+
+O metateorema é condicional. Todos os adaptadores permanecem bloqueados até que suas seis obrigações sejam provadas; nenhum axioma afirma uma solução.
 
 ## Cadernos
 
@@ -23,4 +32,4 @@ Programa de pesquisa para estruturas trivalentes locais, sua colagem em objetos 
 [Riemann](docs/problems/riemann.md) ·
 [Birch–Swinnerton-Dyer](docs/problems/bsd.md)
 
-O nome do projeto não determina uma teoria. A definição inicial é provisória e torna afirmações testáveis. As formulações oficiais são as do [Clay Mathematics Institute](https://www.claymath.org/millennium-problems/).
+As formulações oficiais são as do [Clay Mathematics Institute](https://www.claymath.org/millennium-problems/).
