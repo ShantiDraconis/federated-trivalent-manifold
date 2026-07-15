@@ -1,0 +1,102 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,hyperref,microtype}
+\graphicspath{{../../figures/}}
+\title{A Trivalent Specification Calculator with Auditable Numerical Actions and Multi-Prover Exports}
+\author{Shanti Draconis\\\small Affiliation and ORCID to be confirmed}
+\date{Draft -- 15 July 2026}
+\begin{document}\maketitle
+\begin{abstract}
+We present an experimental software framework that represents proposition
+status with strong Kleene three-valued logic, evaluates a user-defined complex
+action along sampled paths, and exports small formal artefacts to Lean, Coq,
+Isabelle/HOL and Agda. The framework enforces an epistemic distinction between
+definitions, assumptions, numerical evidence, proof obligations and checked
+theorems. A version 4.1 flow controller is audited as a finite state machine:
+its accumulator is non-decreasing under explicit non-negative time increments,
+and an isolation operator preserves one coordinate while reducing another.
+These are properties of the defined model. They are not results about
+Perelman entropy, cryptographic security, network availability or any open
+Millennium Prize Problem.
+\end{abstract}
+
+\section{Introduction}
+Cross-domain exploratory models frequently mix analogy, simulation and proof.
+The purpose of this artefact is to make those layers machine-readable. The
+calculator uses $F,U,T$ for false, undecided and true in a selected theory. The
+middle value is epistemic and is not the assertion that a proposition and its
+negation are simultaneously true.
+
+\section{Computable model}
+For a path $\gamma$ in coordinates $(x,y,z,t,e)$, the illustrative action is
+\begin{equation}
+S[\gamma]=\int_0^T L(\gamma,\dot\gamma)\,dt+i\int_0^T e(t)\,dt.
+\end{equation}
+The default calculator uses a composite trapezoidal rule. This produces an
+$O(n)$ approximation for $n$ samples; one integrand evaluation is constant
+time with respect to $n$.
+
+Version 4.1 defines
+\begin{equation}
+q(t,e)=\alpha t^2-\beta e^2,\qquad
+W_{k+1}=W_k+(q_k^2+\varepsilon)\Delta t_k.
+\end{equation}
+When $\varepsilon>0$ and $\Delta t_k>0$, exact arithmetic gives strict growth.
+For $\Delta t_k=0$ it is non-decreasing. This tautological controller invariant
+does not imply resistance to denial-of-service attacks.
+
+\section{Numerical audit}
+With $\alpha=0.10$, $\beta=0.10887$, and $\varepsilon=10^{-6}$,
+$q(3.15,0.3)^2=0.965211342833$. The previously circulated value $0.9714$ is
+not reproduced. For $T=3.155$ and constant $e=0.3$, quadrature gives
+$0.605003007857$; adding the endpoint $e(T)$ gives $0.905003007857$. For
+$e(t)=0.3e^{-0.2t}$, the corresponding values are $0.617104804182$ and
+$0.776722646806$. The supplied divergence matrix is symmetric and bounded,
+but its off-diagonal mean $0.6751333$ validates only the table. Scientific
+meaning requires independently specified feature sets.
+
+\begin{figure}[ht]\centering
+\includegraphics[width=.72\linewidth]{fig3_alpha_beta.png}
+\caption{Parameter map of the defined model. It is not a boundary between
+complexity classes or a proof of decidability.}
+\end{figure}
+
+\section{Formal layer}
+Finite truth-table properties are proved separately in four proof-assistant
+syntaxes. The Lean module also proves coordinate preservation by the isolation
+operator and non-decrease of a rational accumulator under non-negative
+hypotheses. Crypto and Riemann statements, where present, are explicitly named
+assumptions rather than derived theorems. Full formalization of zeta functions,
+PDE regularity, quantum field theory or algebraic cycles is outside the current
+artefact.
+
+\section{Operational layer and security boundary}
+The Python implementation rejects non-finite coordinates and regressing
+timestamps, serializes state changes with a lock, and contains no cryptographic
+algorithm. Standard AES key sizes are 128, 192 and 256 bits; the phrase
+``AES-512'' is therefore excluded. The abstract teardown theorem proves a
+record update, while real ADB teardown still requires runtime observation.
+
+\section{Limitations and research agenda}
+The coordinate model, action and comparison metric are proposed definitions,
+not canonical bridges among mathematical fields. Future work must publish the
+feature provenance for comparison scores, compile all formal artefacts with
+pinned toolchains, measure the gateway with a stated hardware/software
+protocol, and subject security claims to an explicit threat model.
+
+\section*{Data and software availability}
+Source, tests, figures and scripts are maintained in the project repository
+\cite{repository2026}. A tagged archival DOI is required before journal
+submission.
+
+\section*{AI usage disclosure}
+Generative AI assisted code drafting, documentation, numerical auditing and
+manuscript preparation. The submitting author is responsible for independently
+reviewing all claims, executing tests, verifying references and approving the
+final text.
+
+\section*{Competing interests and funding}
+To be completed and confirmed by the author before submission.
+
+\bibliographystyle{plain}\bibliography{../references}
+\end{document}
