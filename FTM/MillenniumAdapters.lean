@@ -1,11 +1,11 @@
+import FTM.PoincareMethod
+
 /-!
 # Millennium adapters
 
 These are signatures, not solutions. They prevent an analogy from being
 mistaken for an instantiated FlowSurgeryProgram.
 -/
-
-import FTM.PoincareMethod
 
 namespace FTM.Millennium
 
