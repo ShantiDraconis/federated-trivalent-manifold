@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install -r requirements.txt pytest
-      - run: python -m pytest -q tests/test_w_monotone.py
+      - run: python -m pytest -q tests/test_w_monotone.py tests/test_truncation_operator.py
       - run: g++ -std=c++17 -Wall -Wextra -Werror runtime/ftm_runtime.cpp -o /tmp/ftm_runtime
       - run: /tmp/ftm_runtime 0.2
       - run: python -c "from html.parser import HTMLParser; HTMLParser().feed(open('app/index.html', encoding='utf-8').read())"
