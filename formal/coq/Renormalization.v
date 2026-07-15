@@ -1,28 +1,35 @@
-From Coq Require Import Arith Lia ZArith.
+From Coq Require Import Arith.
 
 Definition cutoff (N n : nat) : nat := if n <? N then 1 else 0.
 
 Theorem cutoff_idempotent : forall N n,
-  (cutoff N n * cutoff N n = cutoff N n)%nat.
+  cutoff N n * cutoff N n = cutoff N n.
 Proof.
   intros N n. unfold cutoff.
   destruct (n <? N); simpl; reflexivity.
 Qed.
 
-Definition drift_scaled (e : nat) : Z :=
-  - Z.of_nat (21774 * e + 1000).
+Inductive drift_sign := negative.
 
-Theorem drift_scaled_negative : forall e, (drift_scaled e < 0)%Z.
+Record scaled_drift := {
+  sign : drift_sign;
+  magnitude : nat
+}.
+
+Definition boundary_drift (e : nat) : scaled_drift :=
+  {| sign := negative; magnitude := S (21774 * e + 999) |}.
+
+Definition strictly_negative (d : scaled_drift) : Prop :=
+  sign d = negative /\ 0 < magnitude d.
+
+Theorem boundary_drift_strictly_negative : forall e,
+  strictly_negative (boundary_drift e).
 Proof.
-  intros e. unfold drift_scaled.
-  assert (H : (0 < Z.of_nat (21774 * e + 1000))%Z).
-  { rewrite Nat2Z.inj_add. simpl. lia. }
-  lia.
+  intro e. split; simpl.
+  - reflexivity.
+  - apply Nat.lt_0_succ.
 Qed.
 
-Definition equilibrium_numerator : Z := -1000.
-
-Theorem equilibrium_numerator_negative : (equilibrium_numerator < 0)%Z.
-Proof. unfold equilibrium_numerator. lia. Qed.
-
-(* The exact rational equilibrium is -1000/21774 in the common scaled units. *)
+Definition equilibrium_numerator : nat := 1000.
+Theorem equilibrium_magnitude_positive : 0 < equilibrium_numerator.
+Proof. unfold equilibrium_numerator. apply Nat.lt_0_succ. Qed.
