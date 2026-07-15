@@ -3,7 +3,7 @@ From Coq Require Import Arith Lia QArith.
 Definition cutoff (N n : nat) : nat := if n <? N then 1 else 0.
 
 Theorem cutoff_idempotent : forall N n,
-  cutoff N n * cutoff N n = cutoff N n.
+  (cutoff N n * cutoff N n = cutoff N n)%nat.
 Proof.
   intros N n. unfold cutoff.
   destruct (n <? N); simpl; reflexivity.
