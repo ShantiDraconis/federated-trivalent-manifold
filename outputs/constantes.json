@@ -1,0 +1,24 @@
+{
+  "scope": "gateway model parameters; not Millennium Problem constants",
+  "measurements_seconds": {
+    "llama": 0.8,
+    "gpt": 1.2,
+    "claude": 1.1,
+    "aes_gcm": 0.005,
+    "teardown": 0.05,
+    "total": 3.155
+  },
+  "parameters": {
+    "alpha": 0.1,
+    "beta": 0.10887,
+    "e_norm": 0.3,
+    "decay_lambda": 0.2,
+    "connection_proxy": 0.7
+  },
+  "derived": {
+    "action": 0.9856041999999998,
+    "beta_critical": 11.060027777777776,
+    "mass_proxy": 0.032660999999999996,
+    "example_alpha_0_1_beta_5": 0.5454024999999999
+  }
+}
