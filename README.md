@@ -13,6 +13,8 @@ Programa de pesquisa para estruturas trivalentes locais, sua colagem em objetos 
 - [Registro de afirmações](docs/claims-register.md): estados lógicos auditáveis.
 - [Roadmap](docs/roadmap.md): resultados mínimos e critérios de falsificação.
 - [Referências](docs/references.md): fontes primárias e política de citação.
+- [Dados científicos e evidência](docs/scientific-data-evidence.md): taxonomias atômica, cosmológica e bioquímica, estados e operadores.
+- [Esquema de observação](data/scientific-observation.schema.json): proveniência, unidade, incerteza e auditoria da ponte.
 
 ## Lean 4
 
