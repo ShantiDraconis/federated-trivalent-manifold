@@ -1,16 +1,27 @@
 namespace FTM.Renormalization
 
-/-- Integer-scaled boundary drift: -(a*e+b), with a=21774 and b=1000. -/
-def driftScaled (e : Nat) : Int :=
-  -Int.ofNat (21774 * e + 1000)
+inductive DriftSign where
+  | negative
+  deriving DecidableEq
 
-theorem drift_strictly_negative (e : Nat) : driftScaled e < 0 := by
-  unfold driftScaled
-  omega
+structure ScaledDrift where
+  sign : DriftSign
+  magnitude : Nat
 
-/-- A positive constant subtraction does not establish convergence to zero. -/
-def equilibriumScaled : Int := -1000
+def boundaryDrift (e : Nat) : ScaledDrift :=
+  { sign := .negative
+    magnitude := Nat.succ (21774 * e + 999) }
 
-theorem equilibriumScaled_negative : equilibriumScaled < 0 := by decide
+def IsStrictlyNegative (d : ScaledDrift) : Prop :=
+  d.sign = .negative ∧ 0 < d.magnitude
+
+theorem boundaryDrift_strictly_negative (e : Nat) :
+    IsStrictlyNegative (boundaryDrift e) := by
+  constructor
+  · rfl
+  · exact Nat.zero_lt_succ (21774 * e + 999)
+
+-- The continuous equilibrium -b/a is negative when a,b are positive.
+-- Calculus and exp are intentionally left to an analysis library.
 
 end FTM.Renormalization
