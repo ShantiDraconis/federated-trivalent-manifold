@@ -2,7 +2,9 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .lake/
-lake-manifest.json
+*.olean
+*.ilean
 tmp/
 dist/
 build/
+tools/

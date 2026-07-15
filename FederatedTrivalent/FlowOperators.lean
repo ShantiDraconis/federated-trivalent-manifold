@@ -11,13 +11,14 @@ P vs NP, a hipótese de Riemann ou Yang-Mills.
 
 namespace FederatedTrivalent
 
+noncomputable section
+
 structure Variedade5D where
   x : ℝ
   y : ℝ
   z : ℝ
   t : ℝ
   e : ℝ
-deriving DecidableEq
 
 /-- Tempo admissível: fluxos dissipativos são definidos somente para dt ≥ 0. -/
 abbrev TimeStep := {dt : ℝ // 0 ≤ dt}
@@ -57,10 +58,16 @@ instance : OperadorFluxo fluxoComplexidade where
 def potencialZeta (sigma : ℝ) : ℝ := (sigma - 1/2)^2
 
 theorem potencialZeta_nonneg (sigma : ℝ) : 0 ≤ potencialZeta sigma := by
-  simp [potencialZeta]
+  exact sq_nonneg _
 
 theorem potencialZeta_zero_iff (sigma : ℝ) : potencialZeta sigma = 0 ↔ sigma = 1/2 := by
-  simp [potencialZeta]
+  constructor
+  · intro h
+    dsimp [potencialZeta] at h
+    nlinarith [sq_nonneg (sigma - 1/2)]
+  · intro h
+    subst sigma
+    simp [potencialZeta]
 
 def fluxoZeta (v : Variedade5D) (sigma : ℝ) (dt : TimeStep) : Variedade5D :=
   { v with x := v.x - potencialZeta sigma * dt.val * v.e, t := v.t + dt.val }
@@ -112,12 +119,18 @@ theorem epsilon_pos : 0 < epsilon := by norm_num [epsilon]
 
 theorem incrementoW_pos (curvatura conexoes : ℝ) (dt : TimeStep) :
     0 < incrementoW curvatura conexoes dt := by
-  dsimp [incrementoW]
-  nlinarith [sq_nonneg curvatura, sq_nonneg conexoes, dt.property, epsilon_pos]
+  unfold incrementoW
+  have hc : 0 ≤ curvatura^2 := sq_nonneg _
+  have hn : 0 ≤ conexoes^2 := sq_nonneg _
+  have hs : 0 ≤ curvatura^2 + conexoes^2 + dt.val :=
+    add_nonneg (add_nonneg hc hn) dt.property
+  exact add_pos_of_nonneg_of_pos hs epsilon_pos
 
 theorem passoW_crescimento_estrito (w curvatura conexoes : ℝ) (dt : TimeStep) :
     w < passoW w curvatura conexoes dt := by
   simp only [passoW]
   exact lt_add_of_pos_right w (incrementoW_pos curvatura conexoes dt)
+
+end
 
 end FederatedTrivalent

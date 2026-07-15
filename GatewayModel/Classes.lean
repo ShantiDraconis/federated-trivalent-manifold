@@ -51,7 +51,6 @@ theorem critical_beta_exact :
 theorem action_at_critical (alpha t e : ℚ) (he : e ≠ 0) :
     action alpha (betaCritical alpha t e) t e = 0 := by
   field_simp [action, betaCritical, he]
-  ring
 
 theorem mass_proxy_exact : massProxy params.beta params.eNorm = 32661/1000000 := by
   norm_num [massProxy, params]
@@ -59,12 +58,11 @@ theorem mass_proxy_exact : massProxy params.beta params.eNorm = 32661/1000000 :=
 theorem positive_action_means_temporal_dominates
     (alpha beta t e : ℚ) (h : 0 < action alpha beta t e) :
     beta * e^2 < alpha * t^2 := by
-  linarith [h]
+  simpa [action, sub_pos] using h
 
 theorem negative_action_means_exodus_dominates
     (alpha beta t e : ℚ) (h : action alpha beta t e < 0) :
     alpha * t^2 < beta * e^2 := by
-  linarith [h]
+  simpa [action, sub_neg] using h
 
 end GatewayModel
-
