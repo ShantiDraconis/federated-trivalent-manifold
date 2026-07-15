@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-5d-v41
+  labels: {app: gateway-5d}
+spec:
+  replicas: 3
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: {maxUnavailable: 0, maxSurge: 1}
+  selector:
+    matchLabels: {app: gateway-5d}
+  template:
+    metadata:
+      labels: {app: gateway-5d}
+    spec:
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: gateway
+          image: ghcr.io/shantidraconis/federated-trivalent-manifold:4.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - {name: http, containerPort: 8000}
+          resources:
+            requests: {cpu: 500m, memory: 256Mi}
+            limits: {cpu: "2", memory: 1Gi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+          livenessProbe:
+            httpGet: {path: /health/live, port: http}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet: {path: /health/ready, port: http}
+            initialDelaySeconds: 3
+            periodSeconds: 3
+            failureThreshold: 1
+          startupProbe:
+            httpGet: {path: /health/live, port: http}
+            periodSeconds: 2
+            failureThreshold: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-5d-service
+spec:
+  selector: {app: gateway-5d}
+  ports:
+    - {name: http, protocol: TCP, port: 80, targetPort: http}
+  type: ClusterIP
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: gateway-5d-pdb
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels: {app: gateway-5d}
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gateway-5d-stress
+spec:
+  scaleTargetRef: {apiVersion: apps/v1, kind: Deployment, name: gateway-5d-v41}
+  minReplicas: 3
+  maxReplicas: 12
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies: [{type: Percent, value: 100, periodSeconds: 60}]
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies: [{type: Percent, value: 25, periodSeconds: 60}]
+  metrics:
+    # Requires Prometheus Adapter mapping gateway_stress into custom.metrics.k8s.io.
+    - type: Pods
+      pods:
+        metric: {name: gateway_stress}
+        target: {type: AverageValue, averageValue: "1"}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: gateway-5d-default-deny-ingress
+spec:
+  podSelector:
+    matchLabels: {app: gateway-5d}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - namespaceSelector: {}
+      ports:
+        - {protocol: TCP, port: 8000}
+

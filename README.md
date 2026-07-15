@@ -60,3 +60,17 @@ uvicorn gateway.main_v4:app --reload
 As figuras geradas são `outputs/action_regimes.png` e
 `outputs/exodus_decay.png`; o artigo completo está em
 `outputs/artigo_gateway.pdf`.
+
+## Kubernetes e autocicatrização
+
+`infrastructure/kubernetes/gateway.yaml` fornece três réplicas, rolling update
+sem indisponibilidade, PodDisruptionBudget, probes distintas, HPA, recursos,
+NetworkPolicy e execução sem privilégios. A readiness probe retira um pod em
+estado de isolamento do balanceamento; a liveness probe reinicia somente um
+processo realmente travado, evitando ciclos de reinício causados por carga.
+
+O HPA usa `gateway_stress`, exposto em `/metrics`. Para funcionar no cluster,
+essa métrica precisa ser registrada por Prometheus e mapeada pelo Prometheus
+Adapter para `custom.metrics.k8s.io`. Sem o adapter, Kubernetes não consegue
+escalar por uma métrica da aplicação; isso é uma dependência operacional, não
+uma propriedade provada em Lean.

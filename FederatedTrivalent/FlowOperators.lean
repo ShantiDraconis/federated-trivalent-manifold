@@ -93,5 +93,31 @@ def isolar (v : Variedade5D) (limiar : ℝ) : Cirurgia where
 theorem custo_isolamento_nonneg (v : Variedade5D) (limiar : ℝ) :
     0 ≤ (isolar v limiar).custo := by simp [isolar]
 
-end FederatedTrivalent
+/-! ## Acumulador operacional W
 
+O quadrado `(αt² - βe²)²` não é monótono em `t` em geral. Para obter a
+invariante usada pelo software, formalizamos a atualização acumulativa real:
+cada passo soma parcelas não negativas e um regulador estritamente positivo.
+-/
+
+def epsilon : ℝ := 1 / 1000000
+
+def incrementoW (curvatura conexoes : ℝ) (dt : TimeStep) : ℝ :=
+  curvatura^2 + conexoes^2 + dt.val + epsilon
+
+def passoW (w curvatura conexoes : ℝ) (dt : TimeStep) : ℝ :=
+  w + incrementoW curvatura conexoes dt
+
+theorem epsilon_pos : 0 < epsilon := by norm_num [epsilon]
+
+theorem incrementoW_pos (curvatura conexoes : ℝ) (dt : TimeStep) :
+    0 < incrementoW curvatura conexoes dt := by
+  dsimp [incrementoW]
+  nlinarith [sq_nonneg curvatura, sq_nonneg conexoes, dt.property, epsilon_pos]
+
+theorem passoW_crescimento_estrito (w curvatura conexoes : ℝ) (dt : TimeStep) :
+    w < passoW w curvatura conexoes dt := by
+  simp only [passoW]
+  exact lt_add_of_pos_right w (incrementoW_pos curvatura conexoes dt)
+
+end FederatedTrivalent

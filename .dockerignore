@@ -1,0 +1,9 @@
+.git
+.github
+.lake
+__pycache__
+*.pyc
+outputs
+tests
+tmp
+
