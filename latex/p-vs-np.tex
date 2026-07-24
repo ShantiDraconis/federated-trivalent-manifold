@@ -101,11 +101,11 @@ ligadas a geração pseudoaleatória e a $P\neq NP$.
 \section{Linguagem FTM candidata}
 %% ---------------------------------------------------------------
 
-\begin{definition}[FTM-DESCENT]
+\begin{definition}[$\FTMDESCENT$]
 Dada uma apresentação finita $\langle\Atlas\rangle$ de um atlas
 federado trivalente, definir
 \[
-  \mathrm{FTM\text{-}DESCENT}
+  \FTMDESCENT
   =\{\langle\Atlas\rangle : \exists\text{ dado global compatível
      com todos os cociclos}\}.
 \]
@@ -124,7 +124,7 @@ Isso pode falhar com dados contínuos ou equivalências não efetivas.
 
 \begin{obligation}[C3 — $NP$-dureza]\label{ob:C3}
 Exibir redução many-one polinomial de um problema $NP$-completo
-canônico para FTM-DESCENT, preservando respostas sim/não.
+canônico para $\FTMDESCENT$, preservando respostas sim/não.
 \end{obligation}
 
 \begin{obligation}[C4 — Subclasses tratáveis]\label{ob:C4}
@@ -133,7 +133,7 @@ grupo finito fixo) que colocam o problema em $P$.
 \end{obligation}
 
 \begin{remark}
-Mesmo que FTM-DESCENT seja $NP$-completo (\OPEN),
+Mesmo que $\FTMDESCENT$ seja $NP$-completo (\OPEN),
 isso \emph{não} separa $P$ de $NP$.
 Uma separação requer argumento válido para \emph{todas} as máquinas
 polinomiais e deve superar as barreiras da Seção~2A.
@@ -155,7 +155,7 @@ deve-se verificar que tal propriedade não é ``natural''
 no sentido de Razborov–Rudich. \OPEN
 \end{gap}
 
-\MATURITY{M0. A linguagem FTM-DESCENT ainda carece de codificação
+\MATURITY{M0. A linguagem $\FTMDESCENT$ ainda carece de codificação
 finita definitiva (C1 aberta). C2–C4 todas abertas.}
 
 \end{document}
