@@ -29,3 +29,24 @@ Zetas de grafos, equações funcionais semelhantes, estatísticas espectrais e a
 Contagem de zeros, termo principal e termos inferiores; simetria funcional; zeros triviais; multiplicidades; estabilidade no limite federado.
 
 **Maturidade atual:** M0. Nenhum operador com RH1–RH4 foi construído.
+
+---
+
+## Programa off-critical (anexo auditável)
+
+Independente de RH1–RH4, o repositório mantém um programa de pesquisa sobre zeros hipotéticos **fora** da linha crítica. Nenhuma afirmação deste programa implica ou assume RH.
+
+**Arquivo Lean 4:** [`lean/OffCriticalProgram.lean`](../../lean/OffCriticalProgram.lean) — 0 axiomas externos, 0 sorry no Eixo 1.
+
+**Quatro eixos:**
+
+| Eixo | Tema | Estado |
+|------|------|--------|
+| 1 | Geometria local: \(\delta^2 = (R_+^2+R_-^2)/2 - R_c^2\) | Provado (`ring`) |
+| 2 | Defeito global \(\mathfrak{D}_\mathrm{rad}(T) = \sum w_\rho\); decaimento \(\gamma^{-4}\) | Aberto; dados em `data/off-critical-w4.csv` |
+| 3 | Custo espectral \(X_{\eta,\Delta} = (T/2\pi)^{\Delta/c}\) | Provado; cotas para \(\eta=0.01\) em aberto |
+| 4 | Correlação \(V_\Omega\); contraexemplo \(V_\Omega = -11.87 \neq \delta^2\) | Provado (dois zeros na linha) |
+
+**Roteiro do artigo:** [`docs/artigo-programa-pesquisa.md`](../artigo-programa-pesquisa.md)
+
+**Dados numéricos:** `data/off-critical-w4.csv`, `data/off-critical-spectral.csv`
