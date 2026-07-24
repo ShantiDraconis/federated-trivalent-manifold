@@ -99,11 +99,11 @@ W_4(\rho) = 4w(\rho) \approx \frac{8\delta^2}{\gamma^4} \text{ para } |\gamma| \
 
 **Tabela 3.1** — Valores de \(W_4(\delta, \gamma)\) (extrato; tabela completa em `data/off-critical-w4.csv`):
 
-| δ     | γ      | W₄           | 8δ²/γ⁴       | erro rel. (%) |
-|-------|--------|--------------|--------------|---------------|
-| 0.001 | 100    | 7.9996×10⁻¹⁴ | 8.0000×10⁻¹⁴ | 0.0050        |
-| 0.1   | 1 000  | 7.9999×10⁻¹⁴ | 8.0000×10⁻¹⁴ | 0.0001        |
-| 0.5   | 1 000  | 1.9999×10⁻¹² | 2.0000×10⁻¹² | 0.0001        |
+| δ     | γ      | W₄ (CSV)        | 8δ²/γ⁴ (aprox.) | erro rel. (%) |
+|-------|--------|-----------------|-----------------|---------------|
+| 0.001 | 100    | 7.99960001×10⁻¹⁴ | 8.00000000×10⁻¹⁴ | 0.005000     |
+| 0.100 | 1 000  | 7.99999584×10⁻¹⁴ | 8.00000000×10⁻¹⁴ | 0.000052     |
+| 0.500 | 1 000  | 1.99999800×10⁻¹² | 2.00000000×10⁻¹² | 0.000100     |
 
 ```latex
 \section{Axis 2: Global Defect and Sensitivity Loss}
@@ -188,7 +188,7 @@ Logo \(V_\Omega \neq \delta^2 = 0\) — a igualdade geral falha. (Provado em Lea
 |----------|--------|------|
 | Mês 1–3  | Publicar Eixo 1: `local_rigidity_zero_iff` + P>0, w≥0 | J. Formalized Reasoning |
 | Mês 4–6  | Calcular \(\mathfrak{D}_{\mathrm{rad}}(T)\) para T=10⁶, Arb 200 dígitos; tabela w, W₄ | Math. Comp. |
-| Mês 7–9  | Provar cotas X_{η,Δ} e d_médio com aritmética intervalar; corrigir 0.2→0.5246, 0.07→0.2436 | — |
+| Mês 7–9  | Provar cotas X_{η,Δ} e d_médio com aritmética intervalar; corrigir os valores aproximados usados na literatura anterior (d_médio ≈ 0.2 → valor exato 0.5246 para T=10⁶; d_médio ≈ 0.07 → valor exato 0.2436 para T=10¹²) | — |
 | Mês 10–12 | Estudo V_Ω em [T, T+10d_médio]; mostrar V ≠ δ² com dados; exemplo 2 zeros → −11.87 | — |
 
 ```latex

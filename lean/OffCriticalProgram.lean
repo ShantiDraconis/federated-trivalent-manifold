@@ -251,9 +251,9 @@ section Summary
 | Eixo | Resultado                        | Estado                     |
 |------|----------------------------------|----------------------------|
 | 1    | local_rigidity_zero_iff          | Provado (ring)             |
-| 1    | denom_P_nonneg                   | Provado (positivity)       |
-| 1    | spectral_cost_power_law          | Provado                    |
-| 1    | V_Omega_can_be_negative          | Provado (norm_num)         |
+| 2    | denom_P_nonneg                   | Provado (positivity)       |
+| 3    | spectral_cost_power_law          | Provado                    |
+| 4    | V_Omega_can_be_negative          | Provado (norm_num)         |
 | 2    | sensitivity_decay_conjecture     | Aberto (axiom placeholder) |
 | 2    | W4_asymptotic_sorry              | Aberto (cota numérica)     |
 | 3    | cotas X para η = 0.01            | Aberto (X ≈ 10²⁷)         |
