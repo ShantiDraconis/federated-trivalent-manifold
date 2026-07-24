@@ -1,0 +1,63 @@
+%% ftm.sty  —  Federated Trivalent Manifold  —  shared preamble
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ftm}[2026/07/24 v0.1 FTM shared macros]
+
+%% ---- encoding & fonts ----
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{lmodern}
+\RequirePackage{microtype}
+
+%% ---- math ----
+\RequirePackage{amsmath,amssymb,amsthm}
+\RequirePackage{mathtools}
+\RequirePackage{bm}
+
+%% ---- layout ----
+\RequirePackage[margin=2.5cm]{geometry}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,citecolor=green!50!black,urlcolor=blue}
+
+%% ---- theorem environments ----
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{proposition}[theorem]{Proposição}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{corollary}[theorem]{Corolário}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definição}
+\newtheorem{example}[theorem]{Exemplo}
+\newtheorem{obligation}{Obrigação}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Observação}
+\newtheorem{gap}{Lacuna}[section]
+
+%% ---- status labels ----
+\newcommand{\OPEN}{\textbf{[ABERTO]}}
+\newcommand{\PROVED}{\textbf{[PROVADO]}}
+\newcommand{\CONDITIONAL}{\textbf{[CONDICIONAL]}}
+\newcommand{\MATURITY}[1]{\medskip\noindent\textbf{Maturidade atual:} #1\par}
+
+%% ---- FTM objects ----
+\newcommand{\FTM}{\mathfrak{F}}          % generic FTM object
+\newcommand{\Drad}{\mathfrak{D}_{\mathrm{rad}}}
+\newcommand{\Gop}{\mathfrak{G}}
+\newcommand{\Atlas}{\mathfrak{A}}
+\newcommand{\Hilb}{\mathcal{H}}
+\newcommand{\Ltwo}{L^2}
+\newcommand{\Cclass}{\mathcal{C}}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Sel}{Sel}
+\DeclareMathOperator{\Sha}{\mbox{\tencyr\cyracc Sh}}
+\DeclareMathOperator{\Re}{Re}
+\DeclareMathOperator{\Var}{Var}
+
+%% ---- program item style ----
+\newlist{programs}{enumerate}{1}
+\setlist[programs]{label=\textbf{\Alph*.},leftmargin=2em,itemsep=4pt}

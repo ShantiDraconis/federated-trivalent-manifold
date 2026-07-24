@@ -1,0 +1,149 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{ftm}
+
+\title{Birch–Swinnerton-Dyer\\[4pt]
+       \large Caderno de Lacunas Formais — Programa FTM}
+\author{Federated Trivalent Manifold Research Programme}
+\date{2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Enunciado oficial}
+%% ---------------------------------------------------------------
+
+\begin{definition}[Conjectura de Birch–Swinnerton-Dyer]
+Seja $E/\mathbb Q$ uma curva elíptica com $L$-função
+$L(E,s)=\prod_p L_p(E,s)$, continuada inteiramente.
+A conjectura afirma:
+\[
+  \ord_{s=1}L(E,s)=\rank E(\mathbb Q).
+\]
+O coeficiente líder satisfaz a fórmula refinada
+\[
+  \lim_{s\to1}\frac{L(E,s)}{(s-1)^r}
+  =\frac{\Omega_E\cdot\mathrm{Reg}(E)\cdot\prod_p c_p\cdot|\Sha(E)|}
+         {|E(\mathbb Q)_{\mathrm{tor}}|^2},
+\]
+onde $\Omega_E$ é o período real, $\mathrm{Reg}(E)$ o regulador de
+altura, $c_p$ os números de Tamagawa e $\Sha(E)$ o grupo de
+Tate–Shafarevich.
+\end{definition}
+
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Programas de pesquisa e encaixe FTM}
+%% ---------------------------------------------------------------
+
+\begin{programs}
+
+\item \textbf{Gross–Zagier e Kolyvagin.}
+Caso $r\le1$ essencialmente provado:
+\begin{itemize}[leftmargin=2em]
+  \item Gross–Zagier (1986): $L'(E,1)\neq0\Rightarrow r=1$
+    via pontos de Heegner e derivadas de $L$.
+  \item Kolyvagin (1988): sistemas de Euler fornecem
+    $\Sha(E)$ finito quando $r=0$ ou $r=1$.
+\end{itemize}
+O caso $r\ge2$ permanece aberto: não existe construção aritmética
+sistemática de geradores do grupo de Mordell–Weil.
+
+\begin{gap}
+Para $r\ge2$, não há método provado para construir pontos racionais
+independentes via teoria analítica de $L(E,s)$. \OPEN
+\end{gap}
+
+\item \textbf{Teoria de Iwasawa.}
+Sobre a torre ciclotômica $\mathbb Q(\mu_{p^\infty})$,
+o $p$-ádico $L$-função $L_p(E,s)$ e o grupo de Selmer
+$\Sel_{p^\infty}(E/\mathbb Q^\infty)$ satisfazem conjecturalmente
+a Main Conjecture de Iwasawa:
+\[
+  \mathrm{char}_{\Lambda}\Sel_{p^\infty}=(\mathcal L_p(E)),
+\]
+onde $\Lambda=\mathbb Z_p[[\Gamma]]$ é a álgebra de Iwasawa.
+Skinner–Urban provaram um lado sob hipóteses técnicas.
+
+\begin{gap}
+A Main Conjecture completa (igualdade de ideais característicos)
+em toda generalidade permanece aberta; em particular para
+curvas com redução aditiva ou $p$ de mau comportamento. \OPEN
+\end{gap}
+
+\item \textbf{Pontos de Heegner.}
+Para discriminante $D<0$ com $L(E,1,\chi_D)\neq0$,
+a teoria de corpos de classe fornece um ponto $y_K\in E(K)$
+cujo traço $y_K+\bar y_K\in E(\mathbb Q)$ é não trivial sse
+$L'(E,1)\neq0$.
+
+A extensão para $r\ge2$ via pontos de Heegner em torres de corpos de
+classe de grau superior é uma lacuna ativa (programa Darmon).
+
+\item \textbf{Famílias de $L$-funções e distribuição de postos.}
+A conjectura de Goldfeld prevê que a metade das curvas numa família
+têm $r=0$ e a outra metade $r=1$. Katz–Sarnak identificam
+a distribuição monodrômica. A média de postos $\bar r\le 1/2$
+foi estabelecida para certas famílias; $\bar r=1/2$ com controle
+refinado está aberto.
+
+\end{programs}
+
+%% ---------------------------------------------------------------
+\section{Funtor FTM para curvas elípticas}
+%% ---------------------------------------------------------------
+
+\begin{definition}[Funtor $\Phi$]
+Busca-se um funtor
+\[
+  \Phi:\mathrm{Ell}_{\mathbb Q}\longrightarrow\mathrm{FTM}_{\mathrm{arith}}
+\]
+que associa a cada $E/\mathbb Q$ um objeto
+$\Phi(E)=(M_E,\Gamma_E,\mathcal F_E,\lambda_E)$
+preservando modelos locais em todos os primos e no lugar arquimediano.
+\end{definition}
+
+%% ---------------------------------------------------------------
+\section{Obrigações formais FTM para BSD}
+%% ---------------------------------------------------------------
+
+\begin{obligation}[BSD1 — Fatores locais]\label{ob:BSD1}
+Recuperar $L_p(E,s)$ e o condutor $N_E$ funcionalmente a partir de
+$\Phi(E)$, incluindo casos de redução boa, multiplicativa e aditiva.
+\end{obligation}
+
+\begin{obligation}[BSD2 — Produto global]\label{ob:BSD2}
+Provar que o invariante FTM coincide com $L(E,s)$ como função
+de $s\in\mathbb C$, incluindo continuação analítica e equação
+funcional.
+\end{obligation}
+
+\begin{obligation}[BSD3 — Lado algébrico]\label{ob:BSD3}
+Recuperar $E(\mathbb Q)$, grupo de torsão, emparelhamento de altura
+de Néron–Tate e regulador $\mathrm{Reg}(E)$.
+\end{obligation}
+
+\begin{obligation}[BSD4 — Descida e $\Sha$]\label{ob:BSD4}
+Representar os grupos de Selmer $\Sel_n(E)$ e controlar $\Sha(E)$
+sem presumir sua finitude quando ela faz parte do conteúdo.
+\end{obligation}
+
+\begin{obligation}[BSD5 — Equivalência]\label{ob:BSD5}
+Provar que a ordem de anulação de $L(E,s)$ em $s=1$ e o posto
+de $E(\mathbb Q)$ coincidem no modelo FTM exatamente com os
+objetos clássicos.
+\end{obligation}
+
+\begin{remark}
+A conexão análoga $\Var(L)\leftrightarrow V_\Omega$ é sugestiva
+mas não uma redução: $\Var(L)$ é propriedade global analítica,
+enquanto $V_\Omega$ é detector local de defeito.
+Grafos de redução em primos isolados não contêm a informação global.
+\end{remark}
+
+\MATURITY{M0/M1 conceitual. BSD1–BSD5 todas ABERTAS.}
+
+\end{document}

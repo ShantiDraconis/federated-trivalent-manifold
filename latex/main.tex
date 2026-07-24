@@ -1,0 +1,346 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{ftm}
+
+\title{Programas de Pesquisa FTM\\
+       para os Seis Problemas do Milênio Abertos\\[6pt]
+       \large Núcleos Rígidos, Lacunas Formais e Obrigações de Prova}
+\author{Federated Trivalent Manifold Research Programme}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Este documento reúne os seis cadernos de lacunas formais para os
+Problemas do Milênio ainda abertos (Hipótese de Riemann, P vs NP,
+Birch–Swinnerton-Dyer, Hodge, Navier–Stokes, Yang–Mills e gap de massa),
+elaborados no quadro do programa \emph{Federated Trivalent Manifold} (FTM).
+
+Para cada problema são apresentados:
+(i)~o enunciado oficial Clay;
+(ii)~os principais programas de pesquisa em curso e onde o formalismo
+FTM se encaixa;
+(iii)~as obrigações formais numeradas que devem ser satisfeitas
+antes de qualquer alegação forte;
+(iv)~as lacunas identificadas com status \OPEN.
+
+\textbf{Declaração de estado científico.}
+Nenhuma seção constitui solução de nenhum problema.
+Uma conexão só é tratada como matemática quando há
+definições, enunciado formal e prova auditável;
+o restante é rotulado como programa, conjectura ou analogia.
+As formulações oficiais são as do
+\href{https://www.claymath.org/millennium-problems/}{Clay Mathematics Institute}.
+\end{abstract}
+
+\tableofcontents
+\clearpage
+
+%% ---------------------------------------------------------------
+\section{Estrutura comum e metodologia}
+%% ---------------------------------------------------------------
+
+\subsection{Rigidez local versus defeito global}
+
+Todos os seis problemas compartilham a mesma arquitetura:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Problema & Rigidez local (fácil) & Defeito global (difícil) \\
+\midrule
+Riemann   & $\Delta_{\mathrm{par}}=\delta^2$ geométrico
+          & $\Drad=\sum w$ convergência uniforme \\
+P vs NP   & Verificação polinomial local
+          & Busca polinomial global \\
+BSD       & Fatores $L_p(E,s)$ locais
+          & Posto de Mordell–Weil global \\
+Hodge     & Descida e tipo Hodge locais
+          & Sobrejetividade do mapa de ciclos \\
+Navier–Stokes & Regularidade local $L^3$
+              & Estimativa crítica uniforme global \\
+Yang–Mills & Regularização discreta $a>0$
+           & Gap uniforme no limite $a\to0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+O manifesto FTM — \emph{``matemática finita não alcança o infinito
+sem ponte de conservação''} — é estruturalmente correto para todos.
+Mas a ponte requer definições precisas:
+operador $T$ com $Q_W=\|Tg\|^2$, erros $e_N\to0$, ruído $\omega\to0$;
+não basta analogia qualitativa.
+
+\subsection{Metodologia Aceitar-Núcleo}
+
+Para cada problema:
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{Isolar.} Transcrever enunciado Clay, objetos,
+  quantificadores, alternativas e o que não basta.
+\item \textbf{Núcleo.} Identificar obstrução mínima (tabela acima).
+\item \textbf{Aceitar hipótese de trabalho.}
+  Testar circularidade: a hipótese $H$ continua válida se a
+  conjectura for falsa? Se não, marcar EQUIVALENTE.
+\item \textbf{Derivar.} Sob $H$, construir algoritmos ou funcionais.
+\item \textbf{Testar adversarialmente.}
+  Contramodelo sintético (zeros fora da reta, circuitos que quebram
+  verificação, dados NS quase blow-up).
+\item \textbf{Classificar.}
+  \PROVED\ / \CONDITIONAL\ / \OPEN\ para cada afirmação.
+\end{enumerate}
+
+\subsection{Escala de maturidade}
+
+\begin{description}[leftmargin=4em,style=nextline]
+\item[M0] Nenhum objeto FTM relevante construído;
+  as obrigações são apenas enunciadas.
+\item[M1] Objetos construídos conceitualmente;
+  obrigações enunciadas e parcialmente testadas em exemplos.
+\item[M2] Pelo menos uma obrigação provada;
+  exemplos não triviais verificados.
+\item[M3] Cadeia de implicações com ao menos um elo publicado.
+\end{description}
+
+\clearpage
+
+%% ---------------------------------------------------------------
+\section{Hipótese de Riemann}
+%% ---------------------------------------------------------------
+
+\textit{Caderno completo:} \texttt{riemann.tex}.
+
+\medskip
+\noindent\textbf{Enunciado.}
+$\zeta(s)=0$, $0<\Re s<1$ $\Rightarrow$ $\Re s=\tfrac12$.
+
+\medskip
+\noindent\textbf{Lacunas principais.}
+\begin{gap}
+  Operador $D_F$ auto-adjunto com $\det_{\mathrm{reg}}(D_F-z)=E(z)\xi(\tfrac12+iz)$
+  (obrigações RH1–RH4) não foi construído. \OPEN
+\end{gap}
+\begin{gap}
+  $\sum_\rho|\rho|^{-2}$ não-holomorfo: convergência uniforme de $\Drad(T)$
+  sem assumir RH não foi provada. \OPEN
+\end{gap}
+\begin{gap}
+  $G_N\succeq0$ com $e_N\to0$ e $\omega\to0$ simultâneos não foi estabelecido. \OPEN
+\end{gap}
+
+\MATURITY{M0. Programa off-critical (Eixo~E) é o entregável mais próximo.}
+
+\clearpage
+
+%% ---------------------------------------------------------------
+\section{P versus NP}
+%% ---------------------------------------------------------------
+
+\textit{Caderno completo:} \texttt{p-vs-np.tex}.
+
+\medskip
+\noindent\textbf{Enunciado.}
+$P\stackrel{?}{=}NP$. Verificação polinomial implica busca polinomial?
+
+\medskip
+\noindent\textbf{Lacunas principais.}
+\begin{gap}
+  Barreiras de relativização, natural proofs e algebrização não foram
+  transpostas por nenhuma técnica FTM. \OPEN
+\end{gap}
+\begin{gap}
+  A linguagem FTM-DESCENT carece de codificação finita definitiva (C1 aberta);
+  sem C1, C2–C4 não são formuláveis. \OPEN
+\end{gap}
+\begin{gap}
+  Mesmo NP-completude de FTM-DESCENT não separaria $P$ de $NP$. \OPEN
+\end{gap}
+
+\MATURITY{M0. C1–C4 todas abertas.}
+
+\clearpage
+
+%% ---------------------------------------------------------------
+\section{Birch–Swinnerton-Dyer}
+%% ---------------------------------------------------------------
+
+\textit{Caderno completo:} \texttt{bsd.tex}.
+
+\medskip
+\noindent\textbf{Enunciado.}
+$\ord_{s=1}L(E,s)=\rank E(\mathbb Q)$ com fórmula refinada
+para o coeficiente líder.
+
+\medskip
+\noindent\textbf{Lacunas principais.}
+\begin{gap}
+  Caso $r\ge2$: não há método provado para construir pontos racionais
+  independentes via teoria analítica de $L(E,s)$. \OPEN
+\end{gap}
+\begin{gap}
+  Main Conjecture de Iwasawa em generalidade plena: igualdade de ideais
+  característicos não provada para todos os primos e reduções. \OPEN
+\end{gap}
+\begin{gap}
+  Funtor $\Phi:\mathrm{Ell}_{\mathbb Q}\to\mathrm{FTM}_{\mathrm{arith}}$
+  satisfazendo BSD1–BSD5 não foi construído. \OPEN
+\end{gap}
+
+\MATURITY{M0/M1 conceitual. BSD1–BSD5 abertas.}
+
+\clearpage
+
+%% ---------------------------------------------------------------
+\section{Conjectura de Hodge}
+%% ---------------------------------------------------------------
+
+\textit{Caderno completo:} \texttt{hodge.tex}.
+
+\medskip
+\noindent\textbf{Enunciado.}
+Para $X/\mathbb C$ projetiva não singular, toda classe de Hodge é
+combinação $\mathbb Q$-linear de classes de ciclos algébricos.
+
+\medskip
+\noindent\textbf{Lacunas principais.}
+\begin{gap}
+  Conjecturas padrão de Grothendieck ($A$–$D$) abertas; implicariam Hodge. \OPEN
+\end{gap}
+\begin{gap}
+  H-SURJ (sobrejetividade do mapa de ciclos) é a lacuna central;
+  H-DESC e H-TYPE provados não a implicam. \OPEN
+\end{gap}
+\begin{gap}
+  Extensão de Cattani–Deligne–Kaplan para variedades gerais de dimensão $\ge3$
+  não existe. \OPEN
+\end{gap}
+
+\MATURITY{M0. H-DESC, H-TYPE, H-CYCLE, H-SURJ todas abertas.}
+
+\clearpage
+
+%% ---------------------------------------------------------------
+\section{Navier–Stokes}
+%% ---------------------------------------------------------------
+
+\textit{Caderno completo:} \texttt{navier-stokes.tex}.
+
+\medskip
+\noindent\textbf{Enunciado.}
+Existe solução suave globalmente definida para $u_0\in\mathcal S(\mathbb R^3)$?
+Ou pode ocorrer blow-up em tempo finito?
+
+\medskip
+\noindent\textbf{Lacunas principais.}
+\begin{gap}
+  NS4 — estimativa crítica uniforme em norma $L^3$ ou $BMO^{-1}$
+  suficiente para regularidade global não foi obtida. \OPEN
+\end{gap}
+\begin{gap}
+  Cenário Hou–Luo: nenhuma verificação rigorosa (intervalar) de blow-up
+  em tempo finito para dado suave. \OPEN
+\end{gap}
+\begin{gap}
+  Não-unicidade de soluções fracas (Buckmaster–Vicol) não implica
+  breakdown da solução forte; o gap entre Leray e Prodi–Serrin
+  crítico permanece aberto. \OPEN
+\end{gap}
+
+\MATURITY{M1 conceitual. NS1–NS4 abertas; NS4 é a lacuna decisiva.}
+
+\clearpage
+
+%% ---------------------------------------------------------------
+\section{Yang–Mills e Gap de Massa}
+%% ---------------------------------------------------------------
+
+\textit{Caderno completo:} \texttt{yang-mills.tex}.
+
+\medskip
+\noindent\textbf{Enunciado.}
+$SU(N)$ Yang–Mills quântico em $\mathbb R^4$ existe
+e tem gap de massa $\Delta>0$.
+
+\medskip
+\noindent\textbf{Lacunas principais.}
+\begin{gap}
+  Extensão do programa de Balaban para 4D: controle uniforme do limite
+  contínuo a todas as ordens de renormalização não provado. \OPEN
+\end{gap}
+\begin{gap}
+  Lei de área para Wilson loop em $SU(N)$ 4D contínuo: não provada. \OPEN
+\end{gap}
+\begin{gap}
+  YM5 — gap de massa $\Delta>0$ sobrevivendo simultaneamente a $a\to0$
+  e $\Lambda\to\infty$ não provado. \OPEN
+\end{gap}
+
+\MATURITY{M1 conceitual. YM1–YM5 todas abertas.}
+
+\clearpage
+
+%% ---------------------------------------------------------------
+\section{Sumário de lacunas e prioridades}
+%% ---------------------------------------------------------------
+
+\subsection{Tabela de status}
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Problema & Obrigação central & Status & Entregável próximo \\
+\midrule
+Riemann    & RH1–RH4 (operador + identidade)
+           & M0, \OPEN & Programa off-critical (MoC) \\
+P vs NP    & C1–C4 (codificação + barreiras)
+           & M0, \OPEN & — \\
+BSD        & BSD1–BSD5 (funtor + equivalência)
+           & M0/M1, \OPEN & — \\
+Hodge      & H-SURJ (sobrejetividade ciclos)
+           & M0, \OPEN & — \\
+Navier–Stokes & NS4 (estimativa crítica)
+              & M1, \OPEN & Verificação intervalar \\
+Yang–Mills & YM1–YM5 (construção + gap)
+           & M1, \OPEN & — \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Prioridade recomendada}
+
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{Riemann Eixo~E (off-critical):}
+  Implementar $\Drad(T)$ com aritmética de precisão arbitrária (Arb),
+  publicar algoritmo de localização espectral como artigo Math.\ Comp.
+  Horizonte: 6--12 meses. Probabilidade de publicação: $\sim70\%$.
+\item \textbf{Navier–Stokes NS4 numérico:}
+  Desenvolver verificador intervalar para cenário Hou–Luo.
+  Horizonte: 1--2 anos.
+\item \textbf{Yang–Mills e BSD:}
+  Exigem avanços estruturais em QFT construtiva e teoria de Iwasawa,
+  respectivamente. Horizonte mínimo: 5--10 anos.
+\item \textbf{P vs NP e Hodge:}
+  Dependem de rupturas em barreiras de complexidade (GCT)
+  e na teoria de ciclos (motivos). Horizonte indeterminado.
+\end{enumerate}
+
+\subsection{O que não constitui progresso}
+
+\begin{itemize}[leftmargin=2em]
+\item Ajuste numérico de zeros ou estatísticas GUE sem RH1–RH4.
+\item Linguagem FTM-DESCENT sem codificação finita (C1 aberta).
+\item Gap espectral em grafo finito sem limites YM2 uniformes.
+\item Classes de Hodge em exemplos sem H-SURJ geral.
+\item Convergência para solução fraca sem NS4.
+\item Analogia estrutural (``defeito local $\leftrightarrow$ defeito global'')
+  sem implicação lógica provada.
+\end{itemize}
+
+\bigskip\noindent
+\textbf{Conclusão auditável.}
+Os seis programas são independentes entre si (analogia $\neq$ redução).
+Nenhuma lacuna foi fechada neste estágio.
+O valor deste documento é transformar seis problemas abertos em
+programas falsificáveis, com entregáveis auditáveis e critérios
+explícitos de interrupção, sem declarar avanço substantivo não provado.
+
+\end{document}

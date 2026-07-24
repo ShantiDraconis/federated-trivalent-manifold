@@ -1,0 +1,150 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{ftm}
+
+\title{Yang–Mills e Gap de Massa\\[4pt]
+       \large Caderno de Lacunas Formais — Programa FTM}
+\author{Federated Trivalent Manifold Research Programme}
+\date{2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Enunciado oficial}
+%% ---------------------------------------------------------------
+
+\begin{definition}[Yang–Mills e gap de massa]
+Seja $G$ um grupo de gauge compacto simples (e.g.\ $SU(N)$).
+O problema pede:
+\begin{enumerate}[leftmargin=2em]
+  \item Construir rigorosamente uma teoria quântica de Yang–Mills
+    não trivial em $\mathbb R^4$ satisfazendo axiomas convenientes
+    (Osterwalder–Schrader ou Wightman).
+  \item Provar que a teoria tem gap de massa $\Delta>0$:
+    o espectro do Hamiltoniano é contido em $\{0\}\cup[\Delta,\infty)$,
+    com $\Delta$ independente do volume e da regularização.
+\end{enumerate}
+\end{definition}
+
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Programas de pesquisa e encaixe FTM}
+%% ---------------------------------------------------------------
+
+\begin{programs}
+
+\item \textbf{QFT construtiva — programa de Balaban.}
+Balaban (1982–1988) desenvolveu um programa de renormalização
+em malha para Yang–Mills em 3D, controlando o fluxo de
+renormalização via estimativas uniformes sobre blocos de escala.
+A extensão para 4D continua incompleta: o controle das
+contribuições de alta frequência em 4D exige estimativas
+mais refinadas que em 3D.
+
+\begin{gap}
+A extensão do programa de Balaban para $\mathbb R^4$
+(em vez de $\mathbb R^3$) não está completa; em particular,
+a renormalização a todas as ordens com controle uniforme
+do limite contínuo não foi provada. \OPEN
+\end{gap}
+
+\item \textbf{Confinamento e Wilson loop.}
+A lei de área para o Wilson loop,
+\[
+  \langle W_C\rangle \sim \exp(-\sigma\,\mathrm{Area}(C)),
+  \quad \sigma>0,
+\]
+é esperada em Yang–Mills conformal e é equivalente ao confinamento
+de quarks. A teoria do dual-supercondutor (Mandelstam–'t Hooft)
+propõe condensação de monopolos como mecanismo.
+
+\begin{gap}
+Nenhuma prova rigorosa da lei de área para $SU(N)$ em 4D contínuo. \OPEN
+\end{gap}
+
+\item \textbf{Gap espectral e instantons.}
+A análise semiclássica de instantons sugere gap de massa
+via efeitos não perturbativos de ordem $e^{-8\pi^2/g^2}$,
+mas o controle perturbativo diverge e o controle não perturbativo
+exige construção rigorosa da integral de caminho.
+
+\item \textbf{Axiomas de Jaffe–Witten e existência da medida.}
+O problema do Milênio pede, formalmente, uma medida em espaço
+de conexões gauge-equivalentes satisfazendo os axiomas
+de Osterwalder–Schrader, com gap positivo e não trivialidade.
+
+\end{programs}
+
+%% ---------------------------------------------------------------
+\section{Objeto FTM de gauge}
+%% ---------------------------------------------------------------
+
+\begin{definition}[FTM de gauge em escala $a$]
+Para grupo compacto simples $G$ e escala de malha $a>0$,
+o objeto FTM é
+\[
+  F_a = (K_a,\Gamma_a,P_a,A_a,S_a),
+\]
+onde:
+\begin{itemize}[leftmargin=2em]
+  \item $K_a$ é a malha cúbica ou trivalente de passo $a$;
+  \item $P_a$ é um $G$-fibrado sobre $K_a$;
+  \item $A_a$ é uma conexão (holonomias por aresta);
+  \item $S_a=\sum_{\text{plaquetas}} \mathrm{Re}\operatorname{Tr}(1-U_\square)$
+    é a ação de Wilson.
+\end{itemize}
+As transições entre cartas satisfazem descida de fibrados e
+covariância de gauge (cociclo $G$-valorado).
+\end{definition}
+
+%% ---------------------------------------------------------------
+\section{Obrigações formais FTM para Yang–Mills}
+%% ---------------------------------------------------------------
+
+\begin{obligation}[YM1 — Regularização]\label{ob:YM1}
+Para cada $a>0$ e volume finito $\Lambda$, definir medida $\mu_{a,\Lambda}$
+no espaço de conexões discretas com positividade de reflexão
+(ou condição de positividade equivalente).
+\end{obligation}
+
+\begin{obligation}[YM2 — Limites uniformes]\label{ob:YM2}
+Provar estimativas para funções de correlação
+$\langle\mathcal O_1\cdots\mathcal O_k\rangle_{a,\Lambda}$
+independentes de $a$, do volume $\Lambda$ e da escolha de atlas FTM.
+\end{obligation}
+
+\begin{obligation}[YM3 — Limite contínuo]\label{ob:YM3}
+Provar existência de limite $a\to0$, $\Lambda\to\mathbb R^4$,
+resultando em distribuições temperadas (funções de Schwinger)
+satisfazendo os axiomas de Osterwalder–Schrader, independentes
+da regularização escolhida.
+\end{obligation}
+
+\begin{obligation}[YM4 — Não trivialidade]\label{ob:YM4}
+Provar que o limite contínuo não é a teoria livre ($g=0$)
+nem uma teoria degenerada.
+\end{obligation}
+
+\begin{obligation}[YM5 — Gap de massa]\label{ob:YM5}
+Provar que para observáveis gauge-invariantes,
+\[
+  \langle\mathcal O(x)\,\mathcal O(0)\rangle_c
+  \;\le\; C\,e^{-\Delta|x|},
+  \qquad \Delta>0,
+\]
+com $\Delta$ sobrevivendo aos limites $a\to0$ e $\Lambda\to\infty$.
+\end{obligation}
+
+\begin{remark}
+Um espectro discreto num grafo finito não prova gap de massa:
+é necessário que $\Delta$ seja uniforme e survive ambos os limites.
+A descida FTM é naturalmente adaptada à colagem de fibrados e conexões;
+o núcleo construtivo quântico (YM1–YM5) permanece \OPEN.
+\end{remark}
+
+\MATURITY{M1 conceitual. YM1–YM5 todas ABERTAS.}
+
+\end{document}

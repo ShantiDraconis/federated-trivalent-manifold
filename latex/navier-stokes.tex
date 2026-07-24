@@ -1,0 +1,140 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{ftm}
+
+\title{Navier–Stokes\\[4pt]
+       \large Caderno de Lacunas Formais — Programa FTM}
+\author{Federated Trivalent Manifold Research Programme}
+\date{2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Enunciado oficial}
+%% ---------------------------------------------------------------
+
+\begin{definition}[Problema de Navier–Stokes]
+Para velocidade incompressível $u:\mathbb R^3\times[0,\infty)\to\mathbb R^3$
+e pressão $p:\mathbb R^3\times[0,\infty)\to\mathbb R$, as equações são
+\[
+  \partial_t u+(u\cdot\nabla)u = -\nabla p+\nu\Delta u+f,
+  \qquad \nabla\cdot u=0,
+\]
+com dado inicial $u_0\in\mathcal S(\mathbb R^3)$ e força $f\in C^\infty$.
+O problema pergunta se existe sempre uma solução suave e globalmente
+limitada, ou se pode ocorrer breakdown em tempo finito.
+\end{definition}
+
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Programas de pesquisa e encaixe FTM}
+%% ---------------------------------------------------------------
+
+\begin{programs}
+
+\item \textbf{Regularidade condicional — critérios de Prodi–Serrin.}
+Se $u\in L^p(0,T;L^q(\mathbb R^3))$ com $2/p+3/q=1$, $q\ge3$,
+então $u$ é regular em $[0,T]$.
+Escauriaza–Seregin–Šverák (2003) provaram que blow-up no critério
+crítico $L^3$ é impossível, i.e.\ $\|u(\cdot,t)\|_{L^3}\to\infty$
+ao se aproximar de um tempo de blow-up.
+
+\begin{gap}
+Os critérios de Prodi–Serrin são condicional: eles excluem
+blow-up abaixo do limiar crítico, mas não provam regularidade global
+sem controle prévio de $u$ em norma crítica. \OPEN
+\end{gap}
+
+\item \textbf{Integração convexa e não-unicidade.}
+Buckmaster–Vicol (2019) construíram, via integração convexa e
+convex $h$-principle, soluções de Leray fracas não únicas
+em $L^2_t L^3_x$ abaixo da regularidade de Onsager.
+O análogo é a conjunção Onsager: soluções Hölder $C^\alpha$
+conservam energia sse $\alpha>1/3$ (provado em ambas as direções).
+
+\begin{gap}
+A não-unicidade de soluções fracas não implica breakdown da solução
+forte; o gap entre regularidade de Leray e regularidade Prodi–Serrin
+crítica permanece aberto. \OPEN
+\end{gap}
+
+\item \textbf{Blow-up numérico rigoroso — cenário Hou–Luo.}
+Hou–Luo (2014) identificam, via simulação numérica, um cenário
+de blow-up potencial em domínio cilíndrico com fronteira.
+O programa de verificação intervalar (computação aritmética rigorosa
+com arredondamento controlado) busca certificar esse cenário.
+
+\begin{gap}
+Nenhuma verificação rigorosa (intervalar ou outra) prova que
+o cenário Hou–Luo produz blow-up em tempo finito para dado suave.
+Simulações não substituem prova de existência de singularidade. \OPEN
+\end{gap}
+
+\item \textbf{Espaços críticos — Koch–Tataru.}
+Koch–Tataru (2001) provaram bem-postura local em $BMO^{-1}$
+para dados pequenos; a solução existe e é suave enquanto a norma
+$BMO^{-1}$ permanece controlada.
+O espaço $BMO^{-1}$ é crítico pela escala de Navier–Stokes.
+
+\end{programs}
+
+%% ---------------------------------------------------------------
+\section{Discretização FTM}
+%% ---------------------------------------------------------------
+
+\begin{definition}[Família FTM refinável para Navier–Stokes]
+Uma família refinável $\{F_h\}_{h\to0}$ com espaços $V_h,Q_h$
+e operadores discretos
+\[
+  \nabla_h,\quad \operatorname{div}_h,\quad \Delta_h,\quad P_h
+\]
+deve satisfazer: compatibilidade de colagem em interseções,
+um complexo discreto exato (de Rham discreto) e
+a condição inf-sup de Babuška–Brezzi.
+\end{definition}
+
+%% ---------------------------------------------------------------
+\section{Obrigações formais FTM para Navier–Stokes}
+%% ---------------------------------------------------------------
+
+\begin{obligation}[NS1 — Consistência]\label{ob:NS1}
+Para $u$ solução suave,
+$\|\text{resíduo}_h(u)\|_{V_h^*}\to0$ quando $h\to0$,
+com taxa quantificada.
+\end{obligation}
+
+\begin{obligation}[NS2 — Estabilidade energética]\label{ob:NS2}
+\[
+  \|u_h(t)\|_2^2 + 2\nu\int_0^t\|\nabla_h u_h\|_2^2\,ds
+  \;\le\; \|u_h(0)\|_2^2 + \int_0^t(f,u_h)\,ds.
+\]
+\end{obligation}
+
+\begin{obligation}[NS3 — Compacidade e limite]\label{ob:NS3}
+De qualquer sequência $h_k\to0$, extrair subsequência tal que
+$u_{h_k}\to u$ forte o suficiente para passar ao limite nas
+equações; o limite $u$ satisfaz Navier–Stokes no sentido
+de distribuições.
+\end{obligation}
+
+\begin{obligation}[NS4 — Estimativa crítica]\label{ob:NS4}
+Obter controle uniforme em norma de escala crítica
+(e.g.\ $L^3$, $BMO^{-1}$) suficiente para provar regularidade global,
+ou construir sequência $u_{h_k}$ que converge para uma solução fraca
+satisfazendo exatamente as hipóteses do enunciado oficial e
+que desenvolve singularidade em tempo finito.
+\end{obligation}
+
+\begin{remark}
+Convergência para solução de Leray fraca (NS1–NS3) não resolve
+a pergunta de regularidade.
+Simulação de vórtices não prova blow-up.
+NS4 é a lacuna decisiva e está \OPEN.
+\end{remark}
+
+\MATURITY{M1 conceitual. NS1–NS4 todas ABERTAS; NS4 é a lacuna central.}
+
+\end{document}

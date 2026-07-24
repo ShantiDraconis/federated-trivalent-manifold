@@ -1,0 +1,200 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{ftm}
+
+\title{Hipótese de Riemann\\[4pt]
+       \large Caderno de Lacunas Formais — Programa FTM}
+\author{Federated Trivalent Manifold Research Programme}
+\date{2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Enunciado oficial}
+%% ---------------------------------------------------------------
+
+\begin{definition}[Hipótese de Riemann]
+Seja $\zeta(s)=\sum_{n=1}^\infty n^{-s}$ a função zeta de Riemann,
+com continuação meromorfa a $\mathbb C$.
+Todo zero não trivial $\rho$ de $\zeta$ satisfaz
+\[
+  \Re\rho = \tfrac{1}{2}.
+\]
+Equivalentemente, todos os zeros não triviais da função completada
+\[
+  \xi(s) = \tfrac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)
+\]
+estão na reta crítica $\Re s=\tfrac12$.
+\end{definition}
+
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Programas de pesquisa e encaixe FTM}
+%% ---------------------------------------------------------------
+
+\begin{programs}
+
+\item \textbf{Fórmula explícita não-holomorfa.}
+A série
+\[
+  \sum_\rho \frac{1}{|\rho|^2}
+\]
+exige o produto cruzado $\rho\bar\rho$, inacessível pela análise padrão
+de $\xi$ (holomorfa em $s$). Aberto há 165 anos; contribuição Burnol.
+O funcional FTM candidato é
+\[
+  \Drad(T) = \sum_{\rho:\,\Re\rho\le T} w(\rho),
+  \qquad w(\rho)=\frac{2\delta^2}{(\gamma^2+\tfrac14+\delta^2)^2-\delta^2},
+\]
+onde $\rho=\tfrac12+\delta+i\gamma$.
+
+\begin{gap}
+$\sum|\rho|^{-2}$ não se escreve como soma absolutamente convergente
+de termos holomorfos em $s$; a rota FTM precisa de uma integral
+espectral não-holomorfa justificada. \OPEN
+\end{gap}
+
+\item \textbf{Forma de Weil e positividade $Q_W\ge0$.}
+Para $g$ em um espaço de teste adequado,
+\[
+  Q_W(g)=\sum_\rho \tilde g(\rho)\,\overline{\tilde g(1-\bar\rho)}.
+\]
+A equivalência $Q_W\ge0\Leftrightarrow\mathrm{RH}$ está provada.
+O programa exige:
+\begin{enumerate}[label=(\roman*),leftmargin=2em]
+  \item matrizes $G_N\succeq0$ para todo $N$ com bases $\{\varphi_j\}$;
+  \item erro de troncamento $e_N\to0$ uniformemente;
+  \item frequência de ruído $\omega\to0$.
+\end{enumerate}
+Candidato: $W_4(\delta,\gamma)\sim 8\delta^2/\gamma^4$ para $|\delta|\ll|\gamma|$.
+
+\begin{gap}
+Semipositividade de $G_N$ para bases FTM finitas não implica
+$Q_W\ge0$ sem controle uniforme simultâneo de $e_N$ e $\omega$. \OPEN
+\end{gap}
+
+\item \textbf{Operador de fechamento $T$ (Hilbert–Pólya).}
+O programa Connes/Krein busca $T$ auto-adjunto intrínseco tal que
+\[
+  Q_W(g) = \|Tg\|^2.
+\]
+O FTM contribui com uma fórmula de traço
+\[
+  \operatorname{Tr}(h(D_F))
+  =\sum_j h(\lambda_j)
+  =\int_{\mathbb R} h(t)\,d\mu_F(t)+\text{termos prima},
+\]
+com $D_F$ o operador espectral da célula federada e
+$\mu_F$ a medida espectral associada.
+
+\begin{gap}[Lacuna central — operador $T$]
+Não existe, até o momento, operador $T$ provado auto-adjunto tal que
+$Q_W=\|Tg\|^2$ com domínio denso em $\Hilb_F$;
+a identidade com $\xi$ permanece como conjectura. \OPEN
+\end{gap}
+
+\item \textbf{Localizador espectral $X_{\eta,\Delta}$.}
+Para função de teste com suporte espectral em $[-\Delta,\Delta]$,
+o localizador
+\[
+  X_{\eta,\Delta}=e^{2\pi\Delta/\eta}
+\]
+restringe a janela de busca de zeros a $n\le X_{\eta,\Delta}$.
+O endereço espectral de $\rho=\tfrac12+i\gamma$ é
+\[
+  \mathscr A_\varepsilon(\rho)=(X_\varepsilon,\,\pi(X_\varepsilon)),
+  \qquad X_\varepsilon=e^{2\pi\varepsilon/|\gamma|}.
+\]
+Correção estimada para $T=10^{12}$: $\approx173.9$ primos.
+
+\begin{gap}
+A correspondência $\mathscr A_\varepsilon(\rho)$ é definida por analogia
+com Beurling–Selberg; uma prova de que ela recupera $\rho$ sem
+informação extra do RH é necessária. \OPEN
+\end{gap}
+
+\item \textbf{Verificação computacional (programa off-critical).}
+Platt–Trudgian verificaram RH até $T=3\times10^{12}$.
+O espaçamento médio esperado é
+\[
+  d_{\mathrm{médio}}(T)=\frac{2\pi}{\log(T/2\pi)}.
+\]
+Valores de referência: $d\approx0.5246$ em $T=10^6$;
+$d\approx0.2436$ em $T=10^{12}$.
+
+O programa \emph{off-critical} estuda zeros hipotéticos
+$\rho=\tfrac12+\delta+i\gamma$ com $\delta\neq0$
+via $w,W_4,V_\Omega$ \emph{sem assumir RH}, o que é
+publicável como algoritmo auditável (e.g.\ Math.\ Comp.).
+
+\end{programs}
+
+%% ---------------------------------------------------------------
+\section{Pipeline primo-espectral}
+%% ---------------------------------------------------------------
+
+O pipeline de cinco etapas extrai informação sobre zeros a partir
+dos primos sem calcular $\zeta(s)$ diretamente:
+
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{Função von Mangoldt:} $\Lambda(n)=\log p$ se $n=p^m$, 0 c.c.
+\item \textbf{Transformada suavizada:}
+  $\mathcal G_{pr}(s)=\xi'/\xi(s)=\sum_\rho(s-\rho)^{-1}+\text{holomorfo}$.
+\item \textbf{Momentos locais:}
+  $A_k = \langle (s-\tfrac12)^k \rangle_\Omega$
+  via integral sobre região espectral $\Omega$.
+\item \textbf{Polinômio Newton:} $P_\Omega$ com raízes estimadas
+  $\hat\rho = \tfrac12 + A_1/A_0 + O(A_2)$.
+\item \textbf{Detector:}
+  $\Delta_\Omega = A_2/A_0 - (A_1/A_0)^2 = \langle\delta^2\rangle$
+  mede afastamento médio quadrático da reta crítica
+  \emph{sem calcular $|\rho|^{-2}$}.
+\end{enumerate}
+
+\begin{gap}[Convergência uniforme do pipeline]
+Os momentos $A_k$ dependem da escolha de janela espectral e
+da truncagem $N$. Um controle uniforme $|A_k^{(N)}-A_k|\le\varepsilon$
+com $\varepsilon\to0$ quando $N\to\infty$ e $\Omega$ cresce
+não foi estabelecido. \OPEN
+\end{gap}
+
+%% ---------------------------------------------------------------
+\section{Obrigações formais FTM para RH}
+%% ---------------------------------------------------------------
+
+\begin{obligation}[RH1 — Operador]\label{ob:RH1}
+Definir $D_F$ em domínio denso de $\Hilb_F$,
+provar que admite fechamento e que $\overline{D_F}$ é auto-adjunto.
+\end{obligation}
+
+\begin{obligation}[RH2 — Identidade espectral]\label{ob:RH2}
+Provar
+\[
+  \det_{\mathrm{reg}}(D_F-z)=E(z)\,\xi\!\left(\tfrac12+iz\right),
+\]
+como igualdade de funções inteiras, incluindo multiplicidades.
+\end{obligation}
+
+\begin{obligation}[RH3 — Controle de $E$]\label{ob:RH3}
+Provar que $E$ é explícita, sem zeros na faixa crítica e sem
+pôr ou remover zeros de $\xi$.
+\end{obligation}
+
+\begin{obligation}[RH4 — Equivalência lógica]\label{ob:RH4}
+Provar que espectro real de $D_F$ é logicamente equivalente
+a $\Re\rho=\tfrac12$ para todo zero não trivial $\rho$ de $\zeta$.
+\end{obligation}
+
+\begin{remark}
+Evidência heurística (estatísticas GUE, valores numéricos de $\Delta_\Omega$,
+identidades formais) não substitui RH2 ou RH4.
+As obrigações~\ref{ob:RH1}--\ref{ob:RH4} são todas \OPEN.
+\end{remark}
+
+\MATURITY{M0. Nenhum operador satisfazendo RH1–RH4 foi construído.
+O programa off-critical (Eixo E) é o entregável mais próximo de publicação.}
+
+\end{document}

@@ -1,0 +1,161 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{ftm}
+
+\title{P versus NP\\[4pt]
+       \large Caderno de Lacunas Formais — Programa FTM}
+\author{Federated Trivalent Manifold Research Programme}
+\date{2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Enunciado oficial}
+%% ---------------------------------------------------------------
+
+\begin{definition}[P versus NP]
+Seja $P$ a classe de linguagens decidíveis em tempo polinomial
+por máquina de Turing determinística, e $NP$ a classe com
+verificação polinomial. O problema pergunta se
+\[
+  P = NP.
+\]
+Uma linguagem $L\in NP$ admite um verificador $V$ em tempo
+polinomial: $x\in L \Leftrightarrow \exists w\,V(x,w)=1$
+com $|w|=\mathrm{poly}(|x|)$.
+\end{definition}
+
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Programas de pesquisa e encaixe FTM}
+%% ---------------------------------------------------------------
+
+\begin{programs}
+
+\item \textbf{Barreiras conhecidas.}
+Três barreiras demonstram que técnicas usuais não resolvem P vs NP:
+\begin{enumerate}[label=(\roman*),leftmargin=2em]
+  \item \emph{Relativização} (Baker–Gill–Solovay 1975):
+    existem oráculos $A,B$ com $P^A=NP^A$ e $P^B\neq NP^B$.
+  \item \emph{Natural Proofs} (Razborov–Rudich 1994):
+    qualquer prova de limite inferior via propriedades ``naturais''
+    colide com existência de pseudoaleatório.
+  \item \emph{Algebrização} (Aaronson–Wigderson 2009):
+    técnicas que algebrizam não separam $P$ de $NP$.
+\end{enumerate}
+Uma separação deve ultrapassar as três barreiras simultaneamente.
+
+\begin{gap}
+Não existe framework que supere as três barreiras ao mesmo tempo.
+Qualquer abordagem FTM deve identificar qual barreira transgride
+e por que a transgressão é legítima. \OPEN
+\end{gap}
+
+\item \textbf{Geometric Complexity Theory (GCT).}
+Mulmuley–Sohoni propõem separar $P$ de $NP$ via teoria de
+representações e obstruções:
+\[
+  \mathrm{perm}(X)\notin\overline{GL_n\cdot\mathrm{det}(Y)},
+\]
+onde $\mathrm{perm}$ é o permanente e $\mathrm{det}$ o determinante.
+O análogo FTM são obstruções espectrais ao decaimento de
+coeficientes de representação — não $W_4$ diretamente.
+
+\begin{gap}[Obstruções GCT]
+A existência de obstruções de multiplicidade suficientes para
+implementar a separação geométrica permanece conjectura.
+O programa GCT produz candidatos, não provas. \OPEN
+\end{gap}
+
+\item \textbf{Limites inferiores de circuitos.}
+A implicação
+\[
+  NP\not\subset P/\mathrm{poly}
+  \;\Longrightarrow\;
+  P\neq NP
+\]
+reduz o problema a limite inferior em tamanho de circuitos.
+Resultados conhecidos:
+\begin{itemize}[leftmargin=2em]
+  \item $\mathrm{PARITY}\notin AC^0$ (Furst–Saxe–Sipser; Håstad);
+  \item $NEXP\not\subset ACC^0$ (Williams 2011).
+\end{itemize}
+$NP\not\subset P/\mathrm{poly}$ permanece aberto para circuitos gerais.
+
+\begin{gap}
+Não há limite inferior superpolinomial provado para circuitos
+booleanos sem restrições. \OPEN
+\end{gap}
+
+\item \textbf{Derandomização.}
+A questão $BPP=P$ (conjectura de Derandomização) e a relação
+$P\stackrel{?}{=}BPP\stackrel{?}{\subseteq}NP$ são intimamente
+ligadas a geração pseudoaleatória e a $P\neq NP$.
+
+\end{programs}
+
+%% ---------------------------------------------------------------
+\section{Linguagem FTM candidata}
+%% ---------------------------------------------------------------
+
+\begin{definition}[FTM-DESCENT]
+Dada uma apresentação finita $\langle\Atlas\rangle$ de um atlas
+federado trivalente, definir
+\[
+  \mathrm{FTM\text{-}DESCENT}
+  =\{\langle\Atlas\rangle : \exists\text{ dado global compatível
+     com todos os cociclos}\}.
+\]
+\end{definition}
+
+\begin{obligation}[C1 — Codificação]\label{ob:C1}
+Fixar gramática, alfabeto e comprimento canônico de $\langle\Atlas\rangle$
+de modo que a serialização seja verificável em $O(|\langle\Atlas\rangle|^k)$.
+\end{obligation}
+
+\begin{obligation}[C2 — Pertencimento a $NP$]\label{ob:C2}
+Provar que o certificado (dado global) tem comprimento polinomial
+e pode ser verificado em tempo polinomial.
+Isso pode falhar com dados contínuos ou equivalências não efetivas.
+\end{obligation}
+
+\begin{obligation}[C3 — $NP$-dureza]\label{ob:C3}
+Exibir redução many-one polinomial de um problema $NP$-completo
+canônico para FTM-DESCENT, preservando respostas sim/não.
+\end{obligation}
+
+\begin{obligation}[C4 — Subclasses tratáveis]\label{ob:C4}
+Identificar restrições (árvores, largura de treewidth limitada,
+grupo finito fixo) que colocam o problema em $P$.
+\end{obligation}
+
+\begin{remark}
+Mesmo que FTM-DESCENT seja $NP$-completo (\OPEN),
+isso \emph{não} separa $P$ de $NP$.
+Uma separação requer argumento válido para \emph{todas} as máquinas
+polinomiais e deve superar as barreiras da Seção~2A.
+\end{remark}
+
+%% ---------------------------------------------------------------
+\section{Obrigações formais FTM para P vs NP}
+%% ---------------------------------------------------------------
+
+\begin{gap}[Barreira de relativização para FTM]
+A construção federada usa oráculos implícitos (cociclos, descidas).
+É necessário provar que o argumento não é relativizável no sentido
+de Baker–Gill–Solovay. \OPEN
+\end{gap}
+
+\begin{gap}[Barreira de provas naturais para FTM]
+Se a separação FTM usa propriedade combinatória de atlas,
+deve-se verificar que tal propriedade não é ``natural''
+no sentido de Razborov–Rudich. \OPEN
+\end{gap}
+
+\MATURITY{M0. A linguagem FTM-DESCENT ainda carece de codificação
+finita definitiva (C1 aberta). C2–C4 todas abertas.}
+
+\end{document}

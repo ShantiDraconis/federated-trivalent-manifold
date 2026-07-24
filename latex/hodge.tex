@@ -1,0 +1,152 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{ftm}
+
+\title{Conjectura de Hodge\\[4pt]
+       \large Caderno de Lacunas Formais — Programa FTM}
+\author{Federated Trivalent Manifold Research Programme}
+\date{2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Enunciado oficial}
+%% ---------------------------------------------------------------
+
+\begin{definition}[Conjectura de Hodge]
+Seja $X$ uma variedade algébrica projetiva não singular sobre $\mathbb C$.
+Uma classe $\alpha\in H^{2p}(X,\mathbb Q)$ é dita de \emph{Hodge}
+se pertence a $H^{p,p}(X)$ na decomposição de Hodge.
+A conjectura afirma que toda classe de Hodge é combinação
+$\mathbb Q$-linear de classes de ciclos algébricos:
+\[
+  \mathrm{Hdg}^p(X)
+  \;=\; H^{2p}(X,\mathbb Q)\cap H^{p,p}(X)
+  \;\stackrel{?}{=}\; \mathrm{cl}\bigl(\mathrm{CH}^p(X)\otimes\mathbb Q\bigr).
+\]
+\end{definition}
+
+\begin{remark}
+A conjectura exige que $X$ seja projetiva e não singular sobre $\mathbb C$.
+Variedades apenas topológicas, $PL$ ou $C^\infty$ estão \emph{fora}
+do domínio; nenhum resultado obtido nessa categoria implica Hodge.
+\end{remark}
+
+\bigskip
+
+%% ---------------------------------------------------------------
+\section{Programas de pesquisa e encaixe FTM}
+%% ---------------------------------------------------------------
+
+\begin{programs}
+
+\item \textbf{Caso abeliano.}
+Cattani–Deligne–Kaplan (1995) provaram que o locus de Hodge de uma
+família de variedades abelianas é uma reunião contável de subvariedades
+algébricas. Para variedades abelianas e superfícies $K3$,
+as classes de Hodge são geradas por ciclos de dimensão 1,
+provando a conjectura nesse caso particular.
+
+\begin{gap}
+A prova não se estende a variedades gerais de dimensão $\ge3$:
+o locus de Hodge pode ser denso em famílias com variação de
+estrutura Hodge não trivial. \OPEN
+\end{gap}
+
+\item \textbf{Motivos e conjecturas padrão de Grothendieck.}
+As quatro conjecturas padrão ($A$–$D$) implicariam Hodge via
+a existência de uma categoria abeliana de motivos pura.
+Em particular, a conjectura de Lefschetz (tipo $B$) daria
+acesso a aplicações de ciclos racionais.
+
+\begin{gap}
+As conjecturas padrão de Grothendieck permanecem abertas;
+em especial a conjectura de Lefschetz para variedades gerais. \OPEN
+\end{gap}
+
+\item \textbf{Teoria da deformação e Noether–Lefschetz.}
+A variação de estrutura Hodge ao longo de uma família controla
+quais classes permanecem do tipo $(p,p)$.
+O teorema de Noether–Lefschetz garante que, para $d\ge4$,
+uma superfície geral de grau $d$ em $\mathbb P^3$ tem
+$\mathrm{Pic}(X)=\mathbb Z$.
+
+A esperança é que, para ``quase toda'' deformação, as classes
+de Hodge extras correspondam a ciclos; mas isso não foi provado.
+
+\item \textbf{Hodge $p$-ádico e comparação.}
+A teoria de Fontaine fornece isomorfismos de comparação entre
+cohomologias Betti, étale e cristalina, levando a uma versão
+$p$-ádica da decomposição de Hodge (Tsuji, Faltings).
+Implicações para a conjectura de Hodge clássica via
+comparação são conjecturais.
+
+\end{programs}
+
+%% ---------------------------------------------------------------
+\section{Objeto FTM para variedades projetivas}
+%% ---------------------------------------------------------------
+
+\begin{definition}[Objeto FTM algébrico-complexo]
+Para $X/\mathbb C$ projetiva não singular, o objeto FTM é
+\[
+  F_X=(X,\Gamma_X,\mathcal F_X,\lambda_X),
+\]
+onde $\Gamma_X$ é um complexo celular dual a uma cobertura de Stein,
+$\mathcal F_X$ o feixe estrutural holomorfo e $\lambda_X$ os dados
+de descida holomorfa. O objeto deve estar em $\mathcal R=C^\omega$
+(analítico complexo).
+\end{definition}
+
+%% ---------------------------------------------------------------
+\section{Obrigações formais FTM para Hodge}
+%% ---------------------------------------------------------------
+
+\begin{obligation}[H-DESC]\label{ob:HDESC}
+A hipercobertura FTM calcula corretamente a cohomologia de $X$:
+\[
+  H^k(X,\mathbb Q)\cong H^k_{\mathrm{FTM}}(F_X,\mathbb Q).
+\]
+\end{obligation}
+
+\begin{obligation}[H-TYPE]\label{ob:HTYPE}
+A descida respeita a decomposição de Hodge:
+\[
+  H^k_{\mathrm{FTM}}(F_X,\mathbb C)
+  =\bigoplus_{p+q=k}H^{p,q}_{\mathrm{FTM}}(F_X).
+\]
+\end{obligation}
+
+\begin{obligation}[H-CYCLE]\label{ob:HCYCLE}
+Classes de ciclos locais compatíveis colam em ciclo algébrico global:
+\[
+  \mathrm{cl}:\mathrm{CH}^p(X)\otimes\mathbb Q
+  \longrightarrow \mathrm{Hdg}^p(X),
+\]
+com compatibilidade de restrição e colagem FTM.
+\end{obligation}
+
+\begin{obligation}[H-SURJ]\label{ob:HSURJ}
+O mapa de ciclos $\mathrm{cl}$ é sobrejetor,
+isto é, toda classe de Hodge é realizada por um ciclo algébrico.
+Esta é a conjectura de Hodge propriamente dita.
+\end{obligation}
+
+\begin{remark}
+Mesmo H-DESC e H-TYPE provados não implicam Hodge:
+o obstáculo essencial é H-SURJ, que é independente
+da construção do formalismo local.
+\end{remark}
+
+\begin{gap}[Sobrejetividade do mapa de ciclos]
+Não existe prova de H-SURJ para variedades de dimensão $\ge2$
+além dos casos cobertos pelas conjecturas padrão parciais
+e pelo resultado de Cattani–Deligne–Kaplan.
+H-DESC e H-TYPE são metas intermediárias; H-SURJ é a lacuna central. \OPEN
+\end{gap}
+
+\MATURITY{M0. H-DESC, H-TYPE, H-CYCLE e H-SURJ todas ABERTAS.}
+
+\end{document}
