@@ -17,6 +17,12 @@ O projeto não prova P vs NP, a Hipótese de Riemann nem qualquer outro problema
 do milénio. O valor `half` significa **indeterminado/condicional no modelo**;
 não significa simultaneamente verdadeiro e falso.
 
+- [Fundamentos](docs/fundamentos.md): objeto básico, morfismos, federação e consistência.
+- [Matriz dos Problemas do Milênio](docs/matriz-milenio.md): análise problema a problema e obrigações de prova.
+- [Roadmap](docs/roadmap.md): resultados mínimos e critérios de falsificação.
+- [Auditoria estrutural da RH](docs/problems/riemann-audit/README.md): PDFs,
+  fontes LaTeX e visualizações do detector radial e das lacunas lógicas.
+
 ## Programa formal preexistente
 
 Esta camada computável complementa, sem substituir, os documentos já mantidos

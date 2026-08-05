@@ -39,4 +39,8 @@ Sem \(\mathcal E\), existe apenas modelagem. Sem \(\Phi\), existe apenas analogi
 6. [Hipótese de Riemann](riemann.md)
 7. [Birch–Swinnerton-Dyer](bsd.md)
 
+### Material suplementar de Riemann
+
+- [Auditoria estrutural, PDFs, LaTeX e visualizações](riemann-audit/README.md)
+
 Referências primárias: [CMI — Millennium Problems](https://www.claymath.org/millennium-problems/) e [descrições oficiais reunidas](https://www.claymath.org/resource/book-title-the-millennium-prize-problems/).
