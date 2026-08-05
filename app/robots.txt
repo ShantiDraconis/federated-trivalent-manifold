@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shantidraconis.github.io/federated-trivalent-manifold/sitemap.xml

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FTM Observatory | Auditoria dos Problemas do Milênio</title>
+  <meta name="description" content="Sistema aberto para mapear lemas, dependências, certificados e lacunas dos Problemas do Milênio sem confundir evidência com prova.">
+  <meta name="theme-color" content="#08111f">
+  <meta property="og:title" content="FTM Observatory">
+  <meta property="og:description" content="Árvore formal e simuladores auditáveis para programas de pesquisa dos Problemas do Milênio.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://shantidraconis.github.io/federated-trivalent-manifold/">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"FTM Observatory","applicationCategory":"EducationalApplication","operatingSystem":"Web","description":"Sistema de auditoria lógica para programas de pesquisa dos Problemas do Milênio.","author":{"@type":"Person","name":"Shanti Draconis"}}</script>
+</head>
+<body>
+  <a class="skip" href="#main">Pular para o conteúdo</a>
+  <header class="topbar">
+    <a class="brand" href="#overview" aria-label="FTM Observatory início">
+      <span class="brand-mark">FTM</span><span><strong>Observatory</strong><small>research operating system</small></span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <a href="#overview">Visão geral</a><a href="#tree">Árvore</a><a href="#lab">Laboratório</a><a href="#protocol">Protocolo</a>
+    </nav>
+    <button id="themeToggle" class="icon-button" aria-label="Alternar tema">◐</button>
+  </header>
+
+  <main id="main">
+    <section id="overview" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">FEDERATED TRIVALENT MANIFOLD · OPEN RESEARCH</p>
+        <h1>Um sistema operacional para <em>auditar</em> comportamentos matemáticos.</h1>
+        <p class="lead">Explore dependências, simule detectores e identifique exatamente onde uma cadeia passa de identidade provada para certificado finito, hipótese ou problema aberto.</p>
+        <div class="hero-actions"><a class="button primary" href="#tree">Explorar árvore</a><a class="button secondary" href="https://github.com/ShantiDraconis/federated-trivalent-manifold/blob/main/docs/formal/lemma-tree.md">Ler formalização</a></div>
+      </div>
+      <div class="hero-orbit" aria-label="Mapa orbital dos problemas" id="orbit"></div>
+    </section>
+
+    <section class="stats" aria-label="Resumo do sistema">
+      <article><strong id="problemCount">7</strong><span>programas monitorados</span></article>
+      <article><strong id="nodeCount">0</strong><span>nós formais</span></article>
+      <article><strong id="openCount">0</strong><span>obrigações abertas</span></article>
+      <article><strong>0</strong><span>provas inferidas por amostragem</span></article>
+    </section>
+
+    <section id="tree" class="section-shell">
+      <div class="section-heading"><div><p class="eyebrow">KNOWLEDGE GRAPH</p><h2>Árvore de lemas e lacunas</h2></div><p>Selecione um programa para inspecionar seus nós, estados e dependências.</p></div>
+      <div class="workspace">
+        <aside class="problem-list" id="problemList" aria-label="Problemas"></aside>
+        <section class="problem-panel" aria-live="polite">
+          <header id="problemHeader"></header>
+          <div class="legend" id="legend"></div>
+          <div class="lemma-tree" id="lemmaTree"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="lab" class="section-shell lab-shell">
+      <div class="section-heading"><div><p class="eyebrow">BEHAVIOR LAB</p><h2>Laboratório de detectores</h2></div><p>Modelo didático. Valores sintéticos não constituem zeros da zeta nem certificados.</p></div>
+      <div class="lab-grid">
+        <div class="controls" id="controls"></div>
+        <div class="plot-card">
+          <canvas id="plot" width="900" height="430" aria-label="Gráfico dos detectores sintéticos"></canvas>
+          <div class="plot-legend"><span class="g0">G₀</span><span class="sd">σD</span><span class="si">σI</span><span class="target">σ₀</span></div>
+        </div>
+        <div class="diagnostic" id="diagnostic"></div>
+      </div>
+    </section>
+
+    <section id="protocol" class="section-shell protocol">
+      <div class="section-heading"><div><p class="eyebrow">SAFETY PROTOCOL</p><h2>Portas antes de qualquer alegação</h2></div></div>
+      <ol>
+        <li><strong>Objeto</strong><span>Definições e domínio estão completos?</span></li>
+        <li><strong>Ponte</strong><span>Há mapa provado entre o modelo e o problema oficial?</span></li>
+        <li><strong>Limite</strong><span>Certificados finitos passam ao universal com erro uniforme?</span></li>
+        <li><strong>Contrafactual</strong><span>A construção sobrevive se o alvo for falso?</span></li>
+        <li><strong>Revisão</strong><span>Prova completa, reprodução e avaliação especializada?</span></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer><p>FTM Observatory · programa de pesquisa, não declaração de solução.</p><a href="https://github.com/ShantiDraconis/federated-trivalent-manifold">Código e documentos no GitHub</a></footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

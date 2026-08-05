@@ -11,5 +11,15 @@ Programa de pesquisa para estruturas trivalentes locais, sua colagem em objetos 
 - [Roadmap](docs/roadmap.md): resultados mínimos e critérios de falsificação.
 - [Auditoria estrutural da RH](docs/problems/riemann-audit/README.md): PDFs,
   fontes LaTeX e visualizações do detector radial e das lacunas lógicas.
+- [Árvore formal de lemas](docs/formal/lemma-tree.md): dependências, barreiras de
+  circularidade e obrigações para os sete programas.
+- [FTM Observatory](app/index.html): aplicativo web progressivo para explorar a
+  árvore e simular comportamentos sem promover evidência a prova.
+
+## Aplicativo
+
+O diretório [`app/`](app/) contém uma aplicação estática, responsiva e
+instalável. O workflow de GitHub Pages publica a interface automaticamente a
+partir da branch `main`.
 
 O nome do projeto não determina uma teoria. A definição inicial é provisória e torna afirmações testáveis. As formulações oficiais são as do [Clay Mathematics Institute](https://www.claymath.org/millennium-problems/).
