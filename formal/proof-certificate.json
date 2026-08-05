@@ -1,0 +1,25 @@
+{
+  "schema": "ftm-proof-certificate-v1",
+  "date": "2026-07-15",
+  "scope": "lean-source-build",
+  "lean": {"version": "4.8.0", "commit": "df668f00e6c0"},
+  "lake": "5.0.0-df668f0",
+  "mathlib": {"tag": "v4.8.0", "commit": "b5eba595428809e96f3ed113bc7ba776c5f801ac"},
+  "command": "lake build",
+  "result": "success",
+  "python_tests": 18,
+  "ruff": "success",
+  "holes": {"sorry": 0, "admit": 0},
+  "explicit_axioms": ["CryptoAssumption", "RiemannHypothesisAssumption"],
+  "excluded_claims": [
+    "Riemann hypothesis",
+    "P versus NP",
+    "Navier-Stokes existence and smoothness",
+    "Yang-Mills mass gap",
+    "Hodge conjecture",
+    "Birch and Swinnerton-Dyer conjecture",
+    "black-hole information preservation",
+    "cryptographic security",
+    "operational availability"
+  ]
+}
