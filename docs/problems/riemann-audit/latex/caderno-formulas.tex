@@ -1,0 +1,59 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{graphicx,booktabs,longtable,array,microtype,xcolor,hyperref,fancyhdr,enumitem}
+\graphicspath{{../images/}}
+\definecolor{navy}{HTML}{17324D}\definecolor{rust}{HTML}{A33A2B}\definecolor{green}{HTML}{176B4D}
+\hypersetup{colorlinks=true,linkcolor=navy,urlcolor=rust,citecolor=green}
+\pagestyle{fancy}\fancyhf{}\lhead{Auditoria estrutural da RH}\rhead{Dossiê técnico}\cfoot{\thepage}
+\newcommand{\Drad}{\mathfrak D_{\mathrm{rad}}}
+\newcommand{\Dpar}{\Delta_{\mathrm{par}}}
+\newcommand{\status}[2]{\par\noindent\colorbox{#1!12}{\textcolor{#1}{\textbf{#2}}}\quad}
+\begin{document}
+
+\begin{titlepage}\centering{\Huge\sffamily\bfseries Caderno de fórmulas e verificações\par}\vfill{\Large Detector radial e obrigações de prova\par}\vfill Agosto de 2026\end{titlepage}
+\section{Parâmetros fundamentais}
+\begin{align*}
+\rho&=\tfrac12+\delta+i\gamma,& \rho^\sharp&=1-\bar\rho=\tfrac12-\delta+i\gamma,\\
+R_c^2&=\gamma^2+\tfrac14,& R_\pm^2&=R_c^2\pm\delta+\delta^2,\\
+A&=\gamma^2+\tfrac14+\delta^2,& P&=A^2-\delta^2.
+\end{align*}
+\section{Reconstrução exata}
+\[\delta=\frac{R_+^2-R_-^2}{2},\qquad \delta^2=\frac{R_+^2+R_-^2}{2}-R_c^2.\]
+\section{Positividade local}
+\[w=\frac{2\delta^2}{P}\ge0,\qquad w=0\Longleftrightarrow\delta=0,\qquad W_4=4w.\]
+Para $|\delta|<1/2$ e $\gamma\ne0$, o denominador é estritamente positivo porque é o produto $|\rho|^2|1-\rho|^2$.
+\section{Expansão assintótica}
+Pondo $a=\tfrac14+\delta^2$,
+\begin{align*}
+P&=\gamma^4+2a\gamma^2+(a^2-\delta^2),\\
+P^{-1}&=\gamma^{-4}\left(1-2a\gamma^{-2}+O(\gamma^{-4})\right),\\
+w&=2\delta^2\gamma^{-4}-4\delta^2a\gamma^{-6}+O(\gamma^{-8}).
+\end{align*}
+\section{Constante radial}
+\[C_\xi=2+\gamma_E-\log(4\pi)\approx0.0461914179322420676.\]
+\section{Defeito global}
+\[\Drad=\sum_\rho\frac{2(\Re\rho-\tfrac12)^2}{|\rho|^2|1-\rho|^2}.\]
+Cada parcela é não negativa. A dificuldade não está nessa positividade, mas em provar a anulação da soma por uma identidade independente que alcance o termo não holomorfo.
+\section{Forma de Weil}
+\[Q_W(g)=\sum_\rho\widetilde g(\rho)\overline{\widetilde g(1-\bar\rho)}.\]
+A obrigação construtiva é produzir $T$ a partir do lado dos primos e provar $Q_W(g)=\|Tg\|^2$ sem assumir a positividade que se deseja concluir.
+\section{Matrizes de Gram}
+\[(G_N)_{ij}=Q_W(\phi_i,\phi_j),\qquad G_N=G_N^*,\qquad G_N\succeq0.\]
+Uma conclusão global exige: (i) positividade em todos os níveis; (ii) união densa dos espaços; (iii) módulo de continuidade para $Q_W$; (iv) erros intervalares uniformes.
+\section{Extensão por $\epsilon$}
+\[\mathbb{RC}=\mathcal A[\epsilon]/(\epsilon^2-\Dpar).\]
+Em geral $\epsilon$ não é nilpotente quando $\Dpar\ne0$. Declarar $\epsilon^2=0$ universalmente é equivalente a impor o setor crítico.
+\section{Checklist de não circularidade}
+\begin{enumerate}[label=\arabic*.]
+\item Definir todos os objetos antes de assumir RH.
+\item Repetir a construção num cenário com um zero sintético fora da linha.
+\item Identificar exatamente qual lema falha nesse cenário.
+\item Exigir que esse lema seja derivado de dados primos e arquimedianos.
+\item Não converter certificados finitos em quantificadores universais.
+\end{enumerate}
+
+\end{document}
