@@ -8,3 +8,6 @@ lean_lib Trivalent where
 
 lean_lib Model where
   srcDir := "."
+
+lean_lib AnaliseTanhParaH1 where
+  srcDir := "../../ANALISE_TANH_PARA_H1"
