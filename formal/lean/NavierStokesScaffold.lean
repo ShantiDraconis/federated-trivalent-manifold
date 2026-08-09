@@ -32,7 +32,7 @@ theorem kineticEnergy_le_initial_of_antitone
     (h_energy : Antitone (fun t => kineticEnergy (trajectory t))) :
     ∀ t ≥ 0, kineticEnergy (trajectory t) ≤ kineticEnergy (trajectory 0) := by
   intro t ht
-  exact h_energy ht
+  exact h_energy (a := 0) (b := t) ht
 
 /-- Repository-level placeholder for the BKM continuation input: this bundles
     the quantities that an analytic proof must relate, without asserting the
@@ -41,4 +41,4 @@ structure BKMScaffold where
   hsNorm : ℝ → ℝ
   vorticitySup : ℝ → ℝ
   hsNorm_nonneg : ∀ t, 0 ≤ hsNorm t
-
+  vorticitySup_nonneg : ∀ t, 0 ≤ vorticitySup t

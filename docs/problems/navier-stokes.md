@@ -35,7 +35,7 @@ Convergência para solução fraca não resolve regularidade. Simulação de vó
 ## Scaffold Lean atual
 
 O arquivo
-`/home/runner/work/federated-trivalent-manifold/federated-trivalent-manifold/formal/lean/NavierStokesScaffold.lean`
+`formal/lean/NavierStokesScaffold.lean`
 formaliza apenas consequências conservativas de um certificado analítico já
 fornecido:
 
