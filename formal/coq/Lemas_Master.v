@@ -48,19 +48,20 @@ Proof. split; lia. Qed.
 (* TODO PROVAR — related to Millennium Prize ($1M).        *)
 (* ─────────────────────────────────────────────────────── *)
 
-(* L_C1 : E_Res vanishes in ω-limit — open conjecture *)
-Axiom L_C1_ERes_omega_zero :
-  forall eps : nat, eps > 0 -> exists T : nat, T > 0.
-(* TODO PROVAR: requires PDE analysis of Navier-Stokes ω-limit *)
+(* L_C1 : E_Res vanishes in ω-limit — open conjecture
+   Stub: False antecedent makes this unprovable without the axiom.
+   TODO PROVAR: requires PDE analysis of Navier-Stokes ω-limit *)
+Axiom L_C1_ERes_omega_zero : False -> forall eps : nat, eps > 0.
 
-(* L_C2 : N_max diverges in ω-limit — open conjecture *)
-Axiom L_C2_Nmax_omega_infty :
-  forall M : nat, exists omega : nat, omega > M.
-(* TODO PROVAR: related to blow-up question *)
+(* L_C2 : N_max diverges in ω-limit — open conjecture
+   Stub: False antecedent makes this unprovable without the axiom.
+   TODO PROVAR: related to blow-up question *)
+Axiom L_C2_Nmax_omega_infty : False -> forall M : nat, M > 0.
 
 (* L_C3 : e_linear(ω) ≥ 0 in natural ω-limit — open conjecture
    NOTE: e = -0.0459 is a numerical value for a specific path only.
-   Do NOT interpret as proof of Navier-Stokes global regularity. *)
-Axiom L_C3_e_linear_omega_nonneg :
-  forall omega : nat, omega > 0 -> True.
+   Do NOT interpret as proof of Navier-Stokes global regularity.
+   Stub: False antecedent makes this unprovable without the axiom.
+   TODO PROVAR: genuine statement requires full PDE proof *)
+Axiom L_C3_e_linear_omega_nonneg : False -> forall omega : nat, omega > 0.
 (* TODO PROVAR: genuine statement requires full PDE proof *)

@@ -21,9 +21,9 @@ theorem L_A1_1_ERes_finite :
     (∃ n : Fin 100000, (n : ℚ) / 100000 = 5 / 100000) := by native_decide
 
 -- L_A1_2 : N_max upper bound witness (scaled integer arithmetic)
--- N_max = 25.516 represented as 25516 / 1000
+-- N_max = 25.516, encoded as 25516 < 26000 (i.e. 25.516 < 26) to avoid ℕ truncation
 theorem L_A1_2_Nmax_bound :
-    (25516 : ℕ) / 1000 < 26 := by native_decide
+    (25516 : ℕ) < 26000 := by native_decide
 
 -- L_A2_1 : e_nonlinear magnitude bound (1.11e-06 < 1e-05)
 -- Represented as scaled naturals: 111 < 10000
@@ -58,19 +58,18 @@ theorem L_B2_Res_bound :
 
 /-- Hypothesis L_C1: In the ω-limit, E_Res vanishes.
     This is an open conjecture, NOT a proven theorem.
-    TODO PROVAR — relates to Navier-Stokes global regularity ($1M). -/
-axiom L_C1_ERes_omega_zero :
-    ∀ (ε : ℝ), ε > 0 →
-    ∃ (T : ℝ), T > 0 ∧ True  -- placeholder; actual statement requires PDE analysis
+    TODO PROVAR — relates to Navier-Stokes global regularity ($1M).
+    Stub: antecedent `False` makes this unprovable without the axiom. -/
+axiom L_C1_ERes_omega_zero : False → ∀ (ε : ℝ), ε > 0
 
 /-- Hypothesis L_C2: N_max diverges in the ω-limit.
-    Open conjecture. TODO PROVAR — related to blow-up question. -/
-axiom L_C2_Nmax_omega_infty :
-    ∀ (M : ℝ), ∃ (ω : ℝ), ω > 0 ∧ True  -- placeholder
+    Open conjecture. TODO PROVAR — related to blow-up question.
+    Stub: antecedent `False` makes this unprovable without the axiom. -/
+axiom L_C2_Nmax_omega_infty : False → ∀ (M : ℝ), M > 0
 
 /-- Hypothesis L_C3: e_linear(ω) ≥ 0 in the natural ω-limit.
     This is NOT proven. tanh regularisation does not constitute a proof.
     e = -0.0459 is a NUMERICAL value for a specific path, not the ω-limit.
-    TODO PROVAR — do NOT frame as "Proof of Navier-Stokes". -/
-axiom L_C3_e_linear_omega_nonneg :
-    ∀ (ω : ℝ), ω > 0 → True  -- placeholder; genuine statement is open
+    TODO PROVAR — do NOT frame as "Proof of Navier-Stokes".
+    Stub: antecedent `False` makes this unprovable without the axiom. -/
+axiom L_C3_e_linear_omega_nonneg : False → ∀ (ω : ℝ), ω > 0

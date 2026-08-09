@@ -85,7 +85,7 @@ elif command -v pdflatex &>/dev/null; then
       FAILED=$((FAILED + 1))
     fi
   done
-  PDF_COUNT=$(ls "$OUT_DIR"/*.pdf 2>/dev/null | wc -l)
+  PDF_COUNT=$(find "$OUT_DIR" -maxdepth 1 -name '*.pdf' | wc -l)
   echo "  PDFs generated: $PDF_COUNT / 24"
   if [[ $FAILED -gt 0 ]]; then
     echo "  [ERROR] $FAILED PDF(s) failed — check LaTeX logs"
