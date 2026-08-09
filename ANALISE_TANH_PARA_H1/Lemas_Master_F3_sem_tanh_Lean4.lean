@@ -111,9 +111,11 @@ axiom Beale_Kato_Majda_no_tanh
     (T_star : ℝ) (hT : T_star > 0)
     (norm_omega_Linfty : ℝ → ℝ)    -- ‖ω(t)‖_{L^∞}
     (norm_u_Hs : ℝ → ℝ)            -- ‖u(t)‖_{Hˢ}
-    (h_integral_finite : ∃ C : ℝ,
-        ∀ t : ℝ, 0 ≤ t → t < T_star →
-          norm_omega_Linfty t ≤ C) :
+    -- The BKM hypothesis: ∫₀^{T*} ‖ω(t)‖_{L^∞} dt is finite.
+    -- Represented as a Riemann-sum bound: the running sum is bounded by C.
+    (h_integral_finite : ∃ C : ℝ, ∀ n : ℕ, n > 0 →
+        (Finset.range n).sum (fun k =>
+          norm_omega_Linfty (T_star * k / n) * (T_star / n)) ≤ C) :
     ∃ M : ℝ, ∀ t : ℝ, 0 ≤ t → t < T_star → norm_u_Hs t ≤ M
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -121,21 +123,34 @@ axiom Beale_Kato_Majda_no_tanh
 -- ─────────────────────────────────────────────────────────────────────────────
 
 /-- Hypothesis L_C1 (open): E_Res → 0 in the ω-surreal limit.
+    Formally: for every ε > 0 there exists N such that |E_Res N| < ε.
     Antecedent False makes this unprovable without independent proof.
     TODO PROVAR — relates to Navier-Stokes global regularity ($1M Clay). -/
-axiom L_C1_ERes_omega_zero : False → ∀ (ε : ℝ), ε > 0
+axiom L_C1_ERes_omega_zero
+    (E_Res : ℕ → ℝ) :
+    False →
+    ∀ ε : ℝ, ε > 0 → ∃ N : ℕ, |E_Res N| < ε
 
-/-- Hypothesis L_C2 (open): N_max → ∞ in the ω-limit.
+/-- Hypothesis L_C2 (open): N_max diverges in the ω-limit.
+    Formally: for every M > 0 there exists n such that N_max n > M.
     Antecedent False makes this unprovable without independent proof.
     TODO PROVAR — related to blow-up question ($1M Clay). -/
-axiom L_C2_Nmax_omega_infty : False → ∀ (M : ℝ), M > 0
+axiom L_C2_Nmax_omega_infty
+    (N_max : ℕ → ℝ) :
+    False →
+    ∀ M : ℝ, ∃ n : ℕ, N_max n > M
 
 /-- Hypothesis L_C3 (open): e(t) ≥ 0 naturally without tanh, in ω-limit.
+    Formally: the energy e satisfies e(t) ≥ 0 for all t ≥ 0 under natural
+    dissipation ν‖∇u‖² (no tanh regularisation).
     e_linear = −0.0459 is a numerical value for a specific path, NOT the
     ω-limit.  tanh regularisation does NOT constitute a proof of this.
     TODO PROVAR — do NOT frame as "Proof of Navier-Stokes".
     Antecedent False makes this unprovable without independent proof. -/
-axiom L_C3_e_linear_omega_nonneg : False → ∀ (ω : ℝ), ω > 0
+axiom L_C3_e_nonneg_natural
+    (e : ℝ → ℝ) :
+    False →
+    ∀ t : ℝ, t ≥ 0 → e t ≥ 0
 
 /-- Structural combination: Phase-1 barriers + Phase-2 open hypotheses.
     This is the overall theorem *shape* of F3 without tanh.
