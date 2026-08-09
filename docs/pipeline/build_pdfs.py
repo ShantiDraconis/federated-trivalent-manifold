@@ -62,7 +62,7 @@ def compile_latex(tex_path: Path, out_dir: Path, label: str) -> bool:
         result = subprocess.run(
             cmd, capture_output=True, cwd=tex_path.parent
         )
-        stdout_text = result.stdout.decode("latin-1", errors="replace")
+        stdout_text = result.stdout.decode("utf-8", errors="replace")
         if result.returncode != 0:
             print("FALHA")
             log_lines = stdout_text.splitlines()[-20:]
@@ -109,7 +109,8 @@ def main() -> int:
 
         if ok and pdf_path.exists():
             pdf_sha = sha256_file(pdf_path)
-            size_kb = pdf_path.stat().st_size // 1024
+            size_bytes = pdf_path.stat().st_size
+            size_kb = size_bytes // 1024
             print(f"  PDF gerado: {pdf_path.name} ({size_kb} KB)")
             print(f"  SHA256 PDF: {pdf_sha}")
             manifest["articles"][label] = {
@@ -117,7 +118,8 @@ def main() -> int:
                 "source_sha256": src_sha,
                 "pdf": str(pdf_path.relative_to(REPO_ROOT)),
                 "pdf_sha256": pdf_sha,
-                "size_bytes": pdf_path.stat().st_size,
+                "size_bytes": size_bytes,
+                "size_kb": size_kb,
                 "status": "ok",
             }
             success_count += 1
