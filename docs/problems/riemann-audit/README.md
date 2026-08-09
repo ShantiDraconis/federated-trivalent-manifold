@@ -24,6 +24,9 @@ matrizes de Gram truncadas e o teste de circularidade para extensões por
 - [Atlas em LaTeX](latex/atlas-visualizacoes.tex)
 - [Caderno em LaTeX](latex/caderno-formulas.tex)
 - [`images/`](images/) contém cada visualização em PNG e PDF vetorial.
+- [`archive/README-geracao.md`](archive/README-geracao.md) preserva as instruções
+  do pacote gerado antes da integração. Todos os componentes do pacote estão
+  versionados individualmente neste diretório.
 
 ## Conteúdo visual
 
