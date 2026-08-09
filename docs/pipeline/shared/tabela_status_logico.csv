@@ -1,0 +1,21 @@
+ID,Afirmacao,Hipoteses,Metodo,Resultado,Status,Dep_RH,Formalizada,Certificada,Referencia,Lacuna
+L1,Trivalencia bem-definida,Nenhuma,Verificacao direta 9 casos,Algebra De Morgan,PROVADO,Nao,Sim (Lean4),Sim,Algebra classica,Nenhuma
+L2,Colagem (Teorema T0),Cociclo de transicao,Teoria de feixes (SGA 4),Estrutura global unica,PROVADO,Nao,Nao,Sim,SGA4 Expose I,Nenhuma
+L3,Liveness dW/dt>=epsilon,S^2+epsilon>0 na regiao R,Derivada do fluxo proposto,dW/dt>=epsilon (condicional),TEOREMA CONDICIONAL,Nao,Sim (Lean4),Parcial,Lemas.lean,Hipotese S^2+epsilon nao provada incondicionalmente
+L4,Residuo numerico E_Res=-5e-05,N=9999 precisao 15 dig,Soma finita Python seed=2024,E_Res aprox -5e-05,EVIDENCIA NUMERICA,Nao,Nao,Sim (reproducivel),Script Python,N->inf nao controlado
+L5,Instabilidade linear e_lin=-0.046,tanh regularizacao nu=1e-3 malha N=256,Linearizacao numerica,e_lin aprox -0.046 < 0,EVIDENCIA NUMERICA,Nao,Nao,Sim (reproducivel),Simulacao NS,tanh artificial blow-up nao provado
+L6,N_max=25.516 limite hardware,Quest 3 48M operacoes,Medicao experimental,N_max=25.516 bits,EVIDENCIA EXPERIMENTAL,Nao,Nao,Sim (hardware),Quest benchmark,Limite hardware nao e P!=NP
+L7,Quarteto simetrico Delta_par=delta^2,Zeros em pares simetricos,Algebra complexa direta,Delta_par=delta^2 identidade,PROVADO,Sim (depende),Sim (Lean4),Sim,Calculo direto,Nenhuma apos hipotese zeros na linha
+L8,Peso individual w>0,delta>0 zeros fora linha,Expansao w=2delta^2/gamma^4,w>0 para delta>0,PROVADO,Nao,Parcial,Sim,Calculo direto,Nenhuma
+L9,Defeito global W=sum w,Zeros contados com multiplicidade,Soma convergente,W=soma pesos,PROVADO (condicional),Nao,Nao,Parcial,Definicao,Convergencia da soma nao certificada analiticamente
+L10,E_Res(omega)=0 analitico,Nenhuma (alvo),Prova analitica (falta),?,LACUNA NAO FECHADA,Sim,Nao,Nao,TODO,Prova analitica com N->inf necessaria
+L11,e_linear(omega)>=0 sem tanh,Nenhuma (alvo),Prova analitica (falta),?,LACUNA NAO FECHADA,Nao,Nao,Nao,TODO,Remover tanh e provar e_lin>=0 analiticamente
+L12,N_max->inf sem hardware,Nenhuma (alvo),Prova teorica (falta),?,LACUNA NAO FECHADA,Nao,Nao,Nao,TODO,Argumento teorico sem medir bits em hardware
+L13,Criterio Weil (RH equivalencia),Zeros zeta,Forma bilinear positiva,RH iff W_Weil>=0,EQUIVALENTE (nao prova),Sim,Nao,Parcial,Weil 1952 Burnol,Equivalencia nao e prova de RH
+L14,Produto Hadamard convergencia,zeta funcao inteira ordem 1,Teoria de Hadamard,Produto sobre zeros converge,TEOREMA PUBLICADO,Sim,Nao,Sim,Hadamard 1893,Nenhuma
+L15,Estimativa von Mangoldt N(T),N(T)=(T/2pi)log(T/2pi)-(T/2pi)+O(logT),Argumento de contorno,Densidade media zeros,TEOREMA PUBLICADO,Nao,Nao,Sim,von Mangoldt 1905,Nenhuma
+L16,Saros falha 0.0352d,Dados astronomicos reais,Calculo ciclo saros,Delta=0.0352 dias,EVIDENCIA EXPERIMENTAL,Nao,Nao,Sim,Dados UMBRA,Nao implica resultado matematico
+L17,Positividade G13 dimensao finita,Forma Weil base N=13,Algebra linear (Weyl),Menores principais > 0,CERTIFICADO DIMENSAO FINITA,Sim,Parcial,Sim,Calculo matricial,Nao implica positividade N->inf
+L18,Monotonicidade W em caminho,W(gamma(t)) crescente ao longo gamma,Derivada direcional,dW>=0 em caminho especifico,CONJECTURAL,Nao,Nao,Nao,Exploratorio,Coercividade global nao demonstrada
+L19,Existencia minimo energia,V compacto W continua,Teorema Weierstrass,minimo existe,PROVADO (condicional),Nao,Nao,Parcial,Analise classica,V compacto nao verificado analiticamente
+L20,Circularidade epsilon^2=Delta_par,Definicao delta via zeros na linha,Verificacao logica,Circular se zeros pressuposts,CIRCULAR (falha),Sim,Nao,Sim,Auditoria interna,Definicao pressupoe o que se quer provar

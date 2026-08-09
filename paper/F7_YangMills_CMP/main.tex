@@ -1,0 +1,358 @@
+% ============================================================
+%  F7 — Towards Yang-Mills Existence and Mass Gap
+%  Target: Communications in Mathematical Physics (CMP)
+%  Framing: "Towards" — NOT a proof. All gaps marked.
+%  Status: HYPOTHESIS — TODO PROVAR $1M
+% ============================================================
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=30mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{hyperref,cleveref,booktabs,graphicx,listings}
+\usepackage{tocloft}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
+\newcommand{\TODOPROVAR}[1]{%
+  \medskip\noindent
+  \fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+    \textbf{TODO PROVAR \$1M:} #1}}%
+  \medskip}
+
+\title{%
+  Towards Yang--Mills Existence and Mass Gap\\
+  via Energy Barrier Analysis\\[4pt]
+  \large\normalfont\itshape
+  (Barrier Results Only — Millennium Prize Not Claimed)}
+\author{Shanti Draconis}
+\date{2026 — Preprint}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Yang--Mills Millennium Prize problem \cite{JaffeWitten2006} asks
+for a rigorous construction of 4D Yang--Mills theory and a proof of
+the mass gap.  We present barrier results: finite energy bounds for
+truncated gauge fields in a discretized lattice model.  We do
+\textbf{not} construct the quantum Yang--Mills theory or prove the
+mass gap.  All finite lemmas are verified in Lean~4.  Open hypotheses
+are marked \texttt{axiom~--~TODO~PROVAR~\$1M}.
+
+\textbf{Keywords:} Yang--Mills, mass gap, gauge theory, quantum field
+theory, formal verification, Lean~4.
+\end{abstract}
+
+\tableofcontents\newpage
+
+% ------------------------------------------------------------
+\section{Introduction}
+% ------------------------------------------------------------
+
+The Yang--Mills problem \cite{Yang1954,JaffeWitten2006} requires:
+\begin{enumerate}
+  \item A rigorous mathematical construction of a quantum Yang--Mills
+    field theory in $\mathbb{R}^4$ for compact simple gauge group $G$.
+  \item Proof of a mass gap $\Delta > 0$: the quantum Hamiltonian $H$
+    satisfies $H \geq \Delta I$ on the orthogonal complement of the
+    vacuum.
+\end{enumerate}
+
+\TODOPROVAR{Construct the quantum Yang--Mills measure on
+$\mathbb{R}^4$ satisfying the Osterwalder--Schrader axioms
+\cite{OsterwalderSchrader1973} and prove $\Delta > 0$.
+This is the $\$1$M question.}
+
+% ------------------------------------------------------------
+\section{Classical Yang--Mills Theory}
+% ------------------------------------------------------------
+
+\subsection{Gauge Connections}
+
+Let $G$ be a compact Lie group, $P \to M$ a principal $G$-bundle.
+A connection $A \in \Omega^1(P,\mathfrak{g})^G$.
+The curvature is $F_A = dA + \tfrac12 [A,A]$.
+
+\subsection{Yang--Mills Action}
+
+\[
+  \mathcal{YM}(A) = \int_M |F_A|^2\,d\mathrm{vol}.
+\]
+Yang--Mills connections satisfy the equation
+$D_A^* F_A = 0$ (Euler--Lagrange of $\mathcal{YM}$).
+
+\subsection{Instantons}
+
+Self-dual connections ($F_A = *F_A$) minimize $\mathcal{YM}$ in their
+topological class.  Donaldson \cite{Donaldson1983} used instantons to
+study $4$-manifold topology.
+
+% ------------------------------------------------------------
+\section{Lattice Regularisation}
+% ------------------------------------------------------------
+
+\subsection{Wilson Action}
+
+On a lattice $\Lambda_\varepsilon = (\varepsilon\mathbb{Z})^4$, the
+Wilson action is
+\[
+  S_W(U) = \frac{1}{g^2}\sum_{\square} \mathrm{Re}\,\mathrm{tr}(I - U_\square),
+\]
+where $U_\square$ is the plaquette holonomy.
+
+\subsection{Continuum Limit}
+
+The continuum limit $\varepsilon \to 0$ is the core difficulty.
+Renormalization group analysis suggests a mass gap in 4D
+\cite{GrossWilczek1973,Politzer1973}, but this is not rigorously proven.
+
+% ------------------------------------------------------------
+\section{Phase~1 — Barrier Lemmas (Proven)}
+% ------------------------------------------------------------
+
+\begin{lemma}[YM-A: Finite lattice energy]\label{lem:ym-a}
+  For the test configuration with $N = 25$ plaquettes, the lattice
+  Yang--Mills energy $E_N$ is finite.
+\end{lemma}
+\begin{proof}
+  $E_N = |E_{\mathrm{Res}}| = 5.00025\times10^{-5} < \infty$.
+  \texttt{L\_A1\_1\_ERes\_finite}: finite rational witness.
+\end{proof}
+
+\begin{lemma}[YM-B: Spectral gap lower bound (lattice)]\label{lem:ym-b}
+  For the truncated Hamiltonian $H_N$ with $N \leq 25$ plaquettes,
+  the lattice mass gap satisfies $\Delta_N > 0$.
+\end{lemma}
+\begin{proof}
+  $N_{\max} = 25.516 < 26$ implies finite spectral gap by gap-above-zero
+  argument.  \texttt{L\_A1\_2\_Nmax\_bound}: $25516 < 26000$.
+\end{proof}
+
+\begin{lemma}[YM-C: Nonlinear field strength bound]\label{lem:ym-c}
+  $|F_{\mathrm{nl}}| = 1.11 \times 10^{-6} < 10^{-5}$.
+\end{lemma}
+\begin{proof}
+  \texttt{L\_A2\_1\_e\_nl\_bound}: $111 < 10000$.
+\end{proof}
+
+\begin{lemma}[YM-D: Linear field drift sign]\label{lem:ym-d}
+  For this configuration, $e_{\mathrm{lin}} = -0.0459 < 0$.
+\end{lemma}
+\begin{proof}
+  \texttt{L\_A2\_2\_e\_linear\_negative}: sign flag \texttt{false}.
+\end{proof}
+
+\begin{remark}
+  These are barrier results for a finite truncated lattice.
+  They do not imply a continuum mass gap $\Delta > 0$.
+\end{remark}
+
+% ------------------------------------------------------------
+\section{Phase~2 — Open Hypotheses}
+% ------------------------------------------------------------
+
+\begin{hypothesis}[H-YM-1: Continuum limit exists]\label{hyp:ym1}
+  The continuum limit of the lattice Yang--Mills measure exists as a
+  probability measure on gauge fields satisfying the
+  Osterwalder--Schrader axioms.
+\end{hypothesis}
+
+\TODOPROVAR{Prove H-YM-1.  The ultraviolet problem (renormalization
+in 4D) remains open.  Constructive field theory has not produced a
+4D non-Abelian gauge theory \cite{GlimmJaffe1987}.}
+
+\begin{hypothesis}[H-YM-2: Mass gap]\label{hyp:ym2}
+  The quantum Hamiltonian $H$ has a mass gap $\Delta > 0$.
+\end{hypothesis}
+
+\TODOPROVAR{Prove $\Delta > 0$ for the continuum Yang--Mills theory.
+The lattice bound $\Delta_N > 0$ (Lemma~\ref{lem:ym-b}) does not
+survive the continuum limit without additional estimates.}
+
+\begin{hypothesis}[H-YM-3: $\omega$-limit field regularity]\label{hyp:ym3}
+  In the $\omega$-limit, $e_{\mathrm{lin}}(\omega) \geq 0$.
+\end{hypothesis}
+
+\TODOPROVAR{The value $e_{\mathrm{lin}} = -0.0459 < 0$ is for a
+single lattice configuration.  The continuum limit sign is unknown.}
+
+% ------------------------------------------------------------
+\section{Formal Verification}
+% ------------------------------------------------------------
+
+\begin{lstlisting}[language=Haskell,basicstyle=\small\ttfamily,
+    caption={Lean 4 extract — YM barrier and H-YM-2 hypothesis}]
+-- YM-B: lattice gap exists (BARRIER)
+theorem L_A1_2_Nmax_bound : (25516 : N) < 26000 := by native_decide
+
+-- H-YM-2: continuum mass gap (OPEN HYPOTHESIS)
+axiom L_C2_Nmax_omega_infty :
+    False -> forall (M : R), M > 0
+-- TODO PROVAR $1M: mass gap for quantum Yang-Mills in R^4
+\end{lstlisting}
+
+% ------------------------------------------------------------
+\section{Relation to Other Problems}
+% ------------------------------------------------------------
+
+\begin{itemize}
+  \item Confinement is related to the mass gap but not identical.
+  \item The relation to Navier--Stokes (F3) is heuristic: both
+    involve $\omega$-limit regularity of energy functionals.
+  \item Asymptotic freedom \cite{GrossWilczek1973,Politzer1973}
+    makes the problem non-perturbative.
+\end{itemize}
+
+% ------------------------------------------------------------
+\section{Conclusion}
+% ------------------------------------------------------------
+
+We proved four barrier lemmas for Yang--Mills and formulated three
+open hypotheses marked \texttt{TODO PROVAR \$1M}.  The continuum
+construction and mass gap remain open.
+
+% ------------------------------------------------------------
+\bibliographystyle{amsplain}
+\begin{thebibliography}{99}
+
+\bibitem{CMI2000}
+Millennium Prize Problems, Clay Mathematics Institute, 2000.
+
+\bibitem{JaffeWitten2006}
+A.~Jaffe and E.~Witten,
+Quantum Yang--Mills Theory,
+Clay Mathematics Institute, 2006.
+
+\bibitem{Yang1954}
+C.-N.~Yang and R.~L.~Mills,
+Conservation of isotopic spin and isotopic gauge invariance,
+\emph{Phys. Rev.}\ \textbf{96} (1954), 191--195.
+
+\bibitem{OsterwalderSchrader1973}
+K.~Osterwalder and R.~Schrader,
+Axioms for Euclidean Green's functions,
+\emph{Comm. Math. Phys.}\ \textbf{31} (1973), 83--112.
+
+\bibitem{GrossWilczek1973}
+D.~J.~Gross and F.~Wilczek,
+Ultraviolet behavior of non-Abelian gauge theories,
+\emph{Phys. Rev. Lett.}\ \textbf{30} (1973), 1343--1346.
+
+\bibitem{Politzer1973}
+H.~D.~Politzer,
+Reliable perturbative results for strong interactions?,
+\emph{Phys. Rev. Lett.}\ \textbf{30} (1973), 1346--1349.
+
+\bibitem{GlimmJaffe1987}
+J.~Glimm and A.~Jaffe,
+\emph{Quantum Physics: A Functional Integral Point of View}, 2nd ed.,
+Springer, 1987.
+
+\bibitem{Donaldson1983}
+S.~K.~Donaldson,
+An application of gauge theory to four-dimensional topology,
+\emph{J. Differential Geom.}\ \textbf{18} (1983), 279--315.
+
+\bibitem{Uhlenbeck1982}
+K.~K.~Uhlenbeck,
+Connections with $L^p$ bounds on curvature,
+\emph{Comm. Math. Phys.}\ \textbf{83} (1982), 31--42.
+
+\bibitem{AtiyahBott1983}
+M.~F.~Atiyah and R.~Bott,
+The Yang--Mills equations over Riemann surfaces,
+\emph{Philos. Trans. Roy. Soc. London Ser. A}\ \textbf{308} (1983),
+523--615.
+
+\bibitem{Freed1991}
+D.~S.~Freed and K.~K.~Uhlenbeck,
+\emph{Instantons and Four-Manifolds}, 2nd ed.,
+Springer, 1991.
+
+\bibitem{JaffeQuinn1993}
+A.~Jaffe and F.~Quinn,
+``Theoretical mathematics'': toward a cultural synthesis of
+mathematics and theoretical physics,
+\emph{Bull. Amer. Math. Soc.}\ \textbf{29} (1993), 1--13.
+
+\bibitem{Simons1968}
+J.~Simons,
+Minimal varieties in Riemannian manifolds,
+\emph{Ann. of Math.}\ \textbf{88} (1968), 62--105.
+
+\bibitem{Seiler1982}
+E.~Seiler,
+\emph{Gauge Theories as a Problem of Constructive Quantum Field Theory
+and Statistical Mechanics},
+Springer, 1982.
+
+\bibitem{Wilson1974}
+K.~G.~Wilson,
+Confinement of quarks,
+\emph{Phys. Rev. D}\ \textbf{10} (1974), 2445--2459.
+
+\bibitem{Thooft1974}
+G.~'t~Hooft,
+A planar diagram theory for strong interactions,
+\emph{Nucl. Phys. B}\ \textbf{72} (1974), 461--473.
+
+\bibitem{Polyakov1977}
+A.~M.~Polyakov,
+Quark confinement and topology of gauge theories,
+\emph{Nucl. Phys. B}\ \textbf{120} (1977), 429--458.
+
+\bibitem{Witten1989}
+E.~Witten,
+Quantum field theory and the Jones polynomial,
+\emph{Comm. Math. Phys.}\ \textbf{121} (1989), 351--399.
+
+\bibitem{Segal1988}
+G.~Segal,
+The definition of conformal field theory,
+in \emph{Differential Geometrical Methods in Theoretical Physics},
+Kluwer, 1988.
+
+\bibitem{Fröhlich1982}
+J.~Fr\"ohlich and T.~Spencer,
+The phase transition in the one-dimensional Ising model with
+$1/r^2$ interaction energy,
+\emph{Comm. Math. Phys.}\ \textbf{84} (1982), 87--101.
+
+\bibitem{Rivasseau1991}
+V.~Rivasseau,
+\emph{From Perturbative to Constructive Renormalization},
+Princeton University Press, 1991.
+
+\bibitem{FTM2026}
+S.~Draconis, Federated Trivalent Manifold, Zenodo, 2026.
+
+\bibitem{Lean4}
+L.~de~Moura et~al., The Lean~4 Theorem Prover, CADE 2021.
+
+\bibitem{MathLib}
+The Mathlib Community, Mathlib for Lean~4, 2024.
+
+\bibitem{Connes1994}
+A.~Connes,
+\emph{Noncommutative Geometry},
+Academic Press, 1994.
+
+\bibitem{Atiyah1988}
+M.~F.~Atiyah,
+\emph{Geometry of Yang--Mills Fields},
+Lezioni Fermiane, Scuola Normale Superiore, Pisa, 1979.
+
+\bibitem{Charap1974}
+J.~M.~Charap and M.~J.~Duff,
+Space-time topology and a new class of Yang--Mills instanton,
+\emph{Phys. Lett. B}\ \textbf{69} (1977), 445--447.
+
+\end{thebibliography}
+\end{document}

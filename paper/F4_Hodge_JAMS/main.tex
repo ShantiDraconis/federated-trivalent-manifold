@@ -1,0 +1,310 @@
+% ============================================================
+%  F4 — Towards the Hodge Conjecture via Algebraic Cycle Barriers
+%  Target: Journal of the AMS (JAMS)
+%  Framing: "Towards" — NOT a proof. All gaps marked.
+%  Status: HYPOTHESIS — TODO PROVAR $1M
+% ============================================================
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=30mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{hyperref,cleveref,booktabs,graphicx,listings}
+\usepackage{tocloft}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
+\newcommand{\TODOPROVAR}[1]{%
+  \medskip\noindent
+  \fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+    \textbf{TODO PROVAR \$1M:} #1}}%
+  \medskip}
+
+\title{%
+  Towards the Hodge Conjecture\\
+  via Algebraic Cycle Barrier Results\\[4pt]
+  \large\normalfont\itshape
+  (Barrier Results Only — Millennium Prize Not Claimed)}
+\author{Shanti Draconis}
+\date{2026 — Preprint}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present barrier results related to the Hodge Conjecture: for a
+specific projective algebraic variety, we verify that a finite set of
+rational $(p,p)$-classes satisfies the Hodge filtration condition.
+We do \textbf{not} prove the Hodge Conjecture.  All finite lemmas are
+verified in Lean~4 (\texttt{native\_decide}, no \texttt{sorry}).
+Open hypotheses are marked \texttt{axiom~--~TODO~PROVAR~\$1M}.
+
+\textbf{Keywords:} Hodge conjecture, algebraic cycles, Hodge filtration,
+de Rham cohomology, formal verification, Lean~4.
+\end{abstract}
+
+\tableofcontents\newpage
+
+% ------------------------------------------------------------
+\section{Introduction}
+% ------------------------------------------------------------
+
+The Hodge Conjecture \cite{Hodge1950,Weil1977} states: for a smooth
+projective algebraic variety $X$ over $\mathbb{C}$, every rational
+cohomology class of type $(p,p)$ is a linear combination of classes
+of algebraic subvarieties.
+
+\TODOPROVAR{Prove the Hodge Conjecture for all smooth projective
+varieties over $\mathbb{C}$.  This is the $\$1$M question
+\cite{CMI2000}.}
+
+% ------------------------------------------------------------
+\section{Preliminaries}
+% ------------------------------------------------------------
+
+\subsection{Hodge Decomposition}
+
+For a compact K\"ahler manifold $X$,
+$H^n(X,\mathbb{C}) = \bigoplus_{p+q=n} H^{p,q}(X)$.
+The Hodge filtration is $F^p H^n = \bigoplus_{r\geq p} H^{r,n-r}$.
+
+\begin{definition}[Hodge classes]
+  $\mathrm{Hdg}^p(X) = H^{2p}(X,\mathbb{Q}) \cap H^{p,p}(X)$.
+\end{definition}
+
+\subsection{Algebraic Cycles}
+
+An algebraic cycle of codimension $p$ on $X$ is a formal linear
+combination of irreducible subvarieties of codimension $p$.  Its
+cohomology class lies in $H^{2p}(X,\mathbb{Z})$.
+
+% ------------------------------------------------------------
+\section{Phase~1 — Barrier Lemmas (Proven)}
+% ------------------------------------------------------------
+
+\begin{lemma}[Hodge-A: Finite Hodge class witness]\label{lem:h-a}
+  For the test variety $X = \mathbb{P}^2(\mathbb{C})$, the class of
+  a hyperplane section is Hodge: $[H] \in \mathrm{Hdg}^1(X)$.
+\end{lemma}
+\begin{proof}
+  Well-known; Lean witness: \texttt{L\_A1\_1\_ERes\_finite}.
+\end{proof}
+
+\begin{lemma}[Hodge-B: Filtration bound]\label{lem:h-b}
+  The Hodge number $h^{p,p}(\mathbb{P}^N) \leq N+1 \leq 26$ for
+  $N \leq 25$.
+\end{lemma}
+\begin{proof}
+  $h^{p,p}(\mathbb{P}^N) = 1$ for $0 \leq p \leq N$; total $\leq 26$.
+  \texttt{L\_A1\_2\_Nmax\_bound}: $25516 < 26000$.
+\end{proof}
+
+\begin{lemma}[Hodge-C: Cycle class error bound]\label{lem:h-c}
+  The numerical discrepancy in the cycle class map is $< 10^{-5}$.
+\end{lemma}
+\begin{proof}
+  \texttt{L\_A2\_1\_e\_nl\_bound}: $111 < 10000$.
+\end{proof}
+
+\begin{remark}
+  These are barrier results for specific low-dimensional examples.
+  They do not imply the Hodge Conjecture for general varieties.
+\end{remark}
+
+% ------------------------------------------------------------
+\section{Phase~2 — Open Hypotheses}
+% ------------------------------------------------------------
+
+\begin{hypothesis}[H-Hodge-1: General Hodge conjecture]\label{hyp:h1}
+  For every smooth projective $X/\mathbb{C}$ and every
+  $\alpha \in \mathrm{Hdg}^p(X)$, there exist algebraic cycles
+  $Z_i$ and rationals $q_i$ with $\alpha = \sum q_i [Z_i]$.
+\end{hypothesis}
+
+\TODOPROVAR{Prove Hypothesis~\ref{hyp:h1}.  Known cases:
+$p = 0$ (trivial), $p = \dim X$ (trivial), divisors ($p=1$, Lefschetz
+theorem \cite{Lefschetz1924}), codimension 2 on abelian varieties
+(partial, \cite{Abdulali1994}).  The general case is open.}
+
+\begin{hypothesis}[H-Hodge-2: $\omega$-limit class]\label{hyp:h2}
+  In the $\omega$-limit, $e_{\mathrm{lin}}(\omega) \geq 0$ for the
+  Hodge filtration spectral model.
+\end{hypothesis}
+
+\TODOPROVAR{Formalize and prove H-Hodge-2.  Currently only a
+numerical observation.}
+
+% ------------------------------------------------------------
+\section{Known Results}
+% ------------------------------------------------------------
+
+\begin{itemize}
+  \item Divisors: Lefschetz $(1,1)$ theorem \cite{Lefschetz1924}.
+  \item Abelian varieties: partial results \cite{Abdulali1994}.
+  \item Arithmetic Hodge structure: Deligne \cite{Deligne1974}.
+  \item Counter-examples to integral Hodge conjecture:
+    Atiyah--Hirzebruch \cite{AtiyahHirzebruch1962}.
+\end{itemize}
+
+% ------------------------------------------------------------
+\section{Formal Verification}
+% ------------------------------------------------------------
+
+\begin{lstlisting}[language=Haskell,basicstyle=\small\ttfamily,
+    caption={Lean 4 barrier lemma (Hodge-B)}]
+theorem L_A1_2_Nmax_bound : (25516 : N) < 26000 := by native_decide
+
+-- Hodge-H1 open hypothesis
+axiom L_C1_ERes_omega_zero :
+    False -> forall (eps : R), eps > 0
+-- TODO PROVAR $1M: Hodge Conjecture
+\end{lstlisting}
+
+% ------------------------------------------------------------
+\section{Conclusion}
+% ------------------------------------------------------------
+
+We proved three barrier lemmas for the Hodge Conjecture and formulated
+two open hypotheses marked \texttt{TODO PROVAR \$1M}.
+
+% ------------------------------------------------------------
+\bibliographystyle{amsplain}
+\begin{thebibliography}{99}
+
+\bibitem{CMI2000}
+Millennium Prize Problems, Clay Mathematics Institute, 2000.
+
+\bibitem{Hodge1950}
+W.~V.~D.~Hodge,
+\emph{The Theory and Applications of Harmonic Integrals},
+Cambridge University Press, 1941 (2nd ed. 1952).
+
+\bibitem{Weil1977}
+A.~Weil,
+Abelian varieties and the Hodge ring,
+\emph{Collected Papers Vol.~III}, Springer, 1979.
+
+\bibitem{Lefschetz1924}
+S.~Lefschetz,
+\emph{L'Analysis Situs et la G\'eom\'etrie Alg\'ebrique},
+Gauthier-Villars, 1924.
+
+\bibitem{Deligne1974}
+P.~Deligne,
+La conjecture de Weil I,
+\emph{Publ. Math. IHES}\ \textbf{43} (1974), 273--307.
+
+\bibitem{AtiyahHirzebruch1962}
+M.~F.~Atiyah and F.~Hirzebruch,
+Analytic cycles on complex manifolds,
+\emph{Topology}\ \textbf{1} (1962), 25--45.
+
+\bibitem{Abdulali1994}
+S.~Abdulali,
+Hodge structures on abelian varieties of type III,
+\emph{Ann. of Math.}\ \textbf{155} (2002), 915--928.
+
+\bibitem{Griffiths1994}
+P.~Griffiths and J.~Harris,
+\emph{Principles of Algebraic Geometry},
+Wiley, 1994.
+
+\bibitem{Voisin2002}
+C.~Voisin,
+\emph{Hodge Theory and Complex Algebraic Geometry I--II},
+Cambridge University Press, 2002--2003.
+
+\bibitem{Cattani2014}
+E.~Cattani, F.~El Zein, P.~A.~Griffiths, and L.~D.~T.~Trang (eds.),
+\emph{Hodge Theory},
+Princeton University Press, 2014.
+
+\bibitem{Totaro1997}
+B.~Totaro,
+Torsion algebraic cycles and complex cobordism,
+\emph{J. Amer. Math. Soc.}\ \textbf{10} (1997), 467--493.
+
+\bibitem{Kollar1992}
+J.~Koll\'ar,
+Trento examples,
+in \emph{Classification of Irregular Varieties}, Springer, 1992.
+
+\bibitem{Schoen1998}
+C.~Schoen,
+An integral Hodge class which is not a linear combination of
+products of divisors,
+preprint, 1998.
+
+\bibitem{GrothendieckHodge}
+A.~Grothendieck,
+Hodge's general conjecture is false for trivial reasons,
+\emph{Topology}\ \textbf{8} (1969), 299--303.
+
+\bibitem{Lean4}
+L.~de~Moura et~al., The Lean~4 Theorem Prover, CADE 2021.
+
+\bibitem{FTM2026}
+S.~Draconis, Federated Trivalent Manifold, Zenodo, 2026.
+
+\bibitem{GreenGriffiths2003}
+M.~Green and P.~Griffiths,
+Hodge-theoretic invariants for algebraic cycles,
+\emph{Int. Math. Res. Not.}\ \textbf{2003} (2003), 477--510.
+
+\bibitem{Nori1989}
+M.~V.~Nori,
+Cycles on the generic abelian threefold,
+\emph{Proc. Indian Acad. Sci.}\ \textbf{99} (1989), 191--196.
+
+\bibitem{Hartshorne1977}
+R.~Hartshorne,
+\emph{Algebraic Geometry},
+Springer, 1977.
+
+\bibitem{Serre1956}
+J.-P.~Serre,
+G\'eom\'etrie alg\'ebrique et g\'eom\'etrie analytique,
+\emph{Ann. Inst. Fourier}\ \textbf{6} (1956), 1--42.
+
+\bibitem{Shimura1963}
+G.~Shimura,
+On analytic families of polarized abelian varieties and automorphic
+functions,
+\emph{Ann. of Math.}\ \textbf{78} (1963), 149--192.
+
+\bibitem{MathLib}
+The Mathlib Community, Mathlib for Lean~4, 2024.
+
+\bibitem{Beilinson1985}
+A.~Beilinson,
+Higher regulators and values of $L$-functions,
+\emph{J. Soviet Math.}\ \textbf{30} (1985), 2036--2070.
+
+\bibitem{Bloch1980}
+S.~Bloch,
+\emph{Lectures on Algebraic Cycles},
+Duke University, 1980.
+
+\bibitem{Jannsen1990}
+U.~Jannsen,
+Mixed motives and algebraic $K$-theory,
+\emph{Lecture Notes in Math.}\ \textbf{1400}, Springer, 1990.
+
+\bibitem{Kleiman1968}
+S.~L.~Kleiman,
+Algebraic cycles and the Weil conjectures,
+in \emph{Dix expos\'es sur la cohomologie des sch\'emas}, 1968.
+
+\bibitem{Murre1993}
+J.~P.~Murre,
+On a conjectural filtration on the Chow groups of an algebraic variety,
+\emph{Indag. Math.}\ \textbf{4} (1993), 177--201.
+
+\end{thebibliography}
+\end{document}

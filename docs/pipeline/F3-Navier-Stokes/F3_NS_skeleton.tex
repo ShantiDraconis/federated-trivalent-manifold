@@ -1,0 +1,329 @@
+\documentclass[12pt,a4paper]{article}
+
+% ---------------------------------------------------------------
+% METADADOS
+% ---------------------------------------------------------------
+\title{%
+  Exist\^encia Global e Regularidade para Navier--Stokes Incompress\'ivel\\
+  em $\mathbb{R}^3$: Barreiras Computacionais e Programa de Prova\\[4pt]
+  {\large \textbf{Artigo F3} --- Alvo Clay --- \emph{Rascunho especulativo}}%
+}
+\author{%
+  [Autor]\\
+  {\small Federated Trivalent Manifold Research Programme}\\
+  {\small \texttt{docs/pipeline/F3-Navier-Stokes/F3\_NS\_skeleton.tex}}
+}
+\date{2026 --- \textbf{NÃO SUBMETIDO} --- Lacunas abertas explícitas}
+
+% ---------------------------------------------------------------
+% PACOTES
+% ---------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[portuges]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\geometry{margin=2.5cm}
+
+% ---------------------------------------------------------------
+% AMBIENTES
+% ---------------------------------------------------------------
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}[theorem]{Proposi\c{c}\~ao}
+\newtheorem{corollary}[theorem]{Corol\'ario}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Defini\c{c}\~ao}
+\newtheorem{remark}[theorem]{Observa\c{c}\~ao}
+
+\newmdenv[backgroundcolor=green!10, linecolor=green!60!black,
+          linewidth=1.5pt, roundcorner=4pt]{boxproved}
+\newmdenv[backgroundcolor=red!8, linecolor=red!70!black,
+          linewidth=1.5pt, roundcorner=4pt]{boxgap}
+\newmdenv[backgroundcolor=blue!8, linecolor=blue!60!black,
+          linewidth=1.5pt, roundcorner=4pt]{boxnumerical}
+\newmdenv[backgroundcolor=orange!10, linecolor=orange!70!black,
+          linewidth=2pt, roundcorner=4pt]{boxtodo}
+
+% ---------------------------------------------------------------
+\begin{document}
+\maketitle
+
+% ===== ALERTA CLAY ==============================================
+\begin{mdframed}[backgroundcolor=red!12, linewidth=2.5pt, linecolor=red!70!black]
+\textbf{\large ALERTA --- Este artigo NÃO está pronto para submissão ao Clay.}
+
+\medskip
+Regra Clay: publicado em Annals/JAMS/Inventiones/Acta, 2~anos sem furo,
+comunidade aceita, Clay convoca comitê. Sem isso, não paga.
+
+\medskip
+\textbf{Buraco principal (TODO explícito):}
+\[
+  \texttt{TODO: provar } e_{\mathrm{linear}}(\omega) \ge 0
+  \text{ sem \texttt{tanh}, para } N \to \infty.
+\]
+Enquanto $e_{\mathrm{lin}} = -0{,}046$ for instabilidade numérica
+com regularização \texttt{tanh}, isto é \textbf{evidência numérica},
+não blow-up analítico provado.
+
+\medskip
+Pré-requisito: os 24 artigos auditáveis (NS.A, NS.B, NS.C incluídos)
+precisam ter DOI em mãos antes deste F3 ser submetido.
+\end{mdframed}
+
+\tableofcontents
+\newpage
+
+% ===== 1. INTRODUÇÃO ============================================
+\section{Introdução e contexto}
+
+O problema de Navier--Stokes (NS) do Clay pede:
+dado dado inicial suave $u_0 \in C^\infty(\mathbb{R}^3)$ com
+$\nabla \cdot u_0 = 0$ e $u_0$ de decaimento rápido,
+determinar se existe solução suave global ou se ocorre
+\emph{blow-up} em tempo finito.
+
+Este artigo esqueleto descreve:
+\begin{enumerate}
+  \item As equações-alvo e obrigações formais herdadas de NS.A--NS.C;
+  \item Os resultados já provados (barreira de regularidade);
+  \item As evidências numéricas com parâmetros explícitos;
+  \item Os \textbf{TODO} analíticos que precisam ser fechados;
+  \item O que \emph{não} constitui prova Clay.
+\end{enumerate}
+
+% ===== 2. EQUAÇÕES-ALVO =========================================
+\section{Equações-alvo e notação}
+
+Para $u : \mathbb{R}^3 \times [0,\infty) \to \mathbb{R}^3$ incompressível:
+\[
+  \partial_t u + (u \cdot \nabla)u = -\nabla p + \nu \Delta u + f,
+  \qquad \nabla \cdot u = 0.
+\]
+
+\textbf{Dado inicial:} $u_0 \in H^s(\mathbb{R}^3)$ com $s \ge \tfrac{5}{2}$,
+$\|u_0\|_{H^s} = M < \infty$.
+
+\textbf{Viscosidade:} $\nu > 0$ (caso físico relevante para Clay).
+
+\textbf{Força:} $f \equiv 0$ (caso sem força, mais difícil).
+
+\textbf{Normas críticas:} $\dot H^{1/2}$, $L^3$, $\mathrm{BMO}^{-1}$
+(escala crítica por análise dimensional).
+
+% ===== 3. RESULTADOS JÁ PROVADOS ================================
+\section{Resultados já provados (não-Clay)}
+
+\begin{boxproved}
+\begin{theorem}[Existência local --- Leray 1934]
+Para $u_0 \in H^1(\mathbb{R}^3)$, existe $T^* > 0$ e solução forte
+$u \in C([0,T^*); H^1) \cap L^2(0,T^*; H^2)$ satisfazendo NS.
+\end{theorem}
+\textbf{Classificação: TEOREMA PUBLICADO.}
+\end{boxproved}
+
+\begin{boxproved}
+\begin{theorem}[Solução fraca global --- Leray 1934]
+Para $u_0 \in L^2(\mathbb{R}^3)$, existe solução fraca global
+$u \in L^\infty(0,\infty; L^2) \cap L^2(0,\infty; \dot H^1)$
+satisfazendo a desigualdade de energia de Leray.
+\end{theorem}
+\textbf{Classificação: TEOREMA PUBLICADO.}
+Não resolve o problema Clay: falta unicidade e regularidade.
+\end{boxproved}
+
+\begin{boxproved}
+\begin{theorem}[Critério de Serrin--Prodi--Ladyzhenskaya]
+Se $u \in L^p(0,T; L^q)$ com $\frac{2}{p} + \frac{3}{q} \le 1$,
+$q \ge 3$, então $u$ é regular em $[0,T]$.
+\end{theorem}
+\textbf{Classificação: TEOREMA PUBLICADO.}
+Reduz o problema a: provar (ou refutar) que a solução de Leray
+satisfaz o critério Serrin.
+\end{boxproved}
+
+\begin{boxproved}
+\begin{theorem}[Estabilidade energética FTM --- NS2]
+Na discretização FTM com $\nabla_h, \mathrm{div}_h$ compatíveis:
+\[
+  \|u_h(t)\|_2^2 + 2\nu \int_0^t \|\nabla_h u_h\|_2^2\,ds
+  \le \|u_h(0)\|_2^2 + \text{forçamento}.
+\]
+\end{theorem}
+\textbf{Classificação: TEOREMA CONDICIONAL}
+(depende de compatibilidade do complexo discreto, verificada para
+malhas regulares; caso anisotrópico: OPEN).
+\end{boxproved}
+
+% ===== 4. EVIDÊNCIAS NUMÉRICAS ==================================
+\section{Evidências numéricas (não-Clay)}\label{sec:numericas}
+
+\begin{boxnumerical}
+\textbf{Resultado numérico NS-R1:}
+Com $u_0 = A\,e^{-|x|^2}$, $\nu = 10^{-3}$, malha $N=256$,
+regularização \texttt{tanh}:
+\[
+  e_{\mathrm{lin}} \approx -0{,}046 < 0.
+\]
+\textbf{Interpretação correta:} instabilidade linear numérica com
+\texttt{tanh}. \textbf{NÃO é} blow-up analítico.\\
+\textbf{Parâmetros completos:} Python 3.12, numpy 1.26, seed=2024,
+dt=1e-4, T\_max=10.0, norma $H^1$ monitorada.
+\end{boxnumerical}
+
+\begin{boxnumerical}
+\textbf{Resultado numérico NS-R2:}
+Sem \texttt{tanh}: norma $H^1$ cresce em $t \in [0, 1{,}3]$,
+atinge $\|u_h\|_{H^1} = 12{,}7$ (evidência de possível blow-up
+numérico, sem garantia analítica).
+\end{boxnumerical}
+
+\begin{boxnumerical}
+\textbf{Resultado numérico NS-R3:}
+Vórtex de Taylor--Green com $\nu = 10^{-3}$: dissipação de energia
+$\varepsilon(t)$ consistente com DNS, erro relativo $< 2\%$ até
+$t = 5{,}0$ (validação do esquema, não prova de regularidade).
+\end{boxnumerical}
+
+% ===== 5. TODO ANALÍTICO ========================================
+\section{TODO analítico --- Buracos para o Clay}\label{sec:todo}
+
+\begin{boxtodo}
+\textbf{TODO principal (F3-T1):}
+\[
+  \boxed{\text{Provar } e_{\mathrm{linear}}(\omega) \ge 0
+         \text{ para } N \to \infty, \text{ sem \texttt{tanh}}.}
+\]
+Equivalentemente: mostrar que a linearização de NS em $u_0$ não
+tem expoente de Lyapunov negativo no limite contínuo, ou construir
+cenário de blow-up explícito satisfazendo as hipóteses Clay exatas.
+
+\medskip
+\textbf{Por que o dado atual não resolve:}
+\begin{itemize}
+  \item $e_{\mathrm{lin}} = -0{,}046$ usa \texttt{tanh} que
+        regulariza artificialmente singularidades.
+  \item Malha $N=256$ não captura escalas de Kolmogorov para
+        $\nu \to 0$.
+  \item Valor finito; limite $N \to \infty$ não controlado.
+\end{itemize}
+
+\textbf{Abordagem analítica necessária:}
+Construir $u_0^*$ explícito tal que
+$\limsup_{t \to T^*} \|\omega(\cdot,t)\|_{L^\infty} = \infty$
+para algum $T^* < \infty$ (blow-up), OU provar estimativa
+\emph{a priori}
+\[
+  \sup_{t \ge 0} \|u(\cdot,t)\|_{H^s} \le C(s,\nu,M) < \infty.
+\]
+sem usar compacidade que reintroduza solução fraca.
+\end{boxtodo}
+
+\begin{boxtodo}
+\textbf{TODO (F3-T2): Estimativa crítica NS4}
+\[
+  \sup_{0 \le t < T^*} \|u(\cdot,t)\|_{\dot H^{1/2}} < \infty
+\]
+implica regularidade global (critério Escauriaza--Seregin--Sverak 2003,
+caso $L^3$). Provar que solução de Leray satisfaz (ou viola) este
+critério sem assumir resposta.
+\end{boxtodo}
+
+\begin{boxtodo}
+\textbf{TODO (F3-T3): Compacidade e unicidade NS3}
+Extrair limite $u_h \to u$ na topologia correta e mostrar que $u$
+resolve NS no sentido forte (não apenas fraco).
+Lacuna conhecida: termo convectivo $(u_h \cdot \nabla)u_h$ é
+não-linear; compacidade forte de $u_h$ necessária mas difícil.
+\end{boxtodo}
+
+% ===== 6. O QUE NÃO CONSTITUI PROVA CLAY =======================
+\section{O que \textbf{não} constitui prova Clay}
+
+\begin{itemize}
+  \item $e_{\mathrm{lin}} = -0{,}046$ com \texttt{tanh}:
+        evidência numérica de instabilidade.
+  \item Norma $H^1$ crescendo em simulação:
+        evidência de possível singularidade numérica.
+  \item Vórtex de Taylor--Green bem simulado:
+        validação do esquema, não prova de regularidade global.
+  \item Solução fraca de Leray existindo:
+        provado em 1934; não resolve o Clay.
+  \item Critério Serrin sendo satisfeito em região finita:
+        verifica regularidade local, não global.
+  \item Lean sem \texttt{sorry} para NS1--NS2:
+        prova estabilidade energética discreta, não regularidade contínua.
+\end{itemize}
+
+% ===== 7. PROGRAMA MÍNIMO PARA SUBMISSÃO ======================
+\section{Programa mínimo antes de submeter ao Clay}
+
+\begin{enumerate}
+  \item \textbf{DOIs dos 24 artigos} em mãos (NS.A, NS.B, NS.C
+        publicados e citáveis).
+  \item \textbf{F3-T1 fechado:} $e_{\mathrm{linear}}(\omega) \ge 0$
+        analítico, sem \texttt{tanh}, sem $N$ finito.
+  \item \textbf{F3-T2 fechado:} critério crítico $\dot H^{1/2}$
+        satisfeito ou violado com construtividade.
+  \item \textbf{F3-T3 fechado:} compacidade forte + unicidade.
+  \item \textbf{Lean4 sem sorry} para todos os lemas analíticos.
+  \item \textbf{Revisão bibliográfica} contra Constantin--Fefferman 1993,
+        Caffarelli--Kohn--Nirenberg 1982, Tao 2016 (blow-up logarítmico).
+  \item \textbf{Falsificador Popper:} qual dado inicial
+        $u_0^*$ derruba a afirmação principal?
+  \item \textbf{2 anos} em pre-print (arXiv) sem furo encontrado.
+\end{enumerate}
+
+% ===== 8. FALSIFICAÇÃO POPPER ==================================
+\section{Falsificação Popper}\label{sec:falsificacao}
+
+A afirmação principal deste programa é:
+
+\begin{quote}
+\emph{``O fluxo FTM-NS não desenvolve singularidade em tempo finito
+para $u_0 \in H^s$ com $s \ge 5/2$, $\nu > 0$.''}
+\end{quote}
+
+\textbf{Falsificadores explícitos:}
+\begin{enumerate}
+  \item Construir $u_0^* \in C^\infty \cap L^2$ tal que
+        $\|u(\cdot,T^*)\|_{\dot H^1} = +\infty$ para $T^* < \infty$.
+  \item Mostrar que norma $H^s$ não pode ser uniformemente limitada
+        para alguma família de dados iniciais grandes.
+  \item Demonstrar que o esquema FTM viola a desigualdade de energia
+        em alguma malha admissível.
+\end{enumerate}
+
+\textbf{Hipóteses ocultas a declarar:}
+\begin{itemize}
+  \item Simetria axial assumida em simulações não é hipótese Clay.
+  \item Regularização \texttt{tanh} muda o sistema; remoção altera resultados.
+  \item Dado inicial gaussiano não é o caso mais adverso.
+\end{itemize}
+
+% ===== 9. REFERÊNCIAS ===========================================
+\section*{Referências}
+
+\begin{enumerate}
+  \item Leray, J. (1934). Sur le mouvement d'un liquide visqueux.
+        \emph{Acta Math.}, 63, 193--248.
+  \item Caffarelli, L., Kohn, R., Nirenberg, L. (1982).
+        Partial regularity. \emph{Comm. Pure Appl. Math.}, 35, 771--831.
+  \item Constantin, P., Fefferman, C. (1993). Direction of vorticity.
+        \emph{Indiana Univ. Math. J.}
+  \item Escauriaza, L., Seregin, G., Sverak, V. (2003). $L^3$ solutions.
+        \emph{Russian Math. Surveys}, 58(2), 211--250.
+  \item Fefferman, C. (2000). Navier-Stokes existence and smoothness.
+        Clay Millennium Problem description. CMI.
+  \item Tao, T. (2016). Finite time blowup for an averaged NS equation.
+        \emph{J. Amer. Math. Soc.}, 29(3), 601--674.
+  \item Clay Mathematics Institute (2000).
+        \url{https://www.claymath.org/millennium-problems/}
+\end{enumerate}
+
+\end{document}
