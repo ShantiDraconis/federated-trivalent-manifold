@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-08-09T14:19:15.701352+00:00",
+  "engine": "pdflatex (TeX Live 2023)",
+  "articles": {
+    "RH.B": {
+      "source": "docs/pipeline/RH.B/RH_B_template.tex",
+      "source_sha256": "dba3c00eaa13bbea3eef90301c11e9945a94f3382eea6d5651fabd6c2252f851",
+      "pdf": "docs/pipeline/pdf/RH_B_template.pdf",
+      "pdf_sha256": "dfa472e1f45b387cf963a317aac599cb338609d3d10e2286c897910e2f2c0ffe",
+      "size_bytes": 253074,
+      "status": "ok"
+    },
+    "F3": {
+      "source": "docs/pipeline/F3-Navier-Stokes/F3_NS_skeleton.tex",
+      "source_sha256": "4c729186f2f6fd44caecf11689509fed0843fbf3cd878760fc0d860caa369375",
+      "pdf": "docs/pipeline/pdf/F3_NS_skeleton.pdf",
+      "pdf_sha256": "0a5edaffc4f06602a1b54c4410dae26f03b69114b619bb05895c30c2a1768640",
+      "size_bytes": 258020,
+      "status": "ok"
+    }
+  }
+}

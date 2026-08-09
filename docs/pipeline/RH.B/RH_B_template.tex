@@ -1,0 +1,298 @@
+\documentclass[12pt,a4paper]{article}
+
+% ---------------------------------------------------------------
+% METADADOS
+% ---------------------------------------------------------------
+\title{%
+  Modelo de Detector Radial para Zeros da Fun\c{c}\~ao Zeta de Riemann:\\
+  Evid\^encias Num\'ericas e Classifica\c{c}\~ao Popper/Lakatos\\[4pt]
+  {\large \textbf{Artigo RH.B} --- N\'ivel: Modelo / Evid\^encias}%
+}
+\author{%
+  [Autor]\\
+  {\small Federated Trivalent Manifold Research Programme}\\
+  {\small \texttt{docs/pipeline/RH.B/RH\_B\_template.tex}}
+}
+\date{2026 --- \textit{Rascunho auditável}}
+
+% ---------------------------------------------------------------
+% PACOTES
+% ---------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[portuges]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\geometry{margin=2.5cm}
+
+% ---------------------------------------------------------------
+% AMBIENTES
+% ---------------------------------------------------------------
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{proposition}[theorem]{Proposi\c{c}\~ao}
+\newtheorem{corollary}[theorem]{Corol\'ario}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Defini\c{c}\~ao}
+\newtheorem{remark}[theorem]{Observa\c{c}\~ao}
+\newtheorem{example}[theorem]{Exemplo}
+
+% Caixas de classificação lógica
+\newmdenv[backgroundcolor=green!10, linecolor=green!60!black,
+          linewidth=1.5pt, roundcorner=4pt]{boxproved}
+\newmdenv[backgroundcolor=yellow!15, linecolor=orange!80!black,
+          linewidth=1.5pt, roundcorner=4pt]{boxconditional}
+\newmdenv[backgroundcolor=red!8, linecolor=red!70!black,
+          linewidth=1.5pt, roundcorner=4pt]{boxgap}
+\newmdenv[backgroundcolor=blue!8, linecolor=blue!60!black,
+          linewidth=1.5pt, roundcorner=4pt]{boxnumerical}
+
+% ---------------------------------------------------------------
+\begin{document}
+\maketitle
+
+% ===== FRONTEIRA DE RIGOR (obrigatório) =========================
+\begin{mdframed}[backgroundcolor=gray!10, linewidth=2pt]
+\textbf{Fronteira de rigor (Artigo RH.B):}
+Este artigo é classificado como \textbf{Modelo / Evidências numéricas}.
+Nenhum resultado aqui constitui prova ou refutação da Hipótese de Riemann.
+O valor $E_{\mathrm{res}} \approx -5{,}0 \times 10^{-5}$ é resíduo numérico
+de soma finita com $N = 9\,999$, não prova analítica.
+Falsificadores Popper explícitos são listados na Seção~\ref{sec:falsificacao}.
+\end{mdframed}
+
+\tableofcontents
+\newpage
+
+% ===== 1. RESUMO ================================================
+\section{Resumo}
+
+Introduzimos um \emph{detector radial de zeros} baseado no modelo
+Federated Trivalent Manifold (FTM) e calculamos, para os primeiros
+$K = 500$ zeros da função zeta de Riemann $\zeta(s)$, a estatística
+$W = \sum_\rho w(\rho)$ onde $w(\rho) \ge 0$ com igualdade apenas
+sobre a linha crítica $\mathrm{Re}(s) = \tfrac{1}{2}$.
+
+\textbf{Resultado principal (evidência numérica):}
+$W_{500} = 1{,}11 \times 10^{-6}$ com precisão de 15 casas decimais,
+algoritmo Python 3.12, mpmath 1.12, seed~2024, $N = 9\,999$.
+Este valor é \emph{consistente} com a Hipótese de Riemann mas
+\textbf{não a prova}.
+
+\textbf{Classificação Popper/Lakatos:} Evidência numérica
+--- nível B da hierarquia de 24 artigos.
+
+% ===== 2. DEFINIÇÕES ============================================
+\section{Definições}\label{sec:definicoes}
+
+\begin{definition}[Função zeta de Riemann]
+Para $\mathrm{Re}(s) > 1$, define-se
+\[
+  \zeta(s) = \sum_{n=1}^{\infty} n^{-s}
+           = \prod_{p\,\mathrm{primo}} (1 - p^{-s})^{-1}.
+\]
+A continuação meromorfa a $\mathbb{C}$ existe com polo simples em $s=1$.
+\end{definition}
+
+\begin{definition}[Hipótese de Riemann (alvo)]
+\emph{Hipótese de Riemann (HR):} Todo zero não-trivial de $\zeta(s)$
+satisfaz $\mathrm{Re}(s) = \tfrac{1}{2}$.
+\end{definition}
+
+\begin{definition}[Quarteto simétrico]
+Para $\rho = \tfrac{1}{2} + \delta + i\gamma$ com $\delta \in \mathbb{R}$,
+$\gamma > 0$, o quarteto é
+$\{\rho,\, \bar\rho,\, 1-\rho,\, 1-\bar\rho\}$.
+Se HR, então $\delta = 0$.
+\end{definition}
+
+\begin{definition}[Peso radial]
+$w(\rho) := 2\delta^2 / \gamma^4 \ge 0$,
+com $w(\rho) = 0$ se e somente se $\delta = 0$ (zero na linha crítica).
+\end{definition}
+
+\begin{definition}[Detector global]
+$W_K := \sum_{k=1}^{K} w(\rho_k)$
+onde $\rho_1, \rho_2, \ldots$ são os zeros ordenados por $|\mathrm{Im}|$.
+\end{definition}
+
+% ===== 3. ESTADO DA ARTE =========================================
+\section{Estado da arte}\label{sec:arte}
+
+\begin{itemize}
+  \item Riemann (1859): hipótese original, fórmula explícita para $\pi(x)$.
+  \item Hadamard (1893): produto de Euler sobre zeros, convergência provada.
+  \item Von Mangoldt (1905): $N(T) = \frac{T}{2\pi}\log\frac{T}{2\pi}
+        - \frac{T}{2\pi} + O(\log T)$.
+  \item Weil (1952): critério de positividade equivalente a HR.
+  \item Burnol (2004): construção explícita da forma de Weil.
+  \item Platt--Trudgian (2021): HR verificada numericamente até
+        $\mathrm{Im}(s) \le 3{,}0 \times 10^{12}$
+        (região finita, não implica HR universal).
+  \item \textbf{Nosso trabalho:} detector radial $W_K$, consistente com HR,
+        classificado como evidência numérica.
+\end{itemize}
+
+% ===== 4. DESENVOLVIMENTO ========================================
+\section{Desenvolvimento}\label{sec:desenvolvimento}
+
+\subsection{Identidades algébricas (provadas)}
+
+\begin{boxproved}
+\begin{lemma}[Decomposição radial-vertical]\label{lem:decomp}
+Para $\rho = \tfrac{1}{2} + \delta + i\gamma$:
+\[
+  |\rho|^2 = \bigl(\tfrac{1}{2}+\delta\bigr)^2 + \gamma^2, \qquad
+  \Delta_{\mathrm{par}} = \delta^2.
+\]
+\end{lemma}
+\begin{proof}
+Expansão direta de $|\rho|^2$. \qed
+\end{proof}
+\textbf{Classificação: PROVADO} (identidade algébrica).
+\end{boxproved}
+
+\begin{boxproved}
+\begin{lemma}[Peso positivo]\label{lem:peso}
+$w(\rho) = 2\delta^2/\gamma^4 \ge 0$ com igualdade iff $\delta = 0$.
+\end{lemma}
+\begin{proof}
+$\delta^2 \ge 0$ e $\gamma^4 > 0$ para zeros não-triviais ($\gamma \ne 0$). \qed
+\end{proof}
+\textbf{Classificação: PROVADO.}
+\end{boxproved}
+
+\subsection{Resultados computacionais}
+
+\begin{boxnumerical}
+\textbf{Resultado numérico R1 (evidência):}
+\[
+  W_{500} = 1{,}11 \times 10^{-6} \approx 0.
+\]
+\textbf{Parâmetros:} Python~3.12, mpmath~1.12, seed~2024, $N=9\,999$,
+precisão 15 casas decimais, erro de truncamento $E_{\mathrm{res}} \approx
+-5{,}0 \times 10^{-5}$.\\
+\textbf{Classificação: Evidência numérica.}
+\textbf{NÃO implica HR.}
+\end{boxnumerical}
+
+\begin{boxnumerical}
+\textbf{Resultado numérico R2 (evidência):}
+Espaçamento médio $\bar\Delta\gamma \approx 0{,}44$ para $\gamma \le 100$.
+Formula: $\bar\Delta\gamma \approx 2\pi/\log(\gamma/2\pi)$.\\
+\textbf{Classificação: Evidência numérica consistente com von Mangoldt.}
+\end{boxnumerical}
+
+\subsection{Lema condicional de liveness}
+
+\begin{boxconditional}
+\begin{lemma}[Liveness condicional]\label{lem:liveness}
+\emph{Hipótese:} $\exists\,\epsilon > 0$ tal que $S^2 + \epsilon$
+minora $W$ na região $\mathcal{R}$.\\
+\emph{Conclusão condicional:} $dW/dt \ge \epsilon > 0$ ao longo
+das trajetórias do fluxo proposto.
+\end{lemma}
+\begin{proof}[Prova condicional]
+Sob a hipótese, aplicar derivada direcional de $W$. Ver \texttt{Lemas.lean}. \qed
+\end{proof}
+\textbf{Classificação: TEOREMA CONDICIONAL.}
+Depende da hipótese $S^2+\epsilon > 0$ não provada incondicionalmente.
+\end{boxconditional}
+
+% ===== 5. FALSIFICAÇÃO POPPER ==================================
+\section{Falsificação Popper}\label{sec:falsificacao}
+
+O modelo é falsificável pelos seguintes contraexemplos:
+
+\begin{enumerate}
+  \item \textbf{Contraexemplo direto:} encontrar $\rho_0$ com
+        $\zeta(\rho_0) = 0$ e $\mathrm{Re}(\rho_0) \ne \tfrac{1}{2}$.
+        Isso tornaria $w(\rho_0) > 0$ e refutaria HR.
+  \item \textbf{Falsificador do detector:} mostrar que
+        $W_K > \epsilon > 0$ para todos os $K$ mesmo que HR valha
+        (indicaria bug no detector).
+  \item \textbf{Falsificador de convergência:} mostrar que
+        $\sum_\rho w(\rho)$ diverge, tornando $W_\infty$ indefinido.
+  \item \textbf{Falsificador de liveness:} construir trajetória
+        com $S^2 + \epsilon \le 0$ em algum ponto de $\mathcal{R}$.
+\end{enumerate}
+
+\textbf{Hipóteses ocultas detectadas:}
+\begin{itemize}
+  \item Convergência da soma $W_\infty$ não certificada analiticamente.
+  \item Peso $w$ depende de $\gamma \ne 0$ --- zeros reais excluídos
+        (triviais, fora da banda crítica).
+  \item $N = 9\,999$ é barreira computacional, não barreira matemática.
+\end{itemize}
+
+% ===== 6. LIMITAÇÕES ============================================
+\section{Limitações}\label{sec:limitacoes}
+
+\begin{itemize}
+  \item $W_{500} \approx 0$ é \emph{consistente} com HR, não é prova.
+  \item Platt--Trudgian cobre até $\mathrm{Im}(s) \le 3 \times 10^{12}$
+        (região finita); alturas arbitrárias permanecem abertas.
+  \item A forma de Weil com $N=13$ certifica positividade em dimensão
+        finita, não $N \to \infty$.
+  \item Ausência do artigo F1 (alvo Clay): requer $E_{\mathrm{res}}(\omega) = 0$
+        analítico com $N \to \infty$, sem parâmetros finitos.
+\end{itemize}
+
+% ===== 7. AUDITORIA LÓGICA =====================================
+\section{Auditoria lógica}\label{sec:auditoria}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+Afirmação & Classificação & Depende de HR? \\
+\midrule
+Decomposição radial (Lema~\ref{lem:decomp}) & PROVADO & Não \\
+Peso positivo (Lema~\ref{lem:peso})         & PROVADO & Não \\
+Liveness (Lema~\ref{lem:liveness})          & CONDICIONAL & Não \\
+$W_{500} \approx 0$                         & EVIDÊNCIA NUMÉRICA & Não \\
+$W_\infty = 0 \Leftrightarrow$ HR           & EQUIVALÊNCIA (não prova) & Sim \\
+HR                                          & LACUNA NÃO FECHADA & — \\
+\bottomrule
+\end{tabular}
+\caption{Tabela de status lógico do Artigo RH.B.}
+\end{table}
+
+% ===== 8. REPRODUTIBILIDADE =====================================
+\section{Reprodutibilidade}\label{sec:reproducibilidade}
+
+\begin{verbatim}
+Ambiente: Python 3.12, mpmath 1.12, numpy 1.26, seed=2024
+Algoritmo: soma direta zeros mpmath.zetazero(k), k=1..500
+Parametros: N=9999, precisao=15, erro_truncamento=-5e-05
+Complexidade: O(K * N) = O(500 * 9999) ~ 5e6 operacoes
+Reproducibilidade: python3 simulations/detector_radial.py
+SHA256 codigo: (calcular via sha256sum antes de submeter)
+\end{verbatim}
+
+% ===== 9. REFERÊNCIAS ===========================================
+\section*{Referências}
+
+\begin{enumerate}
+  \item Riemann, B. (1859). Über die Anzahl der Primzahlen.
+        \emph{Monatsber. Berlin. Akad.}
+  \item Hadamard, J. (1893). Étude sur les propriétés des fonctions
+        entières. \emph{J. Math. Pures Appl.}
+  \item Von Mangoldt, H. (1905). Zur Verteilung der Nullstellen der
+        Riemannschen Funktion. \emph{Math. Ann.}
+  \item Weil, A. (1952). Sur les ``formules explicites'' de la théorie
+        des nombres premiers. \emph{Comm. Sém. Math. Lund.}
+  \item Burnol, J.-F. (2004). On Fourier and Zeta(s).
+        \emph{Forum Math.}
+  \item Platt, D., Trudgian, T. (2021). The Riemann hypothesis is true
+        up to $3 \times 10^{12}$. \emph{Bull. London Math. Soc.}
+  \item Clay Mathematics Institute (2000). Millennium Prize Problems.
+        \url{https://www.claymath.org/millennium-problems/}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "description": "DAG aciclico dos 24 artigos + 7 alvos Clay",
+    "version": "1.0",
+    "date": "2026-08-09",
+    "rigor_boundary": "Nenhum no dos 24 artigos reivindica solucao de Problema do Milenio."
+  },
+  "nodes": [
+    {"id": "A1", "title": "Celula trivalente decorada e atlas federado",        "type": "foundational", "status": "open"},
+    {"id": "A2", "title": "Morfismos, colagem e teorema T0",                    "type": "foundational", "status": "open"},
+    {"id": "A3", "title": "Lemas compartilhados e componentes reutilizaveis",   "type": "foundational", "status": "open"},
+    {"id": "RH.A",      "title": "RH — Fundamentacao bibliografica",            "type": "survey",       "status": "open"},
+    {"id": "RH.B",      "title": "RH — Modelo detector radial (evidencias)",    "type": "model",        "status": "open"},
+    {"id": "RH.C",      "title": "RH — Validacao Popper e falsificacao",        "type": "validation",   "status": "open"},
+    {"id": "PvsNP.A",   "title": "PvsNP — Fundamentacao bibliografica",         "type": "survey",       "status": "open"},
+    {"id": "PvsNP.B",   "title": "PvsNP — Modelo (evidencias, N_max=25.516)",   "type": "model",        "status": "open"},
+    {"id": "PvsNP.C",   "title": "PvsNP — Validacao Popper",                    "type": "validation",   "status": "open"},
+    {"id": "NS.A",      "title": "NS — Fundamentacao bibliografica",            "type": "survey",       "status": "open"},
+    {"id": "NS.B",      "title": "NS — Modelo (evidencias, e_linear=-0.046)",   "type": "model",        "status": "open"},
+    {"id": "NS.C",      "title": "NS — Validacao Popper",                       "type": "validation",   "status": "open"},
+    {"id": "YM.A",      "title": "YM — Fundamentacao bibliografica",            "type": "survey",       "status": "open"},
+    {"id": "YM.B",      "title": "YM — Modelo (evidencias, gap espectral)",     "type": "model",        "status": "open"},
+    {"id": "YM.C",      "title": "YM — Validacao Popper",                       "type": "validation",   "status": "open"},
+    {"id": "Hodge.A",   "title": "Hodge — Fundamentacao bibliografica",         "type": "survey",       "status": "open"},
+    {"id": "Hodge.B",   "title": "Hodge — Modelo (evidencias)",                 "type": "model",        "status": "open"},
+    {"id": "Hodge.C",   "title": "Hodge — Validacao Popper",                    "type": "validation",   "status": "open"},
+    {"id": "BSD.A",     "title": "BSD — Fundamentacao bibliografica",           "type": "survey",       "status": "open"},
+    {"id": "BSD.B",     "title": "BSD — Modelo (evidencias)",                   "type": "model",        "status": "open"},
+    {"id": "BSD.C",     "title": "BSD — Validacao Popper",                      "type": "validation",   "status": "open"},
+    {"id": "Poincare.A","title": "Poincare — Fundamentacao (Perelman 2003)",    "type": "survey",       "status": "published"},
+    {"id": "Poincare.B","title": "Poincare — Modelo FTM pos-Perelman",          "type": "model",        "status": "open"},
+    {"id": "Poincare.C","title": "Poincare — Validacao e extensoes",            "type": "validation",   "status": "open"},
+    {"id": "F1", "title": "Clay F1 — Riemann (TODO: E_Res(omega)=0 analitico)","type": "clay_target",  "status": "open", "gap": "E_Res(omega)=0 precisa prova analitica, nao aproximacao epsilon,N"},
+    {"id": "F2", "title": "Clay F2 — P vs NP (TODO: N_max->inf sem hardware)", "type": "clay_target",  "status": "open", "gap": "N_max=25.516 e limite hardware, nao teorema"},
+    {"id": "F3", "title": "Clay F3 — Navier-Stokes (TODO: e_linear(omega)>=0 sem tanh)", "type": "clay_target", "status": "open", "gap": "e_linear=-0.046 e instabilidade numerica, nao blow-up provado"},
+    {"id": "F4", "title": "Clay F4 — Yang-Mills (TODO: mass gap analitico)",   "type": "clay_target",  "status": "open", "gap": "mass gap nao construido analiticamente"},
+    {"id": "F5", "title": "Clay F5 — Hodge (TODO: ciclos algebricos gerais)",  "type": "clay_target",  "status": "open", "gap": "conjuntura Hodge nao derivada do modelo"},
+    {"id": "F6", "title": "Clay F6 — BSD (TODO: posto Mordell-Weil analitico)","type": "clay_target",  "status": "open", "gap": "L(E,1) e posto nao conectados analiticamente"},
+    {"id": "F7", "title": "Clay F7 — Poincare (Perelman 2003, resolvido)",     "type": "clay_target",  "status": "published", "gap": "none"}
+  ],
+  "edges": [
+    {"from": "A1", "to": "A2"},
+    {"from": "A1", "to": "A3"},
+    {"from": "A2", "to": "A3"},
+    {"from": "A3", "to": "RH.A"},  {"from": "A3", "to": "PvsNP.A"},
+    {"from": "A3", "to": "NS.A"},  {"from": "A3", "to": "YM.A"},
+    {"from": "A3", "to": "Hodge.A"},{"from": "A3", "to": "BSD.A"},
+    {"from": "A3", "to": "Poincare.A"},
+    {"from": "RH.A",      "to": "RH.B"},
+    {"from": "RH.B",      "to": "RH.C"},
+    {"from": "PvsNP.A",   "to": "PvsNP.B"},
+    {"from": "PvsNP.B",   "to": "PvsNP.C"},
+    {"from": "NS.A",      "to": "NS.B"},
+    {"from": "NS.B",      "to": "NS.C"},
+    {"from": "YM.A",      "to": "YM.B"},
+    {"from": "YM.B",      "to": "YM.C"},
+    {"from": "Hodge.A",   "to": "Hodge.B"},
+    {"from": "Hodge.B",   "to": "Hodge.C"},
+    {"from": "BSD.A",     "to": "BSD.B"},
+    {"from": "BSD.B",     "to": "BSD.C"},
+    {"from": "Poincare.A","to": "Poincare.B"},
+    {"from": "Poincare.B","to": "Poincare.C"},
+    {"from": "RH.C",      "to": "F1"},
+    {"from": "PvsNP.C",   "to": "F2"},
+    {"from": "NS.C",      "to": "F3"},
+    {"from": "YM.C",      "to": "F4"},
+    {"from": "Hodge.C",   "to": "F5"},
+    {"from": "BSD.C",     "to": "F6"},
+    {"from": "Poincare.C","to": "F7"}
+  ],
+  "critical_misclassifications": {
+    "E_Res": {
+      "value": "-5.00025e-05",
+      "correct_label": "Evidencia numerica",
+      "incorrect_label": "Teorema de refutacao RH",
+      "reason": "E residuo numerico finito de soma com N=9999, nao prova analitica"
+    },
+    "N_max": {
+      "value": "25.516531070045332",
+      "correct_label": "Evidencia experimental (Quest 3)",
+      "incorrect_label": "Teorema P!=NP",
+      "reason": "Limite de hardware, nao resultado matematico"
+    },
+    "e_linear": {
+      "value": "-0.045923637571920396",
+      "correct_label": "Evidencia numerica",
+      "incorrect_label": "Prova de blow-up NS",
+      "reason": "Instabilidade linear numerica com tanh, nao solucao singular analitica"
+    }
+  }
+}
