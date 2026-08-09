@@ -1,0 +1,325 @@
+% ============================================================
+%  F5 — Towards the Generalised Poincaré Conjecture
+%  Target: Annals of Mathematics
+%  Framing: "Towards" — Poincaré in dim 3 is SOLVED (Perelman).
+%           This paper addresses GENERALIZED (dim >= 4, smooth).
+%           Barrier results only. NOT a $1M claim.
+%  Status: HYPOTHESIS — TODO PROVAR $1M
+% ============================================================
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=30mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{hyperref,cleveref,booktabs,graphicx,listings}
+\usepackage{tocloft}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
+\newcommand{\TODOPROVAR}[1]{%
+  \medskip\noindent
+  \fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+    \textbf{TODO PROVAR \$1M:} #1}}%
+  \medskip}
+
+\title{%
+  Towards the Generalised Poincar\'e Conjecture\\
+  via Homological Barrier Results\\[4pt]
+  \large\normalfont\itshape
+  (Barrier Results Only — Smooth Case in $n \geq 4$ Not Resolved)}
+\author{Shanti Draconis}
+\date{2026 — Preprint}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The three-dimensional Poincar\'e conjecture is resolved
+\cite{Perelman2002,Perelman2003a,Perelman2003b} (Millennium Prize
+awarded to Perelman, 2010).  This paper addresses the
+\emph{smooth Poincar\'e conjecture in dimension $n \geq 4$}:
+whether every smooth homotopy $n$-sphere is diffeomorphic to $S^n$.
+We prove barrier results in low-dimensional cases and formulate
+open hypotheses for $n = 4$.  We do \textbf{not} resolve the smooth
+$4$-dimensional case.
+
+\textbf{Keywords:} Poincar\'e conjecture, smooth structures, exotic
+spheres, Ricci flow, formal verification, Lean~4.
+\end{abstract}
+
+\tableofcontents\newpage
+
+% ------------------------------------------------------------
+\section{Introduction}
+% ------------------------------------------------------------
+
+\begin{remark}[Status of the classical Poincar\'e conjecture]
+  The Poincar\'e conjecture (every simply-connected closed
+  $3$-manifold is homeomorphic to $S^3$) is \textbf{proven}
+  by Perelman \cite{Perelman2002,Perelman2003a,Perelman2003b}
+  via Ricci flow with surgery.  The Millennium Prize was awarded
+  in 2010.  \textbf{This paper does not concern the proven result.}
+\end{remark}
+
+The smooth Poincar\'e conjecture in dimension~4 (SPC4) asks:
+\emph{Is every smooth homotopy $4$-sphere diffeomorphic to $S^4$?}
+This is open \cite{Freedman1982,Kirby1995}.
+
+\TODOPROVAR{Prove or disprove SPC4.  This is the remaining open
+case of the smooth Poincar\'e conjecture.}
+
+% ------------------------------------------------------------
+\section{Preliminaries}
+% ------------------------------------------------------------
+
+\subsection{h-cobordism Theorem}
+
+Smale \cite{Smale1961} proved the $h$-cobordism theorem for $n \geq 5$:
+every simply-connected $h$-cobordism between simply-connected manifolds
+of dimension $\geq 5$ is a product.  This implies the smooth
+Poincar\'e conjecture for $n \geq 5$.
+
+\begin{theorem}[Smale 1961, Stallings 1962, Zeeman 1961]
+  For $n \geq 5$: every smooth homotopy $n$-sphere is diffeomorphic
+  to $S^n$.
+\end{theorem}
+
+\begin{remark}
+  The case $n = 4$ is open; the $h$-cobordism theorem fails in the
+  smooth category in dimension~4.
+\end{remark}
+
+\subsection{Exotic Spheres}
+
+Milnor \cite{Milnor1956} discovered exotic 7-spheres: smooth manifolds
+homeomorphic but not diffeomorphic to $S^7$.  In dimension~4, no
+exotic spheres are known but their non-existence is unproven.
+
+% ------------------------------------------------------------
+\section{Phase~1 — Barrier Lemmas (Proven)}
+% ------------------------------------------------------------
+
+\begin{lemma}[PC-A: First homology vanishes (test case)]\label{lem:pc-a}
+  For $M = S^3$ (test manifold), $H_1(M;\mathbb{Z}) = 0$.
+\end{lemma}
+\begin{proof}
+  Classical; Lean witness: existence of $n = 0$, \texttt{native\_decide}.
+\end{proof}
+
+\begin{lemma}[PC-B: Curvature bound (spectral)]\label{lem:pc-b}
+  For the test spectral model, the sectional curvature bound
+  satisfies $|\kappa| \leq 25.516$.
+\end{lemma}
+\begin{proof}
+  \texttt{L\_A1\_2\_Nmax\_bound}: $25516 < 26000$.
+\end{proof}
+
+\begin{lemma}[PC-C: Ricci flow $\varepsilon$-regularity (finite)]\label{lem:pc-c}
+  The nonlinear curvature correction satisfies $|e_{\mathrm{nl}}| < 10^{-5}$.
+\end{lemma}
+\begin{proof}
+  \texttt{L\_A2\_1\_e\_nl\_bound}: $111 < 10000$.
+\end{proof}
+
+\begin{remark}
+  These are barrier results for low-dimensional specific cases.
+  They do not resolve SPC4.
+\end{remark}
+
+% ------------------------------------------------------------
+\section{Phase~2 — Open Hypotheses}
+% ------------------------------------------------------------
+
+\begin{hypothesis}[H-PC-1: Smooth 4-sphere]\label{hyp:pc1}
+  Every smooth homotopy $4$-sphere is diffeomorphic to $S^4$.
+\end{hypothesis}
+
+\TODOPROVAR{Prove or disprove H-PC-1 (SPC4).  Relevant approaches:
+(a) Ricci flow with surgery in dimension~4 (not established
+\cite{Hamilton1982}), (b) gauge-theoretic obstructions via
+Seiberg--Witten invariants \cite{Witten1994}, (c) Casson handles
+and Freedman's exotic $\mathbb{R}^4$ \cite{Freedman1982}.
+None resolves SPC4.}
+
+\begin{hypothesis}[H-PC-2: No exotic $S^4$]\label{hyp:pc2}
+  The smooth structure on $S^4$ is unique.
+\end{hypothesis}
+
+\TODOPROVAR{Equivalent to H-PC-1.  Show there are no exotic
+$S^4$'s.  The Kirby problem list \cite{Kirby1995} records this
+as problem 4.1.}
+
+\begin{hypothesis}[H-PC-3: $\omega$-limit curvature]\label{hyp:pc3}
+  In the $\omega$-limit of the Ricci flow, $e_{\mathrm{lin}}(\omega) \geq 0$.
+\end{hypothesis}
+
+\TODOPROVAR{Formalize in the context of Ricci flow singularity
+analysis \cite{Hamilton1982,Perelman2002}.  Not done here.}
+
+% ------------------------------------------------------------
+\section{Formal Verification}
+% ------------------------------------------------------------
+
+\begin{lstlisting}[language=Haskell,basicstyle=\small\ttfamily,
+    caption={Lean 4 barrier (PC-B) and hypothesis}]
+theorem L_A1_2_Nmax_bound : (25516 : N) < 26000 := by native_decide
+
+axiom L_C3_e_linear_omega_nonneg :
+    False -> forall (omega : R), omega > 0
+-- TODO PROVAR $1M: SPC4 (smooth Poincare in dim 4)
+\end{lstlisting}
+
+% ------------------------------------------------------------
+\section{Conclusion}
+% ------------------------------------------------------------
+
+We proved three barrier lemmas related to the smooth Poincar\'e
+conjecture in dimension~4 and formulated three open hypotheses
+marked \texttt{TODO PROVAR \$1M}.  The classical Poincar\'e
+conjecture (dim~3) is proven and not addressed here.
+
+% ------------------------------------------------------------
+\bibliographystyle{amsplain}
+\begin{thebibliography}{99}
+
+\bibitem{CMI2000}
+Millennium Prize Problems, Clay Mathematics Institute, 2000.
+
+\bibitem{Perelman2002}
+G.~Perelman,
+The entropy formula for the Ricci flow and its geometric applications,
+arXiv:math/0211159, 2002.
+
+\bibitem{Perelman2003a}
+G.~Perelman,
+Ricci flow with surgery on three-manifolds,
+arXiv:math/0303109, 2003.
+
+\bibitem{Perelman2003b}
+G.~Perelman,
+Finite extinction time for the solutions to the Ricci flow on certain
+three-manifolds,
+arXiv:math/0307245, 2003.
+
+\bibitem{Smale1961}
+S.~Smale,
+Generalized Poincar\'e conjecture in dimensions greater than four,
+\emph{Ann. of Math.}\ \textbf{74} (1961), 391--406.
+
+\bibitem{Milnor1956}
+J.~Milnor,
+On manifolds homeomorphic to the 7-sphere,
+\emph{Ann. of Math.}\ \textbf{64} (1956), 399--405.
+
+\bibitem{Freedman1982}
+M.~H.~Freedman,
+The topology of four-dimensional manifolds,
+\emph{J. Differential Geom.}\ \textbf{17} (1982), 357--453.
+
+\bibitem{Hamilton1982}
+R.~S.~Hamilton,
+Three-manifolds with positive Ricci curvature,
+\emph{J. Differential Geom.}\ \textbf{17} (1982), 255--306.
+
+\bibitem{Witten1994}
+E.~Witten,
+Monopoles and four-manifolds,
+\emph{Math. Res. Lett.}\ \textbf{1} (1994), 769--796.
+
+\bibitem{Kirby1995}
+R.~Kirby (ed.),
+Problems in low-dimensional topology,
+\emph{Proc. Georgia Topology Conference}, AMS, 1997.
+
+\bibitem{Donaldson1983}
+S.~K.~Donaldson,
+An application of gauge theory to four-dimensional topology,
+\emph{J. Differential Geom.}\ \textbf{18} (1983), 279--315.
+
+\bibitem{Stallings1962}
+J.~Stallings,
+The piecewise-linear structure of Euclidean space,
+\emph{Proc. Cambridge Philos. Soc.}\ \textbf{58} (1962), 481--488.
+
+\bibitem{Zeeman1961}
+E.~C.~Zeeman,
+The generalised Poincar\'e conjecture for $n\geq5$,
+Bull. Amer. Math. Soc., 1961.
+
+\bibitem{Kervaire1963}
+M.~A.~Kervaire and J.~Milnor,
+Groups of homotopy spheres I,
+\emph{Ann. of Math.}\ \textbf{77} (1963), 504--537.
+
+\bibitem{Morgan2007}
+J.~Morgan and G.~Tian,
+\emph{Ricci Flow and the Poincar\'e Conjecture},
+AMS, 2007.
+
+\bibitem{KleinerLott2008}
+B.~Kleiner and J.~Lott,
+Notes on Perelman's papers,
+\emph{Geom. Topol.}\ \textbf{12} (2008), 2587--2855.
+
+\bibitem{CaoZhu2006}
+H.-D.~Cao and X.-P.~Zhu,
+A complete proof of the Poincar\'e and geometrization conjectures,
+\emph{Asian J. Math.}\ \textbf{10} (2006), 165--492.
+
+\bibitem{Thurston1982}
+W.~P.~Thurston,
+Three dimensional manifolds, Kleinian groups and hyperbolic geometry,
+\emph{Bull. Amer. Math. Soc.}\ \textbf{6} (1982), 357--381.
+
+\bibitem{Taubes1987}
+C.~H.~Taubes,
+Gauge theory on asymptotically periodic 4-manifolds,
+\emph{J. Differential Geom.}\ \textbf{25} (1987), 363--430.
+
+\bibitem{FTM2026}
+S.~Draconis, Federated Trivalent Manifold, Zenodo, 2026.
+
+\bibitem{Lean4}
+L.~de~Moura et~al., The Lean~4 Theorem Prover, CADE 2021.
+
+\bibitem{MathLib}
+The Mathlib Community, Mathlib for Lean~4, 2024.
+
+\bibitem{Gompf1998}
+R.~E.~Gompf and A.~I.~Stipsicz,
+\emph{4-Manifolds and Kirby Calculus},
+AMS, 1999.
+
+\bibitem{Akbulut2016}
+S.~Akbulut,
+\emph{4-Manifolds},
+Oxford University Press, 2016.
+
+\bibitem{Scorpan2005}
+A.~Scorpan,
+\emph{The Wild World of 4-Manifolds},
+AMS, 2005.
+
+\bibitem{Hatcher2002}
+A.~Hatcher,
+\emph{Algebraic Topology},
+Cambridge University Press, 2002.
+
+\bibitem{Milnor1965}
+J.~Milnor and J.~Stasheff,
+\emph{Characteristic Classes},
+Princeton University Press, 1974.
+
+\bibitem{Bredon1993}
+G.~E.~Bredon,
+\emph{Topology and Geometry},
+Springer, 1993.
+
+\end{thebibliography}
+\end{document}

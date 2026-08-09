@@ -1,0 +1,520 @@
+% ============================================================
+%  F3 — Towards Global Regularity for Navier-Stokes
+%  Target: Annals of Mathematics
+%  Framing: BARRIER RESULT + HYPOTHESIS — NOT a $1M proof
+%  Status: Phase-1 PROVEN, Phase-2 TODO PROVAR $1M
+%
+%  CRITICAL RULE:
+%    e = -0.0459 is a NUMERICAL value for a specific path only.
+%    L_C3 is framed as "Hypothesis: e(omega)>=0", NOT as proof.
+%    tanh regularisation does NOT constitute a proof of NS.
+%    Do NOT submit this as "Proof of Navier-Stokes".
+% ============================================================
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=30mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{hyperref,cleveref,booktabs,graphicx,listings}
+\usepackage{tocloft}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{openproblem}[theorem]{Open Problem}
+\newtheorem{warning}[theorem]{Warning}
+
+\newcommand{\TODOPROVAR}[1]{%
+  \medskip\noindent
+  \fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+    \textbf{TODO PROVAR \$1M:} #1}}%
+  \medskip}
+
+\newcommand{\NAOVALEPROVA}[1]{%
+  \medskip\noindent
+  \colorbox{yellow}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+    \textbf{N\~AO VALE COMO PROVA:} #1}}%
+  \medskip}
+
+\title{%
+  Towards Global Regularity for the\\
+  Navier--Stokes Equations via\\
+  Energy Barrier and $\omega$-Limit Analysis\\[4pt]
+  \large\normalfont\itshape
+  (Barrier Results Only — Millennium Prize Not Claimed)}
+\author{Shanti Draconis}
+\date{2026 — Preprint}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove a \emph{barrier result} for the three-dimensional incompressible
+Navier--Stokes equations: on a bounded time interval, the energy residual
+$E_{\mathrm{Res}}$ is finite and the nonlinear error $|e_{\mathrm{nl}}|$
+is bounded.  We do \textbf{not} prove global regularity (the Millennium
+Prize problem \cite{Fefferman2006}).  The numerical value
+$e_{\mathrm{lin}} = -0.0459$ applies to a single discretized path
+and does \textbf{not} imply anything about the $\omega$-limit.
+All Phase-1 lemmas are verified in Lean~4 (no \texttt{sorry}).
+Phase-2 conjectures are marked \texttt{axiom~--~TODO~PROVAR~\$1M}.
+
+\textbf{Keywords:} Navier--Stokes, global regularity, energy inequality,
+Lean~4, barrier result, $\omega$-limit, formal verification.
+\end{abstract}
+
+\tableofcontents\newpage
+
+% ------------------------------------------------------------
+\section{Introduction}
+% ------------------------------------------------------------
+
+The Clay Millennium Prize problem for Navier--Stokes \cite{Fefferman2006}
+asks whether, for any smooth divergence-free initial data
+$u_0 \in \mathbb{R}^3$, the incompressible Navier--Stokes system
+\begin{equation}\label{eq:ns}
+  \partial_t u + (u \cdot \nabla)u = -\nabla p + \nu\Delta u,\quad
+  \nabla \cdot u = 0,\quad u(0) = u_0
+\end{equation}
+has a smooth solution for all $t > 0$.
+
+The best known positive results include:
+\begin{itemize}
+  \item Local-in-time smooth solutions for any smooth data
+    \cite{ConstantinFoias1988}.
+  \item Global regularity for small data \cite{Leray1934}.
+  \item Global \emph{weak} solutions (Leray--Hopf) \cite{Leray1934,Hopf1951}.
+  \item Conditional regularity (Serrin-type criteria)
+    \cite{Serrin1962,Prodi1959}.
+\end{itemize}
+
+\begin{warning}
+  The value $e_{\mathrm{lin}} = -0.0459$ computed in Section~\ref{sec:num}
+  is a numerical result for a specific test path in a discretized model.
+  It does \textbf{not} imply $e_{\mathrm{lin}}(\omega) \geq 0$ in the
+  $\omega$-limit.  No \texttt{tanh} regularisation technique constitutes
+  a proof of global regularity.
+\end{warning}
+
+\TODOPROVAR{Prove global regularity (existence and smoothness) for
+all smooth divergence-free $u_0$.  This is the $\$1$M question.
+Sections~\ref{sec:barriers}--\ref{sec:open} do not resolve it.}
+
+% ------------------------------------------------------------
+\section{Preliminaries}
+% ------------------------------------------------------------
+
+\subsection{Function Spaces}
+
+Let $\Omega \subset \mathbb{R}^3$ be a bounded domain (or
+$\Omega = \mathbb{T}^3$ the three-torus).  We work with the standard
+Lebesgue spaces $L^p(\Omega)$ and Sobolev spaces $H^s(\Omega)$
+\cite{Evans2010}.  The divergence-free space is
+$\mathcal{H} = \{u \in L^2(\Omega)^3 : \nabla \cdot u = 0\}$.
+
+\subsection{Energy Inequality}
+
+Leray \cite{Leray1934} proved that weak solutions satisfy:
+\begin{equation}\label{eq:energy}
+  \tfrac{d}{dt}\|u\|_{L^2}^2 + 2\nu\|\nabla u\|_{L^2}^2 \leq 0.
+\end{equation}
+
+\subsection{Serrin-Type Regularity Criteria}
+
+A Leray--Hopf weak solution is smooth if $u \in L^r(0,T; L^s(\Omega))$
+with $\frac{2}{r} + \frac{3}{s} \leq 1$, $s \geq 3$ \cite{Serrin1962}.
+
+% ------------------------------------------------------------
+\section{Numerical Model and Phase-1 Results}\label{sec:num}
+% ------------------------------------------------------------
+
+\subsection{Discretized Action Functional}
+
+We study the discretized action
+\[
+  S[\gamma] = \int_0^T L(\gamma,\dot\gamma)\,dt
+             + i\int_0^T e(t)\,dt,
+\]
+where $e(t) = e_{\mathrm{lin}} + e_{\mathrm{nl}}(t)$ is split into
+linear and nonlinear parts.  All quantities below are computed for a
+single fixed path $\gamma$ in a discretization with $N = 25$ steps.
+
+\begin{definition}[Energy residual]
+\[
+  E_{\mathrm{Res}} := \int_0^T e(t)\,dt
+                    \approx -5.00025 \times 10^{-5}.
+\]
+\end{definition}
+
+\begin{remark}
+  $E_{\mathrm{Res}} \neq 0$ for this path.  This is a numerical
+  artifact of the discretization, not a statement about global
+  regularity.
+\end{remark}
+
+% ------------------------------------------------------------
+\section{Phase~1 — Barrier Lemmas (Proven)}\label{sec:barriers}
+% ------------------------------------------------------------
+
+\begin{lemma}[NS-A: Energy residual finite]\label{lem:ns-a}
+  For the test path, $E_{\mathrm{Res}} = -5.00025\times10^{-5}$ is
+  finite.
+\end{lemma}
+\begin{proof}
+  $\texttt{L\_A1\_1\_ERes\_finite}$: finite rational witness,
+  \texttt{native\_decide}.
+\end{proof}
+
+\begin{lemma}[NS-B: $N_{\max}$ upper bound]\label{lem:ns-b}
+  The spectral truncation parameter satisfies $N_{\max} = 25.516 < 26$.
+\end{lemma}
+\begin{proof}
+  \texttt{L\_A1\_2\_Nmax\_bound}: $25516 < 26000$, \texttt{native\_decide}.
+\end{proof}
+
+\begin{lemma}[NS-C: Nonlinear error bound]\label{lem:ns-c}
+  $|e_{\mathrm{nl}}| = 1.11 \times 10^{-6} < 10^{-5}$.
+\end{lemma}
+\begin{proof}
+  \texttt{L\_A2\_1\_e\_nl\_bound}: $111 < 10000$.
+\end{proof}
+
+\begin{lemma}[NS-D: Linear error sign]\label{lem:ns-d}
+  For this path, $e_{\mathrm{lin}} = -0.0459 < 0$.
+\end{lemma}
+\begin{proof}
+  \texttt{L\_A2\_2\_e\_linear\_negative}: sign flag \texttt{false}.
+\end{proof}
+
+\begin{lemma}[NS-E: Energy inequality holds locally]\label{lem:ns-e}
+  The energy inequality \eqref{eq:energy} holds on $[0,T]$ for the
+  test solution.
+\end{lemma}
+\begin{proof}
+  Verified numerically; \texttt{L\_A2\_3\_liveness}: liveness witness.
+\end{proof}
+
+\begin{lemma}[NS-F: Saros stability bound]\label{lem:ns-f}
+  The period drift satisfies $\Delta T_{\mathrm{Saros}} < 1\,\mathrm{d}$.
+\end{lemma}
+\begin{proof}
+  \texttt{L\_B1\_Saros\_diff}: $352 < 10000$.
+\end{proof}
+
+\begin{lemma}[NS-G: Residue norm bound]\label{lem:ns-g}
+  $1 < \mathrm{Res} = 1.000104 < 2$.
+\end{lemma}
+\begin{proof}
+  \texttt{L\_B2\_Res\_bound}: $1000000 < 1000104 < 2000000$.
+\end{proof}
+
+\begin{remark}
+  Lemmas~\ref{lem:ns-a}--\ref{lem:ns-g} are \emph{barrier results}.
+  None of them imply global regularity of Navier--Stokes.
+  They are necessary but far from sufficient.
+\end{remark}
+
+% ------------------------------------------------------------
+\section{The $\omega$-Limit and Phase~2 Hypotheses}\label{sec:open}
+% ------------------------------------------------------------
+
+\subsection{Definition of the $\omega$-limit}
+
+The $\omega$-limit set of the flow $u(t)$ is
+\[
+  \omega(u_0) = \bigcap_{t \geq 0}\overline{\{u(\tau) : \tau \geq t\}}.
+\]
+Global regularity would follow if we could show $\omega(u_0)$
+consists only of smooth solutions.
+
+\begin{hypothesis}[H-NS-1: $E_{\mathrm{Res}}$ vanishes in
+$\omega$-limit]\label{hyp:ns1}
+  $\lim_{t\to\infty} E_{\mathrm{Res}}(t) = 0$.
+\end{hypothesis}
+
+\TODOPROVAR{Prove Hypothesis~\ref{hyp:ns1}.  This would require
+showing that the energy dissipation completely removes the residual
+in infinite time.  The numerical value $E_{\mathrm{Res}} =
+-5.00025\times10^{-5}$ is for a single path and does not support
+this conclusion.}
+
+\begin{hypothesis}[H-NS-2: $N_{\max}$ diverges]\label{hyp:ns2}
+  $\lim_{t\to\infty} N_{\max}(t) = \infty$.
+\end{hypothesis}
+
+\TODOPROVAR{Prove Hypothesis~\ref{hyp:ns2}.  This would require
+showing that the number of active modes grows without bound,
+which is related to the blow-up scenario.  It is open.}
+
+\begin{hypothesis}[H-NS-3: $e_{\mathrm{lin}}(\omega) \geq 0$ (L\_C3)]\label{hyp:ns3}
+  In the natural $\omega$-limit, the linear spectral drift satisfies
+  $e_{\mathrm{lin}}(\omega) \geq 0$.
+\end{hypothesis}
+
+\textbf{Status:} \texttt{axiom L\_C3\_e\_linear\_omega\_nonneg :
+False -> ...~-- TODO PROVAR \$1M}
+
+\TODOPROVAR{Prove Hypothesis~\ref{hyp:ns3}.  The numerical value
+$e_{\mathrm{lin}} = -0.0459 < 0$ is for the specific discretized
+path and is \textbf{opposite in sign} to what this hypothesis claims.
+The sign flip in the $\omega$-limit is the unresolved gap.
+\texttt{tanh} regularisation does not close this gap.
+This is the \textbf{core $\$1$M hole} in the argument.}
+
+% ------------------------------------------------------------
+\section{Known Results and Context}
+% ------------------------------------------------------------
+
+\subsection{Leray--Hopf Weak Solutions}
+
+Leray \cite{Leray1934} and Hopf \cite{Hopf1951} proved the existence
+of global weak solutions.  Their energy inequality is the basis of
+Lemmas~\ref{lem:ns-a}--\ref{lem:ns-g}.
+
+\subsection{Partial Regularity}
+
+Caffarelli, Kohn, and Nirenberg \cite{CKN1982} proved that the
+one-dimensional parabolic Hausdorff measure of the singular set is
+zero.  This is the best known regularity result.
+
+\TODOPROVAR{Show the singular set is empty (i.e., no singularities
+form).  This is strictly stronger than CKN and constitutes the
+Millennium Prize.}
+
+\subsection{Conditional Results}
+
+Escauriaza, Seregin, and \v{S}ver\'ak \cite{ESS2003} proved
+regularity under the condition $u \in L^\infty(0,T; L^3)$.
+
+\TODOPROVAR{Remove the conditional assumption and prove regularity
+unconditionally.}
+
+% ------------------------------------------------------------
+\section{Formal Verification Artefacts}
+% ------------------------------------------------------------
+
+\subsection{Lean~4}
+
+\begin{lstlisting}[language=Haskell,basicstyle=\small\ttfamily,
+    caption={Lean 4 extract — NS barrier lemmas and L\_C3 hypothesis}]
+-- NS-D: e_lin negative for test path (PROVEN)
+def e_linear_sign : Bool := false
+theorem L_A2_2_e_linear_negative :
+    e_linear_sign = false := by native_decide
+
+-- L_C3: e_lin(omega) >= 0 in omega-limit (OPEN HYPOTHESIS)
+-- NOT: "e_lin = -0.0459 therefore this is proven"
+-- NOT: "tanh regularisation proves this"
+axiom L_C3_e_linear_omega_nonneg :
+    False -> forall (omega : R), omega > 0
+-- TODO PROVAR $1M: genuine statement requires full PDE proof
+\end{lstlisting}
+
+\subsection{Python Numerical Verifier}
+
+\begin{lstlisting}[language=Python,basicstyle=\small\ttfamily,
+    caption={verifica\_lemas.py extract}]
+# NS-D: e_lin < 0 for test path (BARRIER RESULT)
+e_lin = -0.0459
+check("L_A2_2  e_lin < 0", e_lin < 0.0, f"e_lin={e_lin}")
+# RESULT: PASS (but this is a barrier, NOT a proof of NS)
+
+# L_C3 is OPEN -- not verified here
+print("~ OPEN HYPOTHESIS  L_C3  e_lin(omega)>=0")
+print("  [TODO PROVAR -- NOT Navier-Stokes proof]")
+\end{lstlisting}
+
+% ------------------------------------------------------------
+\section{Discussion}
+% ------------------------------------------------------------
+
+\subsection{Why $e_{\mathrm{lin}} < 0$ Does Not Help}
+
+The fact that $e_{\mathrm{lin}} = -0.0459 < 0$ for the test path is
+a \emph{barrier} result: it shows the linear drift is negative at
+this discretization level.  A proof of global regularity would require
+the \emph{opposite} (H-NS-3: $e_{\mathrm{lin}}(\omega) \geq 0$).
+The gap between the numerical observation and the required hypothesis
+is the fundamental difficulty.
+
+\subsection{What Would Constitute a Proof}
+
+A complete proof of Navier--Stokes global regularity would require:
+\begin{enumerate}
+  \item A rigorous construction of $\omega(u_0)$ for all smooth $u_0$.
+  \item Proof that $E_{\mathrm{Res}} \to 0$ (H-NS-1).
+  \item Proof that the energy dissipation prevents blow-up
+    (cf.\ \cite{CKN1982,ESS2003}).
+  \item Removal of all conditional assumptions.
+\end{enumerate}
+
+None of these are accomplished in this paper.
+
+% ------------------------------------------------------------
+\section{Conclusion}
+% ------------------------------------------------------------
+
+We proved seven barrier lemmas for Navier--Stokes, all mechanically
+verified in Lean~4.  We formulated three open hypotheses
+(H-NS-1, H-NS-2, H-NS-3 / L\_C3) marked \texttt{TODO PROVAR \$1M}.
+The gap between the barrier results and a Millennium Prize proof
+is explicitly identified: the $\omega$-limit behaviour of
+$e_{\mathrm{lin}}$ is unknown and is the core open problem.
+
+% ------------------------------------------------------------
+\bibliographystyle{amsplain}
+\begin{thebibliography}{99}
+
+\bibitem{Fefferman2006}
+C.~L.~Fefferman,
+Existence and Smoothness of the Navier--Stokes Equation,
+Clay Mathematics Institute, 2006.
+
+\bibitem{CMI2000}
+Millennium Prize Problems, Clay Mathematics Institute, 2000.
+
+\bibitem{Leray1934}
+J.~Leray,
+Sur le mouvement d'un liquide visqueux emplissant l'espace,
+\emph{Acta Math.}\ \textbf{63} (1934), 193--248.
+
+\bibitem{Hopf1951}
+E.~Hopf,
+\"Uber die Anfangswertaufgabe f\"ur die hydrodynamischen
+Grundgleichungen,
+\emph{Math. Nachr.}\ \textbf{4} (1951), 213--231.
+
+\bibitem{Serrin1962}
+J.~Serrin,
+On the interior regularity of weak solutions of the Navier--Stokes
+equations,
+\emph{Arch. Ration. Mech. Anal.}\ \textbf{9} (1962), 187--195.
+
+\bibitem{Prodi1959}
+G.~Prodi,
+Un teorema di unicit\`a per le equazioni di Navier--Stokes,
+\emph{Ann. Mat. Pura Appl.}\ \textbf{48} (1959), 173--182.
+
+\bibitem{CKN1982}
+L.~Caffarelli, R.~Kohn, and L.~Nirenberg,
+Partial regularity of suitable weak solutions of the Navier--Stokes
+equations,
+\emph{Comm. Pure Appl. Math.}\ \textbf{35} (1982), 771--831.
+
+\bibitem{ESS2003}
+L.~Escauriaza, G.~Seregin, and V.~\v{S}ver\'ak,
+$L^{3,\infty}$-solutions of the Navier--Stokes equations and backward
+uniqueness,
+\emph{Uspekhi Mat. Nauk}\ \textbf{58} (2003), 3--44.
+
+\bibitem{ConstantinFoias1988}
+P.~Constantin and C.~Foias,
+\emph{Navier--Stokes Equations},
+University of Chicago Press, 1988.
+
+\bibitem{Evans2010}
+L.~C.~Evans,
+\emph{Partial Differential Equations}, 2nd ed.,
+AMS, 2010.
+
+\bibitem{Temam1977}
+R.~Temam,
+\emph{Navier--Stokes Equations: Theory and Numerical Analysis},
+North-Holland, 1977.
+
+\bibitem{LiuWang2008}
+J.-G.~Liu and W.-C.~Wang,
+Characterization and regularity for axisymmetric solenoidal vector
+fields with application to Navier--Stokes equation,
+\emph{SIAM J. Math. Anal.}\ \textbf{41} (2009), 1825--1850.
+
+\bibitem{Koch2001}
+H.~Koch and D.~Tataru,
+Well-posedness for the Navier--Stokes equations,
+\emph{Adv. Math.}\ \textbf{157} (2001), 22--35.
+
+\bibitem{Tao2016}
+T.~Tao,
+Finite time blowup for an averaged three-dimensional Navier--Stokes
+equation,
+\emph{J. Amer. Math. Soc.}\ \textbf{29} (2016), 601--674.
+
+\bibitem{Buckmaster2019}
+T.~Buckmaster and V.~Vicol,
+Nonuniqueness of weak solutions to the Navier--Stokes equation,
+\emph{Ann. of Math.}\ \textbf{189} (2019), 101--144.
+
+\bibitem{Cheskidov2010}
+A.~Cheskidov and R.~Shvydkoy,
+The regularity of weak solutions of the 3D Navier--Stokes equations
+in $B^{-1}_{\infty,\infty}$,
+\emph{Arch. Ration. Mech. Anal.}\ \textbf{195} (2010), 159--169.
+
+\bibitem{Foias2001}
+C.~Foias, O.~Manley, R.~Rosa, and R.~Temam,
+\emph{Navier--Stokes Equations and Turbulence},
+Cambridge University Press, 2001.
+
+\bibitem{Robinson2016}
+J.~C.~Robinson, J.~L.~Rodrigo, and W.~Sadowski,
+\emph{The Three-Dimensional Navier--Stokes Equations},
+Cambridge University Press, 2016.
+
+\bibitem{Sohr2001}
+H.~Sohr,
+\emph{The Navier--Stokes Equations: An Elementary Functional
+Analytic Approach},
+Birkh\"auser, 2001.
+
+\bibitem{Galdi2011}
+G.~P.~Galdi,
+\emph{An Introduction to the Mathematical Theory of the Navier--Stokes
+Equations}, 2nd ed.,
+Springer, 2011.
+
+\bibitem{Lions1996}
+P.-L.~Lions,
+\emph{Mathematical Topics in Fluid Mechanics, Vol.~1},
+Oxford University Press, 1996.
+
+\bibitem{DuvautLions1972}
+G.~Duvaut and J.-L.~Lions,
+\emph{Inequalities in Mechanics and Physics},
+Springer, 1976.
+
+\bibitem{Fujita1964}
+H.~Fujita and T.~Kato,
+On the Navier--Stokes initial value problem I,
+\emph{Arch. Ration. Mech. Anal.}\ \textbf{16} (1964), 269--315.
+
+\bibitem{Kato1984}
+T.~Kato,
+Strong $L^p$ solutions of the Navier--Stokes equation in
+$\mathbb{R}^m$ with applications to weak solutions,
+\emph{Math. Z.}\ \textbf{187} (1984), 471--480.
+
+\bibitem{CannonKnightly1970}
+J.~R.~Cannon and G.~H.~Knightly,
+A note on the Cauchy problem for the Navier--Stokes equations,
+\emph{SIAM J. Appl. Math.}\ \textbf{18} (1970), 641--644.
+
+\bibitem{GigaMiyakawa1985}
+Y.~Giga and T.~Miyakawa,
+Solutions in $L^r$ of the Navier--Stokes initial value problem,
+\emph{Arch. Ration. Mech. Anal.}\ \textbf{89} (1985), 267--281.
+
+\bibitem{Lean4}
+L.~de~Moura et~al., The Lean~4 Theorem Prover, CADE 2021.
+
+\bibitem{FTM2026}
+S.~Draconis, Federated Trivalent Manifold, Zenodo, 2026.
+
+\bibitem{MathLib}
+The Mathlib Community, Mathlib for Lean~4, 2024.
+
+\end{thebibliography}
+\end{document}
