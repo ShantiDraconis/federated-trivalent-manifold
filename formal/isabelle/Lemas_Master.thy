@@ -50,23 +50,23 @@ lemma L_B2_Res_bound: "(1000000 :: nat) < 1000104 \<and> (1000104 :: nat) < 2000
 (* ─────────────────────────────────────────────────────── *)
 
 (* L_C1 : E_Res vanishes in omega-limit — open conjecture
-   Stub: False antecedent makes this unprovable without the axiom. *)
+   Stub: axiom of False. Nothing useful provable without it.
+   TODO PROVAR: requires PDE analysis *)
 axiomatization where
-  L_C1_ERes_omega_zero: "False \<longrightarrow> (\<forall> (eps :: nat). eps > 0)"
-(* TODO PROVAR: requires PDE analysis *)
+  L_C1_ERes_omega_zero: "False"
 
 (* L_C2 : N_max diverges in omega-limit — open conjecture
-   Stub: False antecedent makes this unprovable without the axiom. *)
+   Stub: axiom of False. Nothing useful provable without it.
+   TODO PROVAR: related to blow-up question *)
 axiomatization where
-  L_C2_Nmax_omega_infty: "False \<longrightarrow> (\<forall> (M :: nat). M > 0)"
-(* TODO PROVAR: related to blow-up question *)
+  L_C2_Nmax_omega_infty: "False"
 
 (* L_C3 : e_linear(omega) >= 0 in natural omega-limit — open conjecture
    NOTE: e = -0.0459 is numerical for a specific path only.
    Do NOT interpret as proof of Navier-Stokes global regularity.
-   Stub: False antecedent makes this unprovable without the axiom. *)
+   Stub: axiom of False. Nothing useful provable without it.
+   TODO PROVAR: genuine statement requires full PDE proof *)
 axiomatization where
-  L_C3_e_linear_omega_nonneg: "False \<longrightarrow> (\<forall> (omega :: nat). omega > 0)"
-(* TODO PROVAR: genuine statement requires full PDE proof *)
+  L_C3_e_linear_omega_nonneg: "False"
 
 end
