@@ -1,0 +1,10 @@
+.env
+*.key
+*.pem
+*.log
+__pycache__/
+.lake/
+build/
+dist/
+node_modules/
+.mplconfig/

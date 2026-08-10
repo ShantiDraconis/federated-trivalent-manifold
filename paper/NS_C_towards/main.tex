@@ -1,0 +1,33 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,hyperref}
+
+\title{Towards Global Regularity (Navier--Stokes) — Hypothesis}
+\author{Shanti Draconis}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We do \textbf{not} prove Global Regularity (Navier--Stokes).
+We formulate an open hypothesis and provide partial numerical evidence.
+The conjecture is stated as an \texttt{axiom} with a \texttt{TODO}
+marker in all formal proof assistants.
+\end{abstract}
+
+\section{Open Hypothesis (NS\_C (= L\_C3))}
+\begin{quote}
+  \textbf{Hypothesis NS\_C (= L\_C3) (open).}~$e_{\mathrm{lin}}(\omega) \geq 0$ in the natural $\omega$-limit
+\end{quote}
+
+\section{Status}
+This statement is \emph{not proven}.  It is recorded as
+\verb|axiom NS\_C (= L\_C3) ... -- TODO PROVAR| in Lean~4, Coq, and Isabelle/HOL.
+No claim is made regarding the Millennium Prize.
+
+\section{Evidence}
+Numerical simulation provides circumstantial evidence only.
+A rigorous proof would require techniques beyond current methods.
+
+\end{document}

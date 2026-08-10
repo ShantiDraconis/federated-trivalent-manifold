@@ -1,0 +1,105 @@
+name: Build All Lemmas
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "formal/**"
+      - "simulations/verifica_lemas.py"
+      - "paper/**/main.tex"
+      - "build_all.sh"
+  pull_request:
+    paths:
+      - "formal/**"
+      - "simulations/verifica_lemas.py"
+      - "paper/**/main.tex"
+      - "build_all.sh"
+  workflow_dispatch:
+
+jobs:
+  # ── Job 1: Python numerical verification ──────────────────────────────────
+  verify-lemmas:
+    name: "Python — Verify Lemmas"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run verifica_lemas.py
+        run: python simulations/verifica_lemas.py
+
+  # ── Job 2: Coq verification ───────────────────────────────────────────────
+  coq:
+    name: "Coq — Lemas_Master.v"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Coq
+        run: sudo apt-get install -y coq
+      - name: Compile Lemas_Master.v
+        run: coqc formal/coq/Lemas_Master.v
+
+  # ── Job 3: LaTeX — 24 PDFs ────────────────────────────────────────────────
+  latex:
+    name: "LaTeX — 24 PDFs"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX Live
+        run: |
+          sudo apt-get install -y \
+            texlive-latex-base texlive-latex-recommended \
+            texlive-fonts-recommended texlive-science
+      - name: Compile all main.tex files
+        run: |
+          mkdir -p output/lemmas
+          FAILED=0
+          for TEX_DIR in paper/*/; do
+            TEX="$TEX_DIR/main.tex"
+            NAME="$(basename "$TEX_DIR")"
+            if [[ ! -f "$TEX" ]]; then continue; fi
+            echo -n "Compiling $NAME ... "
+            if pdflatex -interaction=nonstopmode \
+                -output-directory="$TEX_DIR" "$TEX" >/dev/null 2>&1; then
+              cp "$TEX_DIR/main.pdf" "output/lemmas/${NAME}.pdf"
+              echo "OK"
+            else
+              echo "FAILED"
+              FAILED=$((FAILED + 1))
+            fi
+          done
+          echo "PDFs: $(ls output/lemmas/*.pdf | wc -l)"
+          exit $FAILED
+      - name: Upload PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: lemma-pdfs
+          path: output/lemmas/*.pdf
+
+  # ── Job 4: Zenodo ZIP ─────────────────────────────────────────────────────
+  zenodo:
+    name: "Zenodo ZIP"
+    needs: [verify-lemmas, coq, latex]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: lemma-pdfs
+          path: output/lemmas/
+      - name: Build Zenodo ZIP
+        run: |
+          zip -r output/federated-trivalent-manifold-lemmas.zip \
+            formal/lean/Lemas_Master.lean \
+            formal/coq/Lemas_Master.v \
+            formal/isabelle/Lemas_Master.thy \
+            simulations/verifica_lemas.py \
+            output/lemmas/ \
+            CITATION.cff \
+            README.md
+      - name: Upload Zenodo ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: zenodo-zip
+          path: output/federated-trivalent-manifold-lemmas.zip

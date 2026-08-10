@@ -29,3 +29,10 @@ Zetas de grafos, equações funcionais semelhantes, estatísticas espectrais e a
 Contagem de zeros, termo principal e termos inferiores; simetria funcional; zeros triviais; multiplicidades; estabilidade no limite federado.
 
 **Maturidade atual:** M0. Nenhum operador com RH1–RH4 foi construído.
+
+## Dossiê suplementar
+
+O pacote [Auditoria estrutural da Hipótese de Riemann](riemann-audit/README.md)
+detalha o detector geométrico local, o defeito radial não holomorfo, a forma de
+Weil, matrizes truncadas e o teste de circularidade. O material preserva a
+classificação M0 e não substitui as obrigações RH1–RH4.

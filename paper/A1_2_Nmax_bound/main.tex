@@ -1,0 +1,38 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,hyperref}
+
+\title{N\_max Upper Bound: A Barrier Result}
+\author{Shanti Draconis}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove a barrier result, not a $1$M claim.
+Specifically, we establish $N_{\max} < 26$.
+No Millennium Prize conjecture is asserted as resolved.
+\end{abstract}
+
+\section{Introduction}
+This note presents lemma \textbf{L\_A1\_2} as a bounded, finite,
+mechanically checkable statement.  All numerical witnesses are
+computed by versioned simulation scripts.
+
+\section{Statement}
+\begin{quote}
+  \textbf{Lemma L\_A1\_2.}~$N_{\max} < 26$
+\end{quote}
+
+\section{Verification}
+The statement is verified by \texttt{native\_decide} (Lean~4),
+\texttt{lia} (Coq), and \texttt{by simp} (Isabelle/HOL).
+Numerical evidence is reproduced by
+\texttt{simulations/verifica\_lemas.py}.
+
+\section{Limitations}
+This is a barrier / bounded result.  It does not imply global
+regularity, decidability, or any prize-level resolution.
+
+\end{document}

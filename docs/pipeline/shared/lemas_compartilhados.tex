@@ -1,0 +1,71 @@
+% lemas_compartilhados.tex
+% Lemas compartilhados entre os 24 artigos do programa auditavel.
+% Classificacao Popper/Lakatos explicita em cada item.
+% NUNCA inclua sorry/admit/postulate neste arquivo.
+
+\section*{Lemas Compartilhados (Nucleo A3)}
+
+% ------------------------------------------------------------------
+\begin{lemma}[Trivalencia bem-definida]\label{lem:trivalent}
+Seja $V = \{0, \tfrac{1}{2}, 1\}$ com as operacoes $\min$, $\max$ e
+complemento $\bar v = 1-v$.  Entao $(V, \min, \max, \bar{\cdot})$
+forma uma algebra de De Morgan distributiva.
+\end{lemma}
+\begin{proof}
+Verificacao direta nas $3^2 = 9$ combinacoes de pares. \qed
+\end{proof}
+\textbf{Classificacao:} \emph{Teorema publicado} (algebra classica).
+
+% ------------------------------------------------------------------
+\begin{lemma}[Colagem (Teorema T0)]\label{lem:colagem}
+Dado um atlas federado $\{(U_i, \phi_i)\}$ com morfismos de transicao
+$\phi_{ij}$ satisfazendo a condicao de cociclo, existe uma unica
+estrutura federada global ate isomorfismo.
+\end{lemma}
+\begin{proof}
+Segue do Teorema de Colagem para feixes (SGA 4, Expose I). \qed
+\end{proof}
+\textbf{Classificacao:} \emph{Teorema publicado} (literatura).
+
+% ------------------------------------------------------------------
+\begin{lemma}[Liveness condicional]\label{lem:liveness}
+\emph{Hipotese:} existe $\epsilon > 0$ tal que $S^2 + \epsilon$ minora
+a funcional de energia $W$ na regiao $\mathcal{R}$.
+\emph{Conclusao condicional:} $dW/dt \ge \epsilon > 0$ ao longo das
+trajetorias do fluxo proposto.
+\end{lemma}
+\begin{proof}[Prova condicional]
+Sob a hipotese, expandir $W$ e aplicar a derivada do fluxo.
+Ver \texttt{Lemas.lean}. \qed
+\end{proof}
+\textbf{Classificacao:} \emph{Teorema condicional Q.E.D.} —
+depende da hipotese $S^2+\epsilon > 0$; NAO e incondicionalmente provado.
+
+% ------------------------------------------------------------------
+\begin{lemma}[Residuo numerico finito]\label{lem:residuo}
+Para a soma finita $\sum_{n=1}^{N} a_n$ com $N = 9\,999$ e precisao
+de 15 casas decimais, o residuo e $E_{\mathrm{res}} \approx -5.0 \times 10^{-5}$.
+\end{lemma}
+\begin{proof}
+Computacao direta; ver script Python com \texttt{seed=2024}, \texttt{N=9999}.
+\end{proof}
+\textbf{Classificacao:} \emph{Evidencia numerica} —
+NAO implica $E_{\mathrm{res}}(\omega) = 0$ para $N \to \infty$.
+
+% ------------------------------------------------------------------
+\begin{lemma}[Instabilidade linear numerica]\label{lem:linear}
+Com condicao inicial $u_0 \in L^2$ e regularizacao \texttt{tanh},
+o expoente de Lyapunov linear calculado e $e_{\mathrm{lin}} \approx -0.046 < 0$.
+\end{lemma}
+\begin{proof}
+Linearizacao numerica; ver simulacao com $\nu = 10^{-3}$, malha $N=256$.
+\end{proof}
+\textbf{Classificacao:} \emph{Evidencia numerica} —
+NAO e blow-up provado; \texttt{tanh} regulariza artificialmente.
+
+% ------------------------------------------------------------------
+\begin{remark}[Salto logico proibido]
+E proibido tratar \emph{Evidencia numerica} como \emph{Teorema publicado}
+sem: (i) prova analitica com $N \to \infty$; (ii) compilacao Lean/Coq
+sem \texttt{sorry}; (iii) par contraexemplo/falsificador Popper explicito.
+\end{remark}

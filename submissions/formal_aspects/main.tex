@@ -1,0 +1,42 @@
+% Replace article with the publisher's current Formal Aspects of Computing
+% class only after downloading it from the official author page.
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,hyperref}
+\title{Epistemic Status Discipline for a Multi-Prover Trivalent Specification Calculator}
+\author{Shanti Draconis\\Affiliation to be confirmed}
+\begin{document}\maketitle
+\begin{abstract}
+This paper defines a small strong-Kleene status algebra, a typed boundary
+between assumptions and checked results, and a cross-prover regression suite.
+The contribution is specification discipline, not a solution to an open
+mathematical problem.
+\end{abstract}
+\section{Problem}
+Exploratory computational models can silently promote assumptions and sampled
+evidence to universal claims. We encode status and trust boundaries explicitly.
+\section{Semantics}
+Let $K_3=\{F,U,T\}$, with negation fixing $U$, conjunction given by minimum and
+disjunction by maximum in the information order $F<U<T$. The implementation
+proves involution and commutativity by exhaustive finite cases.
+\section{Refinement interface}
+Generated statements carry one of: definition, assumption, open obligation,
+tested invariant, or checker-verified theorem. No exporter changes status
+without a verifier record containing tool, version and digest.
+\section{Case study}
+A rational accumulator and isolation operator illustrate how domain hypotheses
+are made explicit. Monotonicity requires non-negative time increments; reducing
+one coordinate is not interpreted as a theorem about topology or security.
+\section{Evaluation plan}
+The camera-ready paper requires successful logs from pinned Lean, Coq, Isabelle
+and Agda versions, mutation tests for the exporters, and a comparison with
+existing proof-document exchange formats.
+\section{Threats to validity}
+The present cross-language fragments are small and do not establish semantic
+equivalence between proof assistants. Numerical examples do not validate the
+chosen scientific interpretation.
+\section*{AI disclosure}
+Generative AI assisted drafting and implementation. Human authors retain full
+responsibility and must verify every formal and bibliographic claim.
+\bibliographystyle{plain}\bibliography{../references}
+\end{document}

@@ -1,0 +1,235 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Weak Correspondence from Solar Eclipses:\\
+Barrier Lemmas and Geometric Refutation}
+\author{Shanti Draconis}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note formalizes a weak correspondence principle for solar eclipses.
+An eclipse does not prove a Millennium Prize statement. It can, however,
+refute a physical model when the predicted eclipse observables disagree with
+ground truth. We state the eclipse operator, a totality criterion in terms of
+umbra/penumbra geometry, and a scale-refutation lemma using the last total
+solar eclipse visible in Brazil on 3 November 1994. We also record the Saros
+quasi-commensurability as a periodicity lemma. All statements are framed as
+barrier or falsification results only.
+\end{abstract}
+
+\section{Status discipline}
+
+This document proves a bounded falsification statement, not a prize-level
+resolution. In particular:
+\begin{itemize}
+  \item proving that eclipse prediction is computationally tractable does not
+  prove \(P=NP\);
+  \item observing a smooth solar corona does not prove global regularity for
+  Navier--Stokes;
+  \item periodicity in eclipse recurrences does not imply any statement about
+  zeros of \(\zeta(s)\).
+\end{itemize}
+
+\section{Eclipse operator and the weak correspondence principle}
+
+\begin{definition}[Local eclipse operator]
+Fix a surface point \(x\) on Earth and a time \(t\). The observable eclipse
+vector is
+\[
+E_x(t)=\bigl(\Delta_x(t),\rho_M(t),\rho_S(t),W_x(t),V_x(t)\bigr),
+\]
+where \(\Delta_x\) is the apparent angular separation between the lunar and
+solar centres, \(\rho_M,\rho_S\) are the apparent angular semidiameters of the
+Moon and Sun, \(W_x\) is the local umbral-width observable and \(V_x\) is the
+shadow-direction observable.
+\end{definition}
+
+\begin{definition}[Totality criterion]
+At \(x\) and time \(t\), totality occurs only if
+\[
+\rho_M(t)>\rho_S(t)
+\qquad\text{and}\qquad
+\Delta_x(t)<\rho_M(t)-\rho_S(t).
+\]
+If \(\rho_M(t)\le \rho_S(t)\) and
+\(\Delta_x(t)<\rho_S(t)-\rho_M(t)\), the configuration is annular.
+If \(|\rho_M(t)-\rho_S(t)|\le \Delta_x(t)<\rho_M(t)+\rho_S(t)\), the
+location is in the partial (\emph{non-total}) regime.
+If \(\Delta_x(t)\ge \rho_M(t)+\rho_S(t)\), there is no eclipse at \(x\).
+\end{definition}
+
+\begin{theorem}[Weak correspondence theorem]\label{thm:weak}
+Let \(M\) be a geometric model of the Sun--Moon--Earth system. If the
+prediction \(E_x^{(M)}(t)\) falls outside the empirical uncertainty window of
+the observed vector \(E_x^{\mathrm{obs}}(t)\) for any measured total eclipse,
+then \(M\) is refuted as a model of that eclipse.
+\end{theorem}
+
+\begin{proof}
+The theorem is an instance of direct model testing: a model that assigns the
+wrong angular inequalities, the wrong shadow width, or the wrong shadow
+direction fails on an observable required for totality. Hence it cannot be a
+correct model of the event under comparison.
+\end{proof}
+
+\section{Ground truth: Brazil, 3 November 1994}
+
+The last total solar eclipse visible in Brazil occurred on 3 November 1994 and
+crossed southern Brazil before reaching greatest eclipse over the South
+Atlantic. We use the published event parameters in Table~\ref{tab:truth} as
+the ground-truth vector.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+Parameter & Ground truth \\
+\midrule
+Date & 1994-11-03 \\
+Type & total solar eclipse \\
+Saros series & 133 \\
+Greatest eclipse time & 13:39:05 UT \\
+Greatest eclipse region & South Atlantic Ocean, east of South America \\
+Magnitude & \(1.0535\) \\
+Gamma & \(-0.3522\) \\
+Maximum duration of totality & \(4\ \mathrm{min}\ 23\ \mathrm{s}\) \\
+Path width at greatest eclipse & \(189\ \mathrm{km}\) \\
+\bottomrule
+\end{tabular}
+\caption{Published parameters for the 3 November 1994 total solar eclipse.
+These values are reported by the NASA/Fred Espenak eclipse bulletins and
+summary tables.}
+\label{tab:truth}
+\end{table}
+
+\section{Lemma 1: scale refutation from umbra geometry}
+
+\begin{lemma}[Eclipse scale refutation]\label{lem:scale_refutation}
+Assume the physical Moon radius remains \(R_M\approx 1737\,\mathrm{km}\) and
+the solar angular semidiameter remains approximately
+\(\rho_S\approx 0.266^\circ\). Consider a flat-altitude model \(H_0\) in which
+the Moon is only \(h=5000\,\mathrm{km}\) above the observation plane. Then the
+central totality width predicted by \(H_0\) is at least
+\[
+W_{H_0}\approx 2h\tan\!\bigl(\rho_M^{(H_0)}-\rho_S\bigr)
+> 3000\,\mathrm{km},
+\]
+where
+\[
+\rho_M^{(H_0)}=\arctan\!\left(\frac{R_M}{h}\right)\approx 19.16^\circ.
+\]
+In particular, \(W_{H_0}\) is incompatible with the observed width
+\(W_{\mathrm{obs}}=189\,\mathrm{km}\) from Table~\ref{tab:truth}. Therefore
+\(H_0\) is refuted by direct geometric contradiction.
+\end{lemma}
+
+\begin{proof}
+In the flat-altitude model, the Moon appears far larger than in the observed
+sky:
+\[
+\rho_M^{(H_0)}=\arctan(1737/5000)\approx 19.16^\circ.
+\]
+Subtracting the solar semidiameter gives
+\[
+\rho_M^{(H_0)}-\rho_S \approx 18.89^\circ.
+\]
+For a point displaced transversally by distance \(r\) from the shadow centre,
+the apparent centre offset is \(\arctan(r/h)\). Totality would still occur
+whenever \(\arctan(r/h)<\rho_M^{(H_0)}-\rho_S\), hence
+\[
+r<h\tan\!\bigl(\rho_M^{(H_0)}-\rho_S\bigr).
+\]
+Therefore the corresponding central width satisfies
+\[
+W_{H_0}\approx 2h\tan(18.89^\circ)\approx 3422\,\mathrm{km}.
+\]
+This differs from the observed \(189\,\mathrm{km}\) by more than an order of
+magnitude, so Theorem~\ref{thm:weak} refutes \(H_0\).
+\end{proof}
+
+\begin{corollary}[Weak Earth--Moon scale filter]
+Any cosmological or geometric model that denies the observed Earth--Moon scale
+while retaining the observed solar and lunar sizes must reproduce the eclipse
+vector \(E_x(t)\) in Table~\ref{tab:truth}. If it predicts a totality width of
+order \(10^3\,\mathrm{km}\) rather than \(10^2\,\mathrm{km}\), it is ruled
+out by the same contradiction.
+\end{corollary}
+
+\section{Lemma 2: Saros quasi-commensurability}
+
+\begin{lemma}[Saros periodicity bound]\label{lem:saros}
+Let \(T_{\mathrm{syn}}\) denote the synodic month and
+\(T_{\mathrm{dra}}\) the draconic month. Using the standard astronomical
+approximations
+\[
+T_{\mathrm{syn}}\approx 29.53059\,\mathrm{d},
+\qquad
+T_{\mathrm{dra}}\approx 27.21222\,\mathrm{d},
+\]
+one obtains
+\[
+223\,T_{\mathrm{syn}}\approx 6585.3216\,\mathrm{d},
+\qquad
+242\,T_{\mathrm{dra}}\approx 6585.3572\,\mathrm{d},
+\]
+so that
+\[
+\Delta T_{\mathrm{Saros}}
+=\bigl|223\,T_{\mathrm{syn}}-242\,T_{\mathrm{dra}}\bigr|
+\approx 0.0357\,\mathrm{d}<1\,\mathrm{d}.
+\]
+\end{lemma}
+
+\begin{proof}
+Substitute the quoted month lengths and compute the absolute difference.
+\end{proof}
+
+\begin{remark}
+Lemma~\ref{lem:saros} proves only a near-commensurability statement for eclipse
+recurrence. It does not identify any spectral operator, and it does not imply
+any theorem about \(\zeta(s)\).
+\end{remark}
+
+\section{Boundary with the Millennium problems}
+
+The correct logical form is:
+\begin{quote}
+\emph{A well-measured eclipse can refute an incorrect physical model by
+contradiction on observables. It cannot, by itself, prove an open theorem in
+analysis, number theory, topology, or complexity theory.}
+\end{quote}
+
+This note therefore supports only the weak correspondence theorem and the two
+barrier lemmas above. It does not claim a solution to \(P\) versus \(NP\), the
+Riemann hypothesis, Navier--Stokes regularity, Yang--Mills mass gap, Hodge,
+BSD, or any other Millennium Prize statement.
+
+\section*{References}
+
+\begin{thebibliography}{9}
+
+\bibitem{Espenak1994}
+F.~Espenak and J.~Anderson,
+\emph{Total Solar Eclipse of 3 November 1994},
+NASA Reference Publication 1318, NASA Goddard Space Flight Center, 1994.
+
+\bibitem{EspenakCanon}
+F.~Espenak,
+\emph{Five Millennium Canon of Solar Eclipses},
+NASA/TP-2006-214141, NASA Goddard Space Flight Center, 2006.
+
+\end{thebibliography}
+
+\end{document}

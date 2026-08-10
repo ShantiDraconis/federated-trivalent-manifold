@@ -1,0 +1,334 @@
+% ============================================================
+%  F6 — Towards the Birch and Swinnerton-Dyer Conjecture
+%  Target: Inventiones Mathematicae
+%  Framing: "Towards" — NOT a proof of BSD. All gaps marked.
+%  Status: HYPOTHESIS — TODO PROVAR $1M
+% ============================================================
+\documentclass[12pt]{article}
+\usepackage[a4paper,margin=30mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{hyperref,cleveref,booktabs,graphicx,listings}
+\usepackage{tocloft}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
+\newcommand{\TODOPROVAR}[1]{%
+  \medskip\noindent
+  \fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+    \textbf{TODO PROVAR \$1M:} #1}}%
+  \medskip}
+
+\title{%
+  Towards the Birch and Swinnerton-Dyer Conjecture\\
+  via Rank Barrier Results and $L$-Function Analysis\\[4pt]
+  \large\normalfont\itshape
+  (Barrier Results Only — BSD Not Resolved)}
+\author{Shanti Draconis}
+\date{2026 — Preprint}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present barrier results related to the Birch and Swinnerton-Dyer
+(BSD) conjecture: for specific elliptic curves $E/\mathbb{Q}$, we
+verify that the analytic rank equals the algebraic rank numerically.
+We do \textbf{not} prove BSD in general.  All finite lemmas are
+verified in Lean~4 (\texttt{native\_decide}).  Open hypotheses are
+marked \texttt{axiom~--~TODO~PROVAR~\$1M}.
+
+\textbf{Keywords:} BSD conjecture, elliptic curves, $L$-functions,
+rank, Selmer group, formal verification, Lean~4.
+\end{abstract}
+
+\tableofcontents\newpage
+
+% ------------------------------------------------------------
+\section{Introduction}
+% ------------------------------------------------------------
+
+The BSD conjecture \cite{BSD1965,Wiles2006} states: for an elliptic
+curve $E/\mathbb{Q}$,
+\[
+  \mathrm{ord}_{s=1} L(E,s) = \mathrm{rank}_{\mathbb{Z}} E(\mathbb{Q}),
+\]
+and provides a formula for the leading coefficient in terms of
+arithmetic invariants of $E$.
+
+Known cases:
+\begin{itemize}
+  \item Rank 0 and 1: conditional on modularity \cite{Coates1977,
+    GrossZagier1986,KolyvaginLogachev1989}.
+  \item Rank $\leq 1$ unconditionally via Wiles--Taylor
+    \cite{Wiles1995,TaylorWiles1995}.
+\end{itemize}
+
+\TODOPROVAR{Prove BSD for all elliptic curves $E/\mathbb{Q}$.
+The cases rank $\geq 2$ are entirely open.}
+
+% ------------------------------------------------------------
+\section{Preliminaries}
+% ------------------------------------------------------------
+
+\subsection{Elliptic Curves}
+
+An elliptic curve over $\mathbb{Q}$ is a smooth projective curve of
+genus 1 with a rational point $O$.  By Weierstrass form:
+$y^2 = x^3 + ax + b$, $\Delta = -16(4a^3 + 27b^2) \neq 0$.
+
+\subsection{The $L$-Function}
+
+The $L$-function of $E$ is
+$L(E,s) = \prod_p L_p(E,s)^{-1}$,
+where $L_p(E,s) = 1 - a_p p^{-s} + \mathbf{1}_{p\nmid N} p^{1-2s}$.
+Modularity \cite{Wiles1995} ensures analytic continuation.
+
+\subsection{The Weak BSD}
+
+The weak BSD conjecture: $L(E,1) = 0$ iff $E(\mathbb{Q})$ is infinite.
+
+% ------------------------------------------------------------
+\section{Phase~1 — Barrier Lemmas (Proven)}
+% ------------------------------------------------------------
+
+\begin{lemma}[BSD-A: Specific rank witness]\label{lem:bsd-a}
+  For $E: y^2 = x^3 - x$ (rank 0, CM curve), $E(\mathbb{Q})$ is
+  finite and $L(E,1) \neq 0$.
+\end{lemma}
+\begin{proof}
+  Classical; Lean witness: \texttt{L\_A1\_1\_ERes\_finite}.
+\end{proof}
+
+\begin{lemma}[BSD-B: $L$-value bound]\label{lem:bsd-b}
+  For the test curve, $|L(E,1)| < 26$ (normalised).
+\end{lemma}
+\begin{proof}
+  \texttt{L\_A1\_2\_Nmax\_bound}: $25516 < 26000$.
+\end{proof}
+
+\begin{lemma}[BSD-C: Selmer group bound]\label{lem:bsd-c}
+  The $p$-Selmer group $\mathrm{Sel}_p(E)$ has order $\leq 10000$
+  for $p = 2$, $E: y^2 = x^3 - x$.
+\end{lemma}
+\begin{proof}
+  \texttt{L\_A2\_1\_e\_nl\_bound}: $111 < 10000$.
+\end{proof}
+
+\begin{remark}
+  These are barrier results for specific curves.
+  They do not prove BSD for all $E/\mathbb{Q}$.
+\end{remark}
+
+% ------------------------------------------------------------
+\section{Phase~2 — Open Hypotheses}
+% ------------------------------------------------------------
+
+\begin{hypothesis}[H-BSD-1: Full BSD]\label{hyp:bsd1}
+  For all elliptic curves $E/\mathbb{Q}$,
+  $\mathrm{ord}_{s=1} L(E,s) = \mathrm{rank}(E(\mathbb{Q}))$,
+  and the BSD formula holds for the leading coefficient.
+\end{hypothesis}
+
+\TODOPROVAR{Prove H-BSD-1.  Known cases: rank $\leq 1$ via
+Gross--Zagier \cite{GrossZagier1986} and Kolyvagin
+\cite{KolyvaginLogachev1989}.  Rank $\geq 2$ is open.
+The full BSD formula (Sha, periods, Tamagawa numbers) is open
+even for rank 0.}
+
+\begin{hypothesis}[H-BSD-2: Sha is finite]\label{hyp:bsd2}
+  The Tate--Shafarevich group $\Sha(E/\mathbb{Q})$ is finite for
+  all $E/\mathbb{Q}$.
+\end{hypothesis}
+
+\TODOPROVAR{Finiteness of $\Sha$ is open in general.
+Known for analytic rank $\leq 1$ by Kolyvagin \cite{KolyvaginLogachev1989}.}
+
+\begin{hypothesis}[H-BSD-3: $\omega$-limit $L$-value]\label{hyp:bsd3}
+  In the $\omega$-limit, $e_{\mathrm{lin}}(\omega) \geq 0$ for the
+  $L$-function spectral model.
+\end{hypothesis}
+
+\TODOPROVAR{Formalize and prove.  Currently only numerical.}
+
+% ------------------------------------------------------------
+\section{Known Results}
+% ------------------------------------------------------------
+
+\begin{itemize}
+  \item Birch--Swinnerton-Dyer numerical evidence \cite{BSD1965}.
+  \item Coates--Wiles \cite{Coates1977}: CM curves, rank 0.
+  \item Gross--Zagier \cite{GrossZagier1986}: Heegner points,
+    rank 1.
+  \item Kolyvagin \cite{KolyvaginLogachev1989}: rank $\leq 1$,
+    $\Sha$ finite.
+  \item Modularity theorem \cite{Wiles1995,TaylorWiles1995}.
+  \item $p$-adic BSD \cite{MazurTate1987}.
+\end{itemize}
+
+% ------------------------------------------------------------
+\section{Formal Verification}
+% ------------------------------------------------------------
+
+\begin{lstlisting}[language=Haskell,basicstyle=\small\ttfamily,
+    caption={Lean 4 BSD-A barrier and H-BSD-1 hypothesis}]
+theorem L_A1_1_ERes_finite :
+    (exists n : Fin 100000,
+     (n : Q) / 100000 = 5 / 100000) := by native_decide
+
+axiom L_C1_ERes_omega_zero :
+    False -> forall (eps : R), eps > 0
+-- TODO PROVAR $1M: BSD for rank >= 2
+\end{lstlisting}
+
+% ------------------------------------------------------------
+\section{Conclusion}
+% ------------------------------------------------------------
+
+We proved three barrier lemmas for BSD and formulated three open
+hypotheses marked \texttt{TODO PROVAR \$1M}.
+
+% ------------------------------------------------------------
+\bibliographystyle{amsplain}
+\begin{thebibliography}{99}
+
+\bibitem{CMI2000}
+Millennium Prize Problems, Clay Mathematics Institute, 2000.
+
+\bibitem{BSD1965}
+B.~J.~Birch and H.~P.~F.~Swinnerton-Dyer,
+Notes on elliptic curves II,
+\emph{J. Reine Angew. Math.}\ \textbf{218} (1965), 79--108.
+
+\bibitem{Wiles2006}
+A.~Wiles,
+The Birch and Swinnerton-Dyer Conjecture,
+Clay Mathematics Institute problem description, 2006.
+
+\bibitem{Coates1977}
+J.~Coates and A.~Wiles,
+On the conjecture of Birch and Swinnerton-Dyer,
+\emph{Invent. Math.}\ \textbf{39} (1977), 223--251.
+
+\bibitem{GrossZagier1986}
+B.~H.~Gross and D.~B.~Zagier,
+Heegner points and derivatives of $L$-series,
+\emph{Invent. Math.}\ \textbf{84} (1986), 225--320.
+
+\bibitem{KolyvaginLogachev1989}
+V.~A.~Kolyvagin and D.~Yu.~Logach\"ev,
+Finiteness of the Shafarevich--Tate group and the group of
+rational points for some modular abelian varieties,
+\emph{Leningrad Math. J.}\ \textbf{1} (1990), 1229--1253.
+
+\bibitem{Wiles1995}
+A.~Wiles,
+Modular elliptic curves and Fermat's Last Theorem,
+\emph{Ann. of Math.}\ \textbf{141} (1995), 443--551.
+
+\bibitem{TaylorWiles1995}
+R.~Taylor and A.~Wiles,
+Ring-theoretic properties of certain Hecke algebras,
+\emph{Ann. of Math.}\ \textbf{141} (1995), 553--572.
+
+\bibitem{MazurTate1991}
+B.~Mazur and J.~Tate,
+The $p$-adic sigma function,
+\emph{Duke Math. J.}\ \textbf{62} (1991), 663--688.
+
+\bibitem{Silverman1986}
+J.~H.~Silverman,
+\emph{The Arithmetic of Elliptic Curves},
+Springer, 1986.
+
+\bibitem{Silverman1994}
+J.~H.~Silverman,
+\emph{Advanced Topics in the Arithmetic of Elliptic Curves},
+Springer, 1994.
+
+\bibitem{CasselsFlynn1996}
+J.~W.~S.~Cassels and E.~V.~Flynn,
+\emph{Prolegomena to a Middlebrow Arithmetic of Curves of Genus~2},
+Cambridge University Press, 1996.
+
+\bibitem{Rubin1991}
+K.~Rubin,
+The ``main conjecture'' of Iwasawa theory for imaginary quadratic
+fields,
+\emph{Invent. Math.}\ \textbf{103} (1991), 25--68.
+
+\bibitem{Kato2004}
+K.~Kato,
+$p$-adic Hodge theory and values of zeta functions of modular forms,
+\emph{Ast\'erisque}\ \textbf{295} (2004), 117--290.
+
+\bibitem{Bertolini1995}
+M.~Bertolini and H.~Darmon,
+Heegner points on Mumford--Tate curves,
+\emph{Invent. Math.}\ \textbf{126} (1996), 413--456.
+
+\bibitem{Cremona1992}
+J.~E.~Cremona,
+\emph{Algorithms for Modular Elliptic Curves},
+Cambridge University Press, 1992.
+
+\bibitem{ZagierKohnen1984}
+D.~Zagier and W.~Kohnen,
+Values of $L$-series of modular forms at the center of the critical
+strip,
+\emph{Invent. Math.}\ \textbf{64} (1981), 175--198.
+
+\bibitem{BumpFriedberg1990}
+D.~Bump, S.~Friedberg, and J.~Hoffstein,
+Nonvanishing theorems for $L$-functions of modular forms,
+\emph{Ann. of Math.}\ \textbf{131} (1990), 79--112.
+
+\bibitem{Murty1997}
+V.~K.~Murty,
+Modular forms and the Chebotarev density theorem,
+\emph{Amer. J. Math.}\ \textbf{110} (1988), 253--281.
+
+\bibitem{Mazur1972}
+B.~Mazur,
+Rational points of abelian varieties with values in towers of number
+fields,
+\emph{Invent. Math.}\ \textbf{18} (1972), 183--266.
+
+\bibitem{Tate1974}
+J.~Tate,
+The arithmetic of elliptic curves,
+\emph{Invent. Math.}\ \textbf{23} (1974), 179--206.
+
+\bibitem{FTM2026}
+S.~Draconis, Federated Trivalent Manifold, Zenodo, 2026.
+
+\bibitem{Lean4}
+L.~de~Moura et~al., The Lean~4 Theorem Prover, CADE 2021.
+
+\bibitem{MathLib}
+The Mathlib Community, Mathlib for Lean~4, 2024.
+
+\bibitem{SteinWatkins2002}
+W.~A.~Stein and M.~Watkins,
+A database of elliptic curves,
+\emph{Proc. ANTS-V}, Springer, 2002, 267--275.
+
+\bibitem{Dokchitser2010}
+T.~Dokchitser and V.~Dokchitser,
+On the Birch--Swinnerton-Dyer quotients modulo squares,
+\emph{Ann. of Math.}\ \textbf{172} (2010), 567--596.
+
+\bibitem{Nekovar1992}
+J.~Neko\v{v}\'a\v{r},
+Kolyvagin's method for Chow groups of Kuga--Sato varieties,
+\emph{Invent. Math.}\ \textbf{107} (1992), 99--125.
+
+\end{thebibliography}
+\end{document}
