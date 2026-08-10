@@ -275,7 +275,7 @@ structure SEETBehaviors where
 /-- Phase-1 completeness theorem for the sorry-free items.
     Gaps 3 and 5 are fully certified (no sorry in their rate_cert).
     Gap 1 has a sorry in rate_cert pending Mathlib connection. -/
-theorem seet_phase1_closed_nosory
+theorem seet_phase1_closed_no_sorry
     (b : SEETBehaviors) :
     -- Gap 3: e_nl without tanh — rate C/N proved, limit = 0 theorem
     ConvergesTo b.gap_e_nl_ce.gap 0 ∧

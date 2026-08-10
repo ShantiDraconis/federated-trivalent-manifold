@@ -304,7 +304,7 @@ axiom ns_global_regularity_clay
     (u₀ : ℝ → ℝ) (ν : ℝ) (hν : ν > 0) :
     False →
     ∃ u : ℝ → ℝ → ℝ,   -- u(t, x)
-      ∀ T : ℝ, T > 0 → ∀ x : ℝ, |u T x| < ∞
+      ∃ M : ℝ, ∀ T : ℝ, T > 0 → ∀ x : ℝ, |u T x| ≤ M
 
 /-- Axiom A2 (aberto, Clay-level): Hipótese de Riemann.
     NOTA: ψ_λ(x) = x^{iλ−1/2} tem norma L² infinita em R₊ com medida dx/x.
@@ -332,16 +332,16 @@ axiom p_neq_np_clay :
 /-
   Checklist de certificação para lake build limpo:
 
-  [ ] Andar 0: 7 ValorFinito definidos  ← FEITO (sem sorry)
-  [ ] Andar 1: OperadorLinear stubs     ← FEITO (stubs, TODO_ANDAR_1)
-  [ ] Andar 2: ImersaoSobolev stubs     ← FEITO (stubs, TODO_ANDAR_2)
-  [ ] Andar 3: NumeroComComportamento   ← FEITO (limite_exato sem sorry)
+  [x] Andar 0: 7 ValorFinito definidos  ← FEITO (sem sorry)
+  [x] Andar 1: OperadorLinear stubs     ← FEITO (stubs, TODO_ANDAR_1)
+  [x] Andar 2: ImersaoSobolev stubs     ← FEITO (stubs, TODO_ANDAR_2)
+  [x] Andar 3: NumeroComComportamento   ← FEITO (limite_exato sem sorry)
   [x] Andar 4 gap 3: fechamento_e_nl    ← FECHADO (sem sorry)
   [x] Andar 4 gap 5: fechamento_Saros   ← FECHADO (sem sorry)
   [x] Andar 4 gap 7: fechamento_surreal ← FECHADO (sem sorry)
   [ ] Andar 4 gap 1: fechamento_ERes    ← 1 sorry (TODO_ANDAR_3, Mathlib)
   [ ] Andar 4 gap 4: fechamento_e_lin   ← estrutura OK, placeholder valor
-  [ ] Andar 5: 3 axioms explícitos      ← FEITO (False antecedent, honesto)
+  [x] Andar 5: 3 axioms explícitos      ← FEITO (False antecedent, honesto)
   [ ] grep tanh formal/lean/ = ∅        ← verificar periodicamente
   [ ] 30 referências cruzadas           ← TODO manuscrito
   [ ] 2 anos sem contraexemplo          ← TODO GitHub Issues
