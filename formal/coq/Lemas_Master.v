@@ -20,15 +20,15 @@ Proof. exists 5. reflexivity. Qed.
 
 (* L_A1_2 : N_max upper bound (25516 / 1000 < 26, i.e. 25516 < 26000) *)
 Lemma L_A1_2_Nmax_bound : 25516 < 26000.
-Proof. lia. Qed.
+Proof. apply Nat.ltb_lt. vm_compute. reflexivity. Qed.
 
 (* L_A2_1 : e_nonlinear magnitude bound (111 < 10000) *)
 Lemma L_A2_1_e_nl_bound : 111 < 10000.
-Proof. lia. Qed.
+Proof. apply Nat.ltb_lt. vm_compute. reflexivity. Qed.
 
 (* L_A2_2 : e_linear sign is negative (encoded as: 0 < 459, i.e. |e_lin|>0) *)
 Lemma L_A2_2_e_linear_negative : 0 < 459.
-Proof. lia. Qed.
+Proof. apply Nat.ltb_lt. vm_compute. reflexivity. Qed.
 
 (* L_A2_3 : Liveness — trivial existence *)
 Lemma L_A2_3_liveness : exists n : nat, n = 0.
@@ -36,11 +36,11 @@ Proof. exists 0. reflexivity. Qed.
 
 (* L_B1 : Saros diff bound (352 < 10000) *)
 Lemma L_B1_Saros_diff : 352 < 10000.
-Proof. lia. Qed.
+Proof. apply Nat.ltb_lt. vm_compute. reflexivity. Qed.
 
 (* L_B2 : Residue norm bound (1000000 < 1000104 < 2000000) *)
 Lemma L_B2_Res_bound : 1000000 < 1000104 /\ 1000104 < 2000000.
-Proof. split; lia. Qed.
+Proof. split; apply Nat.ltb_lt; vm_compute; reflexivity. Qed.
 
 (* ─────────────────────────────────────────────────────── *)
 (* PHASE 2 — Open Hypotheses ("Towards Global Regularity") *)
