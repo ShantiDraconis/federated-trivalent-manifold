@@ -22,7 +22,7 @@ theorem kineticEnergy_nonneg
     {V : Type*} [NormedAddCommGroup V] (state : FluidState V) :
     0 ≤ kineticEnergy state := by
   unfold kineticEnergy
-  positivity
+  exact sq_nonneg ‖state.u‖
 
 /-- If a trajectory comes equipped with an antitone kinetic-energy witness, then
     every nonnegative time is bounded by the initial kinetic energy. -/
