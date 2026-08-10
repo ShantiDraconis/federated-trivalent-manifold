@@ -89,7 +89,9 @@ correct model of the event under comparison.
 The last total solar eclipse visible in Brazil occurred on 3 November 1994 and
 crossed southern Brazil before reaching greatest eclipse over the South
 Atlantic. We use the published event parameters in Table~\ref{tab:truth} as
-the ground-truth vector.
+the ground-truth constraints at the centreline at greatest eclipse
+$(x_\ast, t_\ast)$; they represent a chosen point of $E_x(t)$, not
+the full vector.
 
 \begin{table}[h]
 \centering
@@ -110,7 +112,7 @@ Path width at greatest eclipse & \(189\ \mathrm{km}\) \\
 \end{tabular}
 \caption{Published parameters for the 3 November 1994 total solar eclipse.
 These values are reported by the NASA/Fred Espenak eclipse bulletins and
-summary tables.}
+summary tables~\cite{Espenak1994,EspenakCanon}.}
 \label{tab:truth}
 \end{table}
 
@@ -162,7 +164,9 @@ magnitude, so Theorem~\ref{thm:weak} refutes \(H_0\).
 \begin{corollary}[Weak Earth--Moon scale filter]
 Any cosmological or geometric model that denies the observed Earth--Moon scale
 while retaining the observed solar and lunar sizes must reproduce the eclipse
-vector \(E_x(t)\) in Table~\ref{tab:truth}. If it predicts a totality width of
+constraints at $(x_\ast, t_\ast)$ shown in Table~\ref{tab:truth} (centreline
+at greatest eclipse). The full $E_x(t)$ varies over the entire eclipse path.
+If it predicts a totality width of
 order \(10^3\,\mathrm{km}\) rather than \(10^2\,\mathrm{km}\), it is ruled
 out by the same contradiction.
 \end{corollary}
