@@ -138,10 +138,9 @@ def draw_frame(i: int):
     # Umbra circles
     sph_shadow = plt.Circle((sph_x, 0.0), sph_r, color=CYAN, alpha=0.35, zorder=3)
     ax_map.add_patch(sph_shadow)
-    ax_map.plot(*plt.Circle((sph_x, 0.0), sph_r).get_center(),
-                'o', color=CYAN, ms=4, zorder=4)
+    ax_map.plot(sph_x, 0.0, 'o', color=CYAN, ms=4, zorder=4)
 
-    if broken or i >= 4:
+    if i >= 5:
         flat_shadow = plt.Circle((flat_x, -0.2), flat_r, color=MAGENTA,
                                   alpha=0.25, zorder=2)
         ax_map.add_patch(flat_shadow)
