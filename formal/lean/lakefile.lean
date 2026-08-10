@@ -14,3 +14,6 @@ lean_lib Model where
 
 lean_lib NavierStokesScaffold where
   srcDir := "."
+
+lean_lib AnaliseTanhParaH1 where
+  srcDir := "../../ANALISE_TANH_PARA_H1"
