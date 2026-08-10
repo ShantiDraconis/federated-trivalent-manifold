@@ -1,0 +1,30 @@
+{
+  "precisionDigits": 50,
+  "radial": [
+    {"delta":"0","gamma":"14.134725","weight":"0"},
+    {"delta":"0.001","gamma":"14.134725","weight":"4.9979780223095310158202846095869886605991296327821e-11"},
+    {"delta":"0.001","gamma":"1000","weight":"1.9999989999963750048750025390503632881440609482104e-18"},
+    {"delta":"0.01","gamma":"14.134725","weight":"4.9979730876805054282929006793984537215435274855858e-9"},
+    {"delta":"0.01","gamma":"1000","weight":"1.9999989996003754999346498992421457251931540873914e-16"},
+    {"delta":"0.1","gamma":"14.134725","weight":"4.9974796616198354988304951605697641917150499619740e-7"},
+    {"delta":"0.1","gamma":"1000","weight":"1.9999989600004255998385920594175783999566095700472e-14"},
+    {"delta":"0.1","gamma":"1000000","weight":"1.9999999999989600000000004255999999998385920000001e-26"},
+    {"delta":"0.25","gamma":"14.134725","weight":"3.1217901418853539693646524235135548116282788876342e-6"},
+    {"delta":"0.25","gamma":"1000","weight":"1.2499992187504443356872560001563233972041212516798e-13"}
+  ],
+  "eclipseUmbraNormalPlane": {
+    "assumptions": {
+      "sunMoonDistanceKm":"149216000",
+      "moonRadiusKm":"1737.4",
+      "sunRadiusKm":"696340"
+    },
+    "values": [
+      {"moonDistanceKm":"357000","radiusKm":"75.5599278897705339909929230109371649152905854600"},
+      {"moonDistanceKm":"370000","radiusKm":"15.0447431910787046965472871541925798841947244263"},
+      {"moonDistanceKm":"384400","radiusKm":"-51.9874613982414754449924941025091143040960754879"},
+      {"moonDistanceKm":"405000","radiusKm":"-147.8807540746300664808063478447351490456787475874"},
+      {"moonDistanceKm":"5000","radiusKm":"1714.1249289620416041175209092858674672957323611409"}
+    ],
+    "interpretation":"A positive value is a normal-plane umbra radius in the simplified cone model. A negative value means the cone vertex occurs before that plane, corresponding to no total umbra there under these fixed assumptions. This is not a terrestrial path width."
+  }
+}
