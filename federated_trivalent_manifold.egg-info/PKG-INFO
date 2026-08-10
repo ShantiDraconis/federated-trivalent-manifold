@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: federated-trivalent-manifold
+Version: 0.1.0
+Summary: Conditional trivalent specification calculator
+License: MIT
+Requires-Python: >=3.11
+License-File: LICENSE
+Provides-Extra: figures
+Requires-Dist: matplotlib>=3.8; extra == "figures"
+Requires-Dist: numpy>=1.26; extra == "figures"
+Provides-Extra: crypto
+Requires-Dist: cryptography>=42; extra == "crypto"
+Provides-Extra: dev
+Requires-Dist: pytest>=8; extra == "dev"
+Requires-Dist: ruff>=0.5; extra == "dev"
+Dynamic: license-file
