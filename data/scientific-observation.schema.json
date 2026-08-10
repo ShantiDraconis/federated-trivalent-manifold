@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ShantiDraconis/federated-trivalent-manifold/data/scientific-observation.schema.json",
+  "title": "Versioned scientific observation",
+  "type": "object",
+  "required": ["id", "domain", "quantity", "value", "numeric_class", "provenance", "status"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "domain": {"enum": ["atomic", "cosmological", "biochemical"]},
+    "entity": {"type": "string"},
+    "quantity": {"type": "string"},
+    "value": {},
+    "unit": {"type": ["string", "null"]},
+    "uncertainty": {
+      "type": ["object", "null"],
+      "properties": {
+        "kind": {"enum": ["standard", "expanded", "confidence_interval", "credible_interval", "covariance", "upper_limit", "lower_limit"]},
+        "value": {},
+        "coverage": {"type": ["number", "null"]}
+      },
+      "required": ["kind", "value"],
+      "additionalProperties": false
+    },
+    "numeric_class": {
+      "enum": ["exact_integer", "exact_rational", "algebraic", "floating_point", "real_interval", "complex_interval", "measurement", "upper_limit", "lower_limit", "censored", "distribution", "posterior_samples", "categorical", "sequence", "graph", "tensor"]
+    },
+    "conditions": {"type": "object"},
+    "covariance_group": {"type": ["string", "null"]},
+    "status": {"enum": ["raw", "calibrated", "replicated", "curated", "inferred", "predicted", "disputed", "retracted", "superseded", "censored"]},
+    "provenance": {
+      "type": "object",
+      "required": ["source", "version", "retrieved_at", "method"],
+      "properties": {
+        "source": {"type": "string"},
+        "persistent_id": {"type": ["string", "null"]},
+        "version": {"type": "string"},
+        "retrieved_at": {"type": "string"},
+        "method": {"type": "string"},
+        "license": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "bridge_audit": {
+      "type": "object",
+      "properties": {
+        "target_problem": {"enum": ["Poincare", "Hodge", "Yang-Mills", "Navier-Stokes", "P-vs-NP", "Riemann", "BSD"]},
+        "role": {"enum": ["calibration", "test_case", "counterexample_search", "model_constraint", "heuristic", "formal_reduction"]},
+        "source_validated": {"type": "boolean"},
+        "units_checked": {"type": "boolean"},
+        "uncertainty_propagated": {"type": "boolean"},
+        "model_identifiable": {"type": "boolean"},
+        "semantics_preserved": {"type": "boolean"},
+        "reduction_proved": {"type": "boolean"}
+      },
+      "required": ["target_problem", "role", "source_validated", "units_checked", "uncertainty_propagated", "model_identifiable", "semantics_preserved", "reduction_proved"],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
