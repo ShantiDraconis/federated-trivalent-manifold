@@ -15,3 +15,5 @@ node_modules/
 htmlcov/
 .venv/
 tmp/
+outputs/
+app-preview.png
