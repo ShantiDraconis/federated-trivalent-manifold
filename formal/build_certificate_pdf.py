@@ -1,4 +1,4 @@
-"""Render the scoped formal verification certificate as a reviewable PDF."""
+"""Render a deliberately scoped, reviewable formal-build record as a PDF."""
 
 from pathlib import Path
 
@@ -20,7 +20,7 @@ def footer(canvas, doc):
     canvas.saveState()
     canvas.setFont("Helvetica", 8)
     canvas.setFillColor(colors.HexColor("#53636d"))
-    canvas.drawString(20 * mm, 12 * mm, "FTM scoped formal verification certificate")
+    canvas.drawString(20 * mm, 12 * mm, "FTM scoped finite-core build record")
     canvas.drawRightString(190 * mm, 12 * mm, f"Page {doc.page}")
     canvas.restoreState()
 
@@ -32,17 +32,15 @@ def p(text, style="BodyText"):
 def build():
     doc = SimpleDocTemplate(
         str(OUT), pagesize=A4, leftMargin=20 * mm, rightMargin=20 * mm,
-        topMargin=18 * mm, bottomMargin=20 * mm, title="FTM formal verification certificate"
+        topMargin=18 * mm, bottomMargin=20 * mm, title="FTM scoped finite-core build record"
     )
     checks = [
         ["Check", "Result"],
         ["Lean", "4.8.0 / df668f00e6c0"],
         ["Mathlib", "v4.8.0 / b5eba595428809e96f3ed113bc7ba776c5f801ac"],
-        ["lake build", "SUCCESS"],
-        ["Python", "18 tests passed"],
-        ["Ruff", "SUCCESS"],
-        ["Lean holes", "0 sorry; 0 admit"],
-        ["Explicit axioms", "CryptoAssumption; RiemannHypothesisAssumption"],
+        ["Scoped Lean build", "SUCCESS before remote integration; re-run on this tree"],
+        ["Finite core scan", "0 sorry; 0 admit; 0 Axiom; 0 postulate"],
+        ["Repository-wide status", "exploratory files with explicitly documented gaps exist"],
     ]
     table = Table([[p(c, "Tiny") for c in row] for row in checks], colWidths=[55 * mm, 115 * mm])
     table.setStyle(TableStyle([
@@ -54,24 +52,24 @@ def build():
     ]))
     story = [
         p("Federated Trivalent Manifold", "Title"),
-        p("Scoped Formal Verification Certificate", "Heading1"),
-        p("Issued from a reproducible local build on 15 July 2026."),
+        p("Scoped Finite-Core Build Record", "Heading1"),
+        p("Issued with an explicit boundary on 10 August 2026."),
         Spacer(1, 5 * mm), table,
         p("Certified scope", "Heading1"),
         p(
-            "The checker accepted the versioned finite K3 laws, state-coordinate invariants, regulated scalar-rate positivity, affine-clock monotonicity, finite truncation cardinality, threshold-indicator correctness and elementary properties of the declared linear-flow expression."
+            "The stated core consists only of no-placeholder finite algebraic and discrete lemmas: reflected-radius identities, non-negativity of a square, a finite delayed-witness construction, elementary natural-number growth, and finite cutoff/drift facts."
         ),
         p("Excluded scope", "Heading1"),
         p(
-            "This certificate is not evidence for the Riemann hypothesis, P versus NP, Navier-Stokes smoothness, Yang-Mills mass gap, Hodge, BSD, black-hole information, cryptographic security, network availability or a unification of those subjects. Explicit assumptions remain assumptions."
+            "This record is not evidence for the Riemann hypothesis, P versus NP, Navier-Stokes smoothness, Yang-Mills mass gap, Hodge, BSD, black-hole information, cryptographic security, network availability or a unification of those subjects. Explicit assumptions remain assumptions."
         ),
         p("Epistemic verdict", "Heading1"),
         p(
-            "Finite numerical eta evaluation can certify non-vanishing under an error bound, but cannot certify an exact zero. Finite resource equivalence does not identify asymptotic complexity classes. The claimed interdisciplinary couplings remain definitions, hypotheses or rejected inferences as recorded in docs/claim-ledger.md."
+            "Finite numerical eta evaluation can certify non-vanishing under an error bound, but cannot certify an exact zero. Finite resource equivalence does not identify asymptotic complexity classes. The repository includes exploratory modules with placeholders or axioms; they are excluded and catalogued in formal/OPEN_OBLIGATIONS.md."
         ),
         p("Integrity", "Heading1"),
         p(
-            "The complete SHA-256 ledger is versioned in formal/CERTIFICATE.md. Re-run the GitHub Actions workflow or lake build in formal/lean to reproduce checker acceptance."
+            "The exact core file list is versioned in formal/VERIFIED_CORE.md. Re-run the relevant GitHub Actions workflow or checker command after every source change; no checker run is implied when its toolchain is unavailable."
         ),
     ]
     doc.build(story, onFirstPage=footer, onLaterPages=footer)
