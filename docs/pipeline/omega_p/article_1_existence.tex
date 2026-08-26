@@ -58,6 +58,7 @@ Define
 
 \section{Minimal Lemmas}
 \begin{lemma}
+\label{lem:cofinite-prime-tail}
 For every standard \(m\in\mathbb N\), the set \(\{n\in\mathbb N: p_n>m\}\) is cofinite.
 \end{lemma}
 \begin{proof}
@@ -66,6 +67,7 @@ Hence the set is cofinite.
 \end{proof}
 
 \begin{lemma}
+\label{lem:ultrafilter-cofinite}
 If \(A\subseteq\mathbb N\) is cofinite, then \(A\in\mathcal U\).
 \end{lemma}
 \begin{proof}
@@ -82,8 +84,8 @@ in the ultrapower order.
 \end{theorem}
 \begin{proof}
 Existence is immediate from Definition~\ref{def:omega-p}.
-Fix \(m\in\mathbb N\). By Lemma~4.1, \(A_m:=\{n:p_n>m\}\) is cofinite.
-By Lemma~4.2, \(A_m\in\mathcal U\).
+Fix \(m\in\mathbb N\). By Lemma~\ref{lem:cofinite-prime-tail}, \(A_m:=\{n:p_n>m\}\) is cofinite.
+By Lemma~\ref{lem:ultrafilter-cofinite}, \(A_m\in\mathcal U\).
 By definition of ultrapower order, \([(p_n)]_{\mathcal U}>[(m)]_{\mathcal U}\), i.e. \(\Omega_p>m\).
 \end{proof}
 

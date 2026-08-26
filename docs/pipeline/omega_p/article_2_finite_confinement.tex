@@ -1,0 +1,228 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs}
+\usepackage{hyperref}
+
+\title{Finite Confinement of Infinity: Residues and Equilibrium Constants for Compactifying Maps}
+\author{Author Name}
+\date{\today}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{conjecture}[definition]{Conjecture}
+
+\theoremstyle{plain}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{corollary}[definition]{Corollary}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We formalize two compactifying maps, 
+\(f_1(x)=\frac{x}{1+x}\) and \(f_2(x)=\frac{2}{\pi}\arctan x\), and their arithmetic mean 
+\(f_{\mathrm{avg}}\).
+Using a fixed residue-at-infinity convention and explicit equilibrium equations, we derive finite constants from asymptotic expansions and from value--slope balance points.
+We separate theorem-level results from deferred constants that still require independent defining equations.
+\end{abstract}
+
+\section{Introduction}
+This article isolates a finite-confinement layer used in the \(\Omega_p\) program.
+Its scope is restricted to elementary analytic statements about selected compactifying maps.
+No claim about the Riemann Hypothesis or other Millennium problems is proved here.
+
+\section{State of the Art}
+Compactifications such as rational saturation and arctangent normalization are standard in analysis and numerical modeling.
+The novel contribution here is only organizational: a shared residue convention and an explicit status table (proved vs.
+conjectural) for constants used downstream.
+
+\section{Notation and Definitions}
+\begin{definition}[Maps on \((0,\infty)\)]
+\label{def:maps}
+For \(x>0\), define
+\[
+f_1(x)=\frac{x}{1+x}, \qquad
+f_2(x)=\frac{2}{\pi}\arctan x, \qquad
+f_{\mathrm{avg}}(x)=\frac{f_1(x)+f_2(x)}{2}.
+\]
+\end{definition}
+
+\begin{definition}[Residue-at-infinity convention]
+\label{def:res-inf}
+If a meromorphic function has Laurent expansion at infinity
+\[
+f(z)=a_0+\frac{a_{-1}}{z}+\frac{a_{-2}}{z^2}+\cdots,
+\]
+we use the classical convention
+\[
+\operatorname{Res}_{\infty} f := -a_{-1}.
+\]
+\end{definition}
+
+\begin{definition}[Compressed coefficient]
+\label{def:compressed}
+Define the compressed coefficient by
+\[
+\mathcal C_{\infty}(f):=\operatorname{Res}_{\infty} f.
+\]
+Hence \(\mathcal C_{\infty}(f)\) is the positive coefficient that appears in expansions of the form
+\(f(x)=1-\mathcal C_{\infty}(f)x^{-1}+o(x^{-1})\).
+\end{definition}
+
+\begin{definition}[Primary equilibrium constants]
+\label{def:primary}
+Define \(C_1,C_3,C_5\) as the unique positive solutions of
+\[
+f_1(x)=f_1'(x),\qquad f_2(x)=f_2'(x),\qquad f_{\mathrm{avg}}(x)=f_{\mathrm{avg}}'(x).
+\]
+\end{definition}
+
+\begin{definition}[Catalog constants with deferred equations]
+\label{def:deferred}
+Symbols \(C_2,C_4,C_6\) denote secondary equilibrium constants from the legacy catalog.
+In this article they are recorded as placeholders; their defining equations are deferred and therefore they are not theorem-level objects here.
+\end{definition}
+
+\section{Preliminary Lemmas}
+\begin{lemma}
+\label{lem:f1-expansion}
+For \(|z|>1\),
+\[
+\frac{z}{1+z}=1-\frac{1}{z}+\frac{1}{z^2}-\frac{1}{z^3}+\cdots.
+\]
+Hence \(\operatorname{Res}_{\infty} f_1=1\).
+\end{lemma}
+\begin{proof}
+Use \(\frac{1}{1+z^{-1}}=1-z^{-1}+z^{-2}-\cdots\), then multiply by \(1\).
+The coefficient of \(z^{-1}\) is \(-1\), so by Definition~\ref{def:res-inf},
+\(\operatorname{Res}_{\infty} f_1=-(-1)=1\).
+\end{proof}
+
+\begin{lemma}
+\label{lem:f2-expansion}
+As \(|z|\to\infty\) in sectors avoiding branch crossing,
+\[
+\frac{2}{\pi}\arctan z = 1-\frac{2}{\pi}\frac{1}{z}+O\!\left(\frac{1}{z^3}\right).
+\]
+Hence \(\operatorname{Res}_{\infty} f_2=\frac{2}{\pi}\).
+\end{lemma}
+\begin{proof}
+Use the asymptotic expansion \(\arctan z=\frac{\pi}{2}-z^{-1}+O(z^{-3})\).
+Multiplying by \(\frac{2}{\pi}\) yields the result.
+\end{proof}
+
+\begin{lemma}
+\label{lem:avg-expansion}
+\[
+f_{\mathrm{avg}}(z)=1-\left(\frac12+\frac1\pi\right)\frac{1}{z}+O\!\left(\frac{1}{z^2}\right),
+\]
+so
+\[
+\operatorname{Res}_{\infty}f_{\mathrm{avg}}=\frac12+\frac1\pi.
+\]
+\end{lemma}
+\begin{proof}
+Average the expansions from Lemmas~\ref{lem:f1-expansion} and \ref{lem:f2-expansion}.
+\end{proof}
+
+\begin{lemma}
+\label{lem:monotone-balance}
+For each \(f\in\{f_1,f_2,f_{\mathrm{avg}}\}\), the balance map
+\(h_f(x):=f(x)-f'(x)\) is strictly increasing on \((0,\infty)\).
+\end{lemma}
+\begin{proof}
+Direct differentiation gives
+\(h_f'(x)=f'(x)-f''(x)\).
+For \(f_1\): \(f_1'(x)=\frac{1}{(1+x)^2}\), \(f_1''(x)=-\frac{2}{(1+x)^3}\), so
+\(h_{f_1}'(x)=\frac{x+3}{(1+x)^3}>0\).
+For \(f_2\): \(f_2'(x)=\frac{2}{\pi(1+x^2)}\), \(f_2''(x)=-\frac{4x}{\pi(1+x^2)^2}\), so
+\(h_{f_2}'(x)=\frac{2(1+x)^2}{\pi(1+x^2)^2}>0\).
+For \(f_{\mathrm{avg}}\), linearity gives
+\(h_{f_{\mathrm{avg}}}'=\frac{1}{2}(h_{f_1}'+h_{f_2}')>0\).
+\end{proof}
+
+\section{Main Theorems}
+\begin{theorem}[Residues and compressed constants]
+\label{thm:residues}
+With Definitions~\ref{def:res-inf}--\ref{def:compressed},
+\[
+\mathcal C_{\infty}(f_1)=1,
+\qquad
+\mathcal C_{\infty}(f_2)=\frac{2}{\pi},
+\qquad
+\mathcal C_{\infty}(f_{\mathrm{avg}})=\frac12+\frac1\pi=:C_{\mathrm{avg}}.
+\]
+Numerically, \(C_{\mathrm{avg}}\approx 0.8183098861837907\).
+\end{theorem}
+\begin{proof}
+Immediate from Lemmas~\ref{lem:f1-expansion}--\ref{lem:avg-expansion}.
+\end{proof}
+
+\begin{theorem}[Existence and uniqueness of primary equilibrium constants]
+\label{thm:primary}
+Each equation in Definition~\ref{def:primary} has exactly one positive solution.
+Hence constants \(C_1,C_3,C_5\) are well-defined and unique.
+\end{theorem}
+\begin{proof}
+By Lemma~\ref{lem:monotone-balance}, each \(h_f\) is strictly increasing.
+Also, for each map, \(h_f(0^+)=-f'(0)<0\) and \(\lim_{x\to\infty}h_f(x)=1>0\).
+By the intermediate value theorem, each \(h_f\) has at least one zero.
+Strict monotonicity implies uniqueness.
+\end{proof}
+
+\begin{proposition}[Numerical approximations (certified by bisection)]
+\label{prop:numerics}
+Using deterministic bisection on sign-changing intervals:
+\[
+C_1\approx 0.6180339887498949,\qquad
+C_3\approx 0.7472119551615677,\qquad
+C_5\approx 0.6829108387479741.
+\]
+\end{proposition}
+\begin{proof}
+See computational protocol in the appendix note (separate methods file).
+\end{proof}
+
+\section{Proved vs. Conjectural}
+\subsection*{Proved in this article}
+\begin{itemize}
+\item Residue-at-infinity values for \(f_1,f_2,f_{\mathrm{avg}}\) under a fixed convention.
+\item Closed form \(C_{\mathrm{avg}}=\frac12+\frac1\pi\).
+\item Existence and uniqueness of \(C_1,C_3,C_5\) (primary equilibrium constants).
+\item Reproducible numerical approximations for \(C_1,C_3,C_5\).
+\end{itemize}
+
+\subsection*{Deferred / conjectural in this article}
+\begin{itemize}
+\item Defining equations for \(C_2,C_4,C_6\) are not fixed here.
+\item Any universal-residue claim across unrelated algebraic systems.
+\item Any implication for RH, \(\zeta\)-zeros, or Millennium problems.
+\end{itemize}
+
+\begin{conjecture}[Secondary equilibrium completion]
+There exists a mathematically natural and non-circular definition of
+\(C_2,C_4,C_6\) compatible with the primary constants and with explicit uniqueness proofs.
+\end{conjecture}
+
+\section{Limitations and Falsifiability}
+This paper uses only three compactifying maps and does not claim universality.
+The numerical constants are algorithm-dependent approximations, while the existence/uniqueness results are analytic.
+Any future attempt to use this layer in larger claims must provide independent, non-circular bridges.
+
+\section{Conclusion}
+The article provides a rigorous finite-confinement baseline:
+residue convention fixed, primary constants defined and proved unique,
+and deferred constants explicitly marked as unfinished.
+This supports editorial clarity for subsequent articles while preventing over-claiming.
+
+\bibliographystyle{plain}
+\begin{thebibliography}{9}
+\bibitem{ahlfors} L. V. Ahlfors, \emph{Complex Analysis}.
+\bibitem{rudin} W. Rudin, \emph{Real and Complex Analysis}.
+\bibitem{stoer} J. Stoer and R. Bulirsch, \emph{Introduction to Numerical Analysis}.
+\end{thebibliography}
+
+\end{document}
