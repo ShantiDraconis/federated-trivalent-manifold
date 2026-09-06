@@ -32,6 +32,24 @@ com compatibilidade de colagem e, idealmente, um complexo discreto exato.
 
 Convergência para solução fraca não resolve regularidade. Simulação de vórtices não prova blow-up.
 
+## Scaffold Lean atual
+
+O arquivo
+`formal/lean/NavierStokesScaffold.lean`
+formaliza apenas consequências conservativas de um certificado analítico já
+fornecido:
+
+- estrutura `FluidState` com viscosidade positiva;
+- funcional `kineticEnergy`;
+- não-negatividade algébrica da energia cinética;
+- cota `E(t) ≤ E(0)` assumindo como entrada uma prova externa de que a energia é
+  antitônica no tempo.
+
+Esse scaffold não introduz termos artificiais como `tanh(e)`, mas também não
+substitui as obrigações `NS1`–`NS4`. Em particular, o critério de
+Beale-Kato-Majda continua aberto no repositório: `BKMScaffold` apenas registra
+as quantidades que um fechamento analítico futuro terá de relacionar.
+
 ## Testes
 
 Fluxos com solução conhecida, conservação/incompressibilidade, refinamento anisotrópico, independência da decomposição federada e análise do termo convectivo.
