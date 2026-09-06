@@ -195,3 +195,21 @@ versionadas quando as versões de referência forem fixadas.
 - Uma avaliação da integral em um ponto é constante; uma quadratura com `n`
   pontos é `O(n)`. Não há alegação de latência zero.
 - O dashboard auditado está em [`app/dashboard_v4_1.html`](app/dashboard_v4_1.html).
+## Research Hub
+
+O diretório [`hub/`](hub/) contém a base JSON, o motor Python, testes e os
+núcleos Lean 4 e Agda. A metodologia e o estudo físico do eclipse estão em
+[`docs/articles/`](docs/articles/). O workflow `formal.yml` executa os três
+ambientes sem aceitar `sorry`, `postulate` ou promoção automática de evidência
+finita para prova.
+
+A [árvore canônica do repositório](docs/architecture/repository-tree.md)
+documenta responsabilidades, fluxo de dados e a fonte de verdade de cada
+camada.
+
+Os [geradores de artefatos](tools/artifact-builders/), o
+[teste end-to-end](tests/e2e/) e o
+[pacote integral original](releases/) também estão versionados para preservar
+todo o material produzido durante a construção do projeto.
+
+O nome do projeto não determina uma teoria. A definição inicial é provisória e torna afirmações testáveis. As formulações oficiais são as do [Clay Mathematics Institute](https://www.claymath.org/millennium-problems/).

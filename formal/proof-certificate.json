@@ -1,0 +1,24 @@
+{
+  "schema": "ftm-scoped-build-record-v2",
+  "date": "2026-08-10",
+  "scope": "declared-finite-core",
+  "lean": {"version": "4.8.0", "commit": "df668f00e6c0"},
+  "lake": "5.0.0-df668f0",
+  "mathlib": {"tag": "v4.8.0", "commit": "b5eba595428809e96f3ed113bc7ba776c5f801ac"},
+  "command": "lake build",
+  "result": "success-before-remote-integration; rerun-required-on-current-tree",
+  "core_files": ["lean/RadialGeometry.lean", "lean/FiniteEvidence.lean", "coq/WMonotone.v", "coq/Renormalization.v", "isabelle/WMonotone.thy", "isabelle/Renormalization.thy", "agda/WMonotone.agda"],
+  "core_placeholder_scan": {"sorry": 0, "admit": 0, "axiom": 0, "postulate": 0},
+  "repository_wide_status": "contains explicitly excluded exploratory placeholders and assumptions; see formal/OPEN_OBLIGATIONS.md",
+  "excluded_claims": [
+    "Riemann hypothesis",
+    "P versus NP",
+    "Navier-Stokes existence and smoothness",
+    "Yang-Mills mass gap",
+    "Hodge conjecture",
+    "Birch and Swinnerton-Dyer conjecture",
+    "black-hole information preservation",
+    "cryptographic security",
+    "operational availability"
+  ]
+}

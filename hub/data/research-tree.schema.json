@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schemaVersion", "project", "statuses", "nodes"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "project": {"type": "string", "minLength": 1},
+    "statuses": {"type": "array", "minItems": 7, "uniqueItems": true, "items": {"type": "string"}},
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "problem", "title", "status", "dependsOn", "evidence"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]+$"},
+          "problem": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "status": {"enum": ["PROVED", "FINITE_CERTIFICATE", "CONDITIONAL", "EQUIVALENT", "CONJECTURAL", "REFUTED", "OPEN"]},
+          "dependsOn": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+          "evidence": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

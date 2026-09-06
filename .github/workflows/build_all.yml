@@ -50,7 +50,8 @@ jobs:
         run: |
           sudo apt-get install -y \
             texlive-latex-base texlive-latex-recommended \
-            texlive-fonts-recommended texlive-science
+            texlive-fonts-recommended texlive-science \
+            texlive-latex-extra
       - name: Compile all main.tex files
         run: |
           mkdir -p output/lemmas

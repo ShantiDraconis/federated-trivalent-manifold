@@ -8,4 +8,13 @@ build/
 dist/
 node_modules/
 .mplconfig/
+*.py[cod]
 *.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+tmp/
+outputs/
+app-preview.png
+releases/*.zip

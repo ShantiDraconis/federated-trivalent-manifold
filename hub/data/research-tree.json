@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "project": "Federated Trivalent Manifold Research Hub",
+  "statuses": ["PROVED", "FINITE_CERTIFICATE", "CONDITIONAL", "EQUIVALENT", "CONJECTURAL", "REFUTED", "OPEN"],
+  "nodes": [
+    {"id":"CORE-C1","problem":"core","title":"Monotonicidade de dependências","status":"PROVED","dependsOn":[],"evidence":["docs/formal/lemma-tree.md"]},
+    {"id":"CORE-C2","problem":"core","title":"Barreira finito-universal","status":"PROVED","dependsOn":[],"evidence":["docs/formal/lemma-tree.md"]},
+    {"id":"ECL-L1","problem":"eclipse","title":"Geometria do cone umbral","status":"CONDITIONAL","dependsOn":[],"evidence":["docs/articles/eclipse-correspondence.md"]},
+    {"id":"ECL-T1","problem":"eclipse","title":"Correspondência fraca modelo-observação","status":"PROVED","dependsOn":["CORE-C1"],"evidence":["docs/articles/eclipse-correspondence.md"]},
+    {"id":"RH-L2","problem":"riemann","title":"Detector geométrico delta ao quadrado","status":"PROVED","dependsOn":[],"evidence":["docs/formal/lemma-tree.md"]},
+    {"id":"RH-L3","problem":"riemann","title":"Peso radial não negativo","status":"PROVED","dependsOn":["RH-L2"],"evidence":["docs/formal/lemma-tree.md"]},
+    {"id":"RH-C10","problem":"riemann","title":"Ponte persistência-zero","status":"OPEN","dependsOn":["RH-L3"],"evidence":[]},
+    {"id":"RH-E11","problem":"riemann","title":"Excluir toda classe fora da linha","status":"EQUIVALENT","dependsOn":["RH-C10"],"evidence":[]},
+    {"id":"P-GAP","problem":"p-vs-np","title":"Limite inferior universal","status":"OPEN","dependsOn":["CORE-C2"],"evidence":[]},
+    {"id":"NS-GAP","problem":"navier-stokes","title":"Estimativa crítica uniforme","status":"OPEN","dependsOn":["CORE-C2"],"evidence":[]},
+    {"id":"YM-GAP","problem":"yang-mills","title":"Gap positivo no limite contínuo","status":"OPEN","dependsOn":["CORE-C2"],"evidence":[]},
+    {"id":"H-GAP","problem":"hodge","title":"Sobrejetividade do mapa de ciclos","status":"OPEN","dependsOn":["CORE-C2"],"evidence":[]},
+    {"id":"BSD-GAP","problem":"bsd","title":"Ordem de anulação igual ao posto","status":"OPEN","dependsOn":["CORE-C2"],"evidence":[]},
+    {"id":"PC-TEST","problem":"poincare","title":"Banco de validação por casos conhecidos","status":"FINITE_CERTIFICATE","dependsOn":["CORE-C2"],"evidence":["docs/problems/poincare.md"]}
+  ]
+}
