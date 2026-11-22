@@ -88,7 +88,7 @@ no repositório:
 - [`docs/matriz-milenio.md`](docs/matriz-milenio.md): classificação auditável
   das interfaces com os sete problemas;
 - [`docs/roadmap.md`](docs/roadmap.md): fases de pesquisa e falsificadores;
-- [`docs/millennium/`](docs/millennium/): cadernos individuais e obrigações
+- [`docs/problems/`](docs/problems/): cadernos individuais e obrigações
   formais para Poincaré, Hodge, Yang–Mills, Navier–Stokes, P versus NP,
   Riemann e BSD.
 
